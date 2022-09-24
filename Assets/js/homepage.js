@@ -47,9 +47,9 @@ $(".form-inline").on("click", "#ingredientBtn", function (event) {
   forSearch = JSON.parse(localStorage.getItem("userInput"));
   console.log(forSearch);
   console.log(userInput)
-//   searchFoodApi();
-//   var pushToApi = userInput.split(" ");
-//   console.log(pushToApi);
+  // searchFoodApi();
+  var pushToApi = userInput.split(" ");
+  console.log(pushToApi);
 //   const foodOptions = {
 // 	method: 'GET',
 // 	headers: {
@@ -62,6 +62,8 @@ $(".form-inline").on("click", "#ingredientBtn", function (event) {
 // 	.then(response => response.json())
 // 	.then(response => console.log(response))
 // 	.catch(err => console.error(err));
+creatListItem(pushToApi);
+
 });
 
 // function searchFoodApi() {
@@ -69,3 +71,16 @@ $(".form-inline").on("click", "#ingredientBtn", function (event) {
 //   console.log("test");
 //   console.log(forSearch);
 // }
+
+
+var ingredientListEl = $('#ingredient-list');
+
+//display list of items the user inputs
+function creatListItem(pushToApi){
+  for (var i = 0; i < pushToApi.length; i++) {
+    ingredientListEl.append('<li>'+ pushToApi[i] + '</li>');
+    //clear input field
+    $('input[name="ingredient-input"]').val('');
+  }
+
+}
