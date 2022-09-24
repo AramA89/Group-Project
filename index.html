@@ -143,14 +143,16 @@
             </div>
             </div>
             <!-- Additional Ingredients -->
-            <form class="form-inline">
+            <form class="form-inline" id="ingredient-form">
             <div class="form-group">
               <label for="additionalingredients">Additional Ingredients:</label>
-              <input type="text" id="inputingredients" class="form-control mx-sm-3">
+              <input type="text" id="inputingredients" name="ingredient-input" class="form-control mx-sm-3">
               <button type="submit" id="ingredientBtn" class="btn btn-primary mb-2">Submit</button>
           <!-- populate with additional li as visitor adds items -->
             </div>
             </form>
+            <ul id="ingredient-list"></ul>
+
           </div>
         </div>
 
