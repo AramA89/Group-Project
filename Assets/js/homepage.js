@@ -18,26 +18,8 @@ var forSearch;
 // 	.then(response => console.log(response))
 // 	.catch(err => console.error(err));
 
-//     const options = {
-//         method: 'GET',
-//         headers: {
-//             'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
-//             'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
-//         }
-//     };
 
-//     fetch('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/ingredients/search?query=chicken', options)
-//         .then(response => response.json())
-//         .then(response => console.log(response))
-//         .catch(err => console.error(err));
-
-// ingredientBtn.click(function(){
-//     // event.preventDefault()
-//     // console.log(userIngredientsInput.text())
-// });
-
-// localStorage.setItem("userIngredients", JSON.stringify(userIngredientsInput.val()));
-
+// run event on click for the ingredient submit button
 $(".form-inline").on("click", "#ingredientBtn", function (event) {
   event.preventDefault();
 
@@ -65,13 +47,6 @@ $(".form-inline").on("click", "#ingredientBtn", function (event) {
 creatListItem(pushToApi);
 
 });
-
-// function searchFoodApi() {
-//   var forSearch = JSON.parse(localStorage.getItem("userInput"));
-//   console.log("test");
-//   console.log(forSearch);
-// }
-
 
 var ingredientListEl = $('#ingredient-list');
 
