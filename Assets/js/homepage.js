@@ -44,15 +44,18 @@ function getRecipes(ingredients) {
         'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
       }
     };
-    
+    var responses;
    fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients + "&number=5&ignorePantry=true&ranking=1", options)
       .then(response => response.json())
+      .then(data => responses = data)
       .then(response => console.log(response))
+      .then(() => console.log(responses))
       .catch(err => console.error(err));
-      console.log(response);
-      var userOptions = response.json();
-      console.log(userOptions)
+      console.log(responses)
 }
+
+const userOptions = getRecipes;
+console.log(userOptions)
 
 var ingredientListEl = $('#ingredient-list');
 
@@ -65,3 +68,5 @@ function creatListItem(pushToApi){
   }
 
 }
+
+[0].title
