@@ -49,9 +49,10 @@ function getRecipes(ingredients) {
       .then(response => response.json())
       .then(response => console.log(response))
       .catch(err => console.error(err));
-      console.log(response);
-      var userOptions = response.json();
-      console.log(userOptions)
+      // console.log(data.userInput);
+      // console.log(response);
+      // var userOptions = response.json();
+      // console.log(userOptions)
 }
 
 var ingredientListEl = $('#ingredient-list');
@@ -65,3 +66,24 @@ function creatListItem(pushToApi){
   }
 
 }
+
+// cocktail section
+var userDrinkInput = $("#inputdrinks");
+var drinkSubmit = $("#drinkBtn")
+console.log(drinkSubmit);
+console.log(userDrinkInput);
+console.log(userDrinkInput.val());
+
+$(".form-inline").on("click", "#drinkBtn", function (event) {
+  event.preventDefault();
+
+  userInput = $(this).siblings("#inputdrinks").val();
+
+  localStorage.setItem("userInput", JSON.stringify(userInput));
+  forSearch = JSON.parse(localStorage.getItem("userInput"));
+  pushToApi = userInput.split(" ");
+  userInput.replace(" ", ",");
+  console.log(userInput);
+creatListItem(pushToApi);
+getRecipes(userInput);
+});
