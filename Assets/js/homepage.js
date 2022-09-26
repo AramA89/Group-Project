@@ -6,6 +6,9 @@ var pushIngrToApi;
 var ingredientItemEl;
 var response;
 
+
+var responses;
+
 // const drinkOptions = {
 // 	method: 'GET',
 // 	headers: {
@@ -64,6 +67,46 @@ creatListItem();
 
 
 
+
+function getRecipes(ingredients) {
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
+        'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+      }
+    };
+
+   fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients + "&number=5&ignorePantry=true&ranking=1", options)
+      .then(function(response) { return response.json()})
+      .then(function(data) { 
+        console.log('data', data)
+        responses = data
+        console.log('responses', responses)
+        displayRecipes(data)
+      })
+      .catch(err => console.error(err));
+}
+
+// Function to populate screen with recipes found
+function displayRecipes(recipes) {
+  console.log('recipes', recipes)
+  // console.log('responses', responses)
+  recipes.forEach(function(recipe) {
+    console.log(recipe.title)
+    recipe.usedIngredients.forEach(function(usedIng) {
+      console.log(usedIng.originalName)
+    })
+  })
+
+}
+
+const userOptions = getRecipes;
+console.log(userOptions)
+
+var ingredientListEl = $('#ingredient-list');
+
+
 //display list of items the user inputs
 function creatListItem(){
   //first remove all listitems and create them again from the array
@@ -95,4 +138,31 @@ console.log(ingredientItemEl);
 
 ingredientUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
 
+
+
+}
+
+}
+
+
+// cocktail section
+var drinkInput = $("#inputdrinks");
+var drinkSubmit = $("drinkBtn");
+console.log(drinkSubmit);
+console.log(drinkInput);
+console.log(drinkInput.val());
+
+$(".form-inline").on("click", "#drinkBtn", function (event) {
+  event.preventDefault();
+
+  userInput = $(this).siblings("#inputdrinks").val();
+
+  localStorage.setItem("userInput", JSON.stringify(userInput));
+  forSearch = JSON.parse(localStorage.getItem("userInput"));
+  pushToApi = userInput.split(" ");
+  userInput.replace(" ", ",");
+  console.log(userInput);
+creatListItem(pushToApi);
+getRecipes(userInput);
+});
 
