@@ -7,6 +7,7 @@ var userInput;
 var forSearch;
 var pushToApi;
 var response;
+var responses;
 // const drinkOptions = {
 // 	method: 'GET',
 // 	headers: {
@@ -44,14 +45,29 @@ function getRecipes(ingredients) {
         'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
       }
     };
-    var responses;
+
    fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients + "&number=5&ignorePantry=true&ranking=1", options)
-      .then(response => response.json())
-      .then(data => responses = data)
-      .then(response => console.log(response))
-      .then(() => console.log(responses))
+      .then(function(response) { return response.json()})
+      .then(function(data) { 
+        console.log('data', data)
+        responses = data
+        console.log('responses', responses)
+        displayRecipes(data)
+      })
       .catch(err => console.error(err));
-      console.log(responses)
+}
+
+// Function to populate screen with recipes found
+function displayRecipes(recipes) {
+  console.log('recipes', recipes)
+  // console.log('responses', responses)
+  recipes.forEach(function(recipe) {
+    console.log(recipe.title)
+    recipe.usedIngredients.forEach(function(usedIng) {
+      console.log(usedIng.originalName)
+    })
+  })
+
 }
 
 const userOptions = getRecipes;
@@ -67,9 +83,11 @@ function creatListItem(pushToApi){
     $('input[name="ingredient-input"]').val('');
   }
 
+
 }
 
-[0].title
+}
+
 
 // cocktail section
 var drinkInput = $("#inputdrinks");
@@ -91,3 +109,4 @@ $(".form-inline").on("click", "#drinkBtn", function (event) {
 creatListItem(pushToApi);
 getRecipes(userInput);
 });
+
