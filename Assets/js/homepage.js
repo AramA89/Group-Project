@@ -59,7 +59,7 @@ $(".form-inline").on("click", "#ingredient-submit-btn", function (event) {
 }
   
 creatListItem();
-getRecipes(userInput);
+// getRecipes(userInput);
 });
 
 
@@ -95,21 +95,4 @@ console.log(ingredientItemEl);
 
 ingredientUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
 
-function getRecipes(ingredients) {
-    const options = {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
-        'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
-      }
-    };
-    
-   fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients + "&number=5&ignorePantry=true&ranking=1", options)
-      .then(response => response.json())
-      .then(response => console.log(response))
-      .catch(err => console.error(err));
-      console.log(response);
-      var userOptions = response.json();
-      console.log(userOptions)
-}
 
