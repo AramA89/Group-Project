@@ -70,3 +70,24 @@ function creatListItem(pushToApi){
 }
 
 [0].title
+
+// cocktail section
+var drinkInput = $("#inputdrinks");
+var drinkSubmit = $("drinkBtn");
+console.log(drinkSubmit);
+console.log(drinkInput);
+console.log(drinkInput.val());
+
+$(".form-inline").on("click", "#drinkBtn", function (event) {
+  event.preventDefault();
+
+  userInput = $(this).siblings("#inputdrinks").val();
+
+  localStorage.setItem("userInput", JSON.stringify(userInput));
+  forSearch = JSON.parse(localStorage.getItem("userInput"));
+  pushToApi = userInput.split(" ");
+  userInput.replace(" ", ",");
+  console.log(userInput);
+creatListItem(pushToApi);
+getRecipes(userInput);
+});
