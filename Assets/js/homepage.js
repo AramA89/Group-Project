@@ -1,12 +1,11 @@
 var userIngredientsInput = $("#inputingredients");
-var ingredientSubmit = $("#ingredientBtn");
-console.log(ingredientBtn);
-console.log(userIngredientsInput);
-console.log(userIngredientsInput.val());
+var ingredientUl = $('#ingredient-list');
+
 var userInput;
-var forSearch;
-var pushToApi;
+var pushIngrToApi;
+var ingredientItemEl;
 var response;
+
 // const drinkOptions = {
 // 	method: 'GET',
 // 	headers: {
@@ -22,19 +21,79 @@ var response;
 
 
 // run event on click for the ingredient submit button
-$(".form-inline").on("click", "#ingredientBtn", function (event) {
+checkStorage();
+
+//check storage
+function checkStorage(){
+  pushIngrToApi = JSON.parse(localStorage.getItem("userInput"));
+  //if nothing in local storage then save empty array
+  if (!pushIngrToApi){
+    pushIngrToApi = [];
+    console.log(pushIngrToApi);
+  }
+}
+
+//listens for the input click and assign value to userInput
+$(".form-inline").on("click", "#ingredient-submit-btn", function (event) {
   event.preventDefault();
 
   userInput = $(this).siblings("#inputingredients").val();
-
-  localStorage.setItem("userInput", JSON.stringify(userInput));
-  forSearch = JSON.parse(localStorage.getItem("userInput"));
-  pushToApi = userInput.split(" ");
-  userInput.replace(" ", ",");
   console.log(userInput);
-creatListItem(pushToApi);
+// check to see if input includes space or comma. if value is not found method will return -1
+  if (userInput.indexOf(',') !== -1){
+    userInput = userInput.split(",");
+    console.log(userInput);
+    pushIngrToApi = pushIngrToApi.concat(userInput);
+    console.log(pushIngrToApi);
+    localStorage.setItem("userInput", JSON.stringify(pushIngrToApi));
+  } else if (userInput.indexOf(" ") !== -1){
+    userInput = userInput.split(" ");
+    pushIngrToApi = pushIngrToApi.concat(userInput);
+    console.log(pushIngrToApi);
+    localStorage.setItem("userInput", JSON.stringify(pushIngrToApi));
+  } else {
+  console.log(userInput);
+  pushIngrToApi = pushIngrToApi.concat(userInput);
+  console.log(pushIngrToApi);
+  localStorage.setItem("userInput", JSON.stringify(pushIngrToApi));
+}
+  
+creatListItem();
 getRecipes(userInput);
 });
+
+
+
+//display list of items the user inputs
+function creatListItem(){
+  //first remove all listitems and create them again from the array
+  $('#ingredient-list').empty();
+  for (var i = 0; i < pushIngrToApi.length; i++) {
+    ingredientItemEl = $('<li>'+ pushIngrToApi[i] + '</li>');
+    //add delete button
+    ingredientItemEl.append('<button class="delete-btn">Remove</button>');
+    ingredientUl.append(ingredientItemEl);
+    //clear input field
+    $('input[name="ingredient-input"]').val('');
+  }
+}
+
+function handleRemoveIngrItem(event) {
+  // convert button we pressed (`event.target`) to a jQuery DOM object
+var btnClicked = $(event.target);
+console.log(btnClicked);
+ // get the parent `<li>` element from the button we pressed and remove it
+ console.log(btnClicked.parent('li'));
+ btnClicked.parent('li').remove();
+
+ //TODO --- need to also remove from localstorage
+//  var removeItem = btnClicked.firstChild('data').val();
+//  console.log(removeItem);
+
+}
+console.log(ingredientItemEl);
+
+ingredientUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
 
 function getRecipes(ingredients) {
     const options = {
@@ -54,14 +113,3 @@ function getRecipes(ingredients) {
       console.log(userOptions)
 }
 
-var ingredientListEl = $('#ingredient-list');
-
-//display list of items the user inputs
-function creatListItem(pushToApi){
-  for (var i = 0; i < pushToApi.length; i++) {
-    ingredientListEl.append('<li>'+ pushToApi[i] + '</li>');
-    //clear input field
-    $('input[name="ingredient-input"]').val('');
-  }
-
-}
