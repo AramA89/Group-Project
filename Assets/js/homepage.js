@@ -114,7 +114,6 @@ function displayRecipes(recipes) {
 const userOptions = getRecipes;
 console.log(userOptions)
 
-<<<<<<< Updated upstream
 var ingredientListEl = $('#ingredient-list');
 
 
@@ -149,61 +148,59 @@ console.log(ingredientItemEl);
 
 ingredientUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
 
-=======
->>>>>>> Stashed changes
-// cocktail section
+// // cocktail section
 
-var userDrinkInput = $("#inputdrinks");
-var drinkUl = $("drink-list");
-var drinkItemEl = $("drink-list");
-console.log(drinkUl);
-console.log(userDrinkInput);
-console.log(userDrinkInput.val());
+// var userDrinkInput = $("#inputdrinks");
+// var drinkUl = $("drink-list");
+// var drinkItemEl = $("drink-list");
+// console.log(drinkUl);
+// console.log(userDrinkInput);
+// console.log(userDrinkInput.val());
 
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': 'e1e7badd01msh59a701f1225e72ep1d550ajsnd6058ae1acbd',
-		'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
-	}
-};
+// const options = {
+// 	method: 'GET',
+// 	headers: {
+// 		'X-RapidAPI-Key': 'e1e7badd01msh59a701f1225e72ep1d550ajsnd6058ae1acbd',
+// 		'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
+// 	}
+// };
 
-fetch('https://the-cocktail-db.p.rapidapi.com/filter.php?i=' + userDrinkInput, options)
-	.then(response => response.json())
-	.then(response => console.log(response))
-	.catch(err => console.error(err));
+// fetch('https://the-cocktail-db.p.rapidapi.com/filter.php?i=' + userDrinkInput, options)
+// 	.then(response => response.json())
+// 	.then(response => console.log(response))
+// 	.catch(err => console.error(err));
 
-$(".form-inline").on("click", "#drinkBtn", function (event) {
-  event.preventDefault();
+// $(".form-inline").on("click", "#drinkBtn", function (event) {
+//   event.preventDefault();
 
-  userInput = $(this).siblings("#inputdrinks").val();
+//   userInput = $(this).siblings("#inputdrinks").val();
 
-  localStorage.setItem("userInput", JSON.stringify(userInput));
-  forSearch = JSON.parse(localStorage.getItem("userInput"));
-  pushToApi = userInput.split(" ");
-  userInput.replace(" ", ",");
-  console.log(userInput);
-creatListItem(pushToApi);
-getRecipes(userInput);
-});
+//   localStorage.setItem("userInput", JSON.stringify(userInput));
+//   forSearch = JSON.parse(localStorage.getItem("userInput"));
+//   pushToApi = userInput.split(" ");
+//   userInput.replace(" ", ",");
+//   console.log(userInput);
+// creatListItem(pushToApi);
+// getRecipes(userInput);
+// });
 
-function createDrinkList(){
-  $("#inputdrinks").empty();
-  for (var i = 0; i < pushIngrToApi.length; i++) {
-    drinkItemEl = $('<li>'+ pushIngrToApi[i] + '</li>');
-    drinkItemEl.append('<button class="delete-btn">Remove</button>');
-    userDrinkInput.append(drinkItemEl);
-    $('input[name="drink-input"]').val('');
-  }
-}
+// function createDrinkList(){
+//   $("#inputdrinks").empty();
+//   for (var i = 0; i < pushIngrToApi.length; i++) {
+//     drinkItemEl = $('<li>'+ pushIngrToApi[i] + '</li>');
+//     drinkItemEl.append('<button class="delete-btn">Remove</button>');
+//     userDrinkInput.append(drinkItemEl);
+//     $('input[name="drink-input"]').val('');
+//   }
+// }
 
-function handleRemoveIngrItem(event) {
-var btnClicked = $(event.target);
-console.log(btnClicked);
-console.log(btnClicked.parent('li'));
-btnClicked.parent('li').remove();
+// function handleRemoveIngrItem(event) {
+// var btnClicked = $(event.target);
+// console.log(btnClicked);
+// console.log(btnClicked.parent('li'));
+// btnClicked.parent('li').remove();
 
-}
-console.log(drinkItemEl);
+// }
+// console.log(drinkItemEl);
 
-drinkUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
+// drinkUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
