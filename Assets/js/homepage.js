@@ -5,54 +5,78 @@ var userInput;
 var pushIngrToApi;
 var ingredientItemEl;
 var response;
-
-
 var responses;
 
 // run event on click for the ingredient submit button
-checkStorage();
+init();
 
-//check storage
-function checkStorage(){
-  pushIngrToApi = JSON.parse(localStorage.getItem("userInput"));
-  //if nothing in local storage then save empty array
-  if (!pushIngrToApi){
-    pushIngrToApi = [];
-    console.log(pushIngrToApi);
-  }
+// Ingredients + Drinks:
+//set ingredient storage to an empty array when page is refreshed
+function init(){
+  pushIngrToApi = [];
+  localStorage.setItem("userInput", JSON.stringify(pushIngrToApi));
 }
-
+//Ingredients:
 //listens for the input click and assign value to userInput
 $(".form-inline").on("click", "#ingredient-submit-btn", function (event) {
   event.preventDefault();
 
   userInput = $(this).siblings("#inputingredients").val();
-  console.log(userInput);
 // check to see if input includes space or comma. if value is not found method will return -1
   if (userInput.indexOf(',') !== -1){
     userInput = userInput.split(",");
-    console.log(userInput);
     pushIngrToApi = pushIngrToApi.concat(userInput);
-    console.log(pushIngrToApi);
     localStorage.setItem("userInput", JSON.stringify(pushIngrToApi));
   } else if (userInput.indexOf(" ") !== -1){
     userInput = userInput.split(" ");
     pushIngrToApi = pushIngrToApi.concat(userInput);
-    console.log(pushIngrToApi);
     localStorage.setItem("userInput", JSON.stringify(pushIngrToApi));
   } else {
-  console.log(userInput);
   pushIngrToApi = pushIngrToApi.concat(userInput);
-  console.log(pushIngrToApi);
   localStorage.setItem("userInput", JSON.stringify(pushIngrToApi));
 }
   
 creatListItem();
-// getRecipes(userInput);
+getRecipes(userInput);
 });
 
+var ingredientListEl = $('#ingredient-list');
 
+//display list of items the user inputs
+function creatListItem(){
+  //first remove all listitems and create them again from the array
+  $('#ingredient-list').empty();
+  for (var i = 0; i < pushIngrToApi.length; i++) {
+    ingredientItemEl = $('<li>')
+    var ingText = $('<span>').text(pushIngrToApi[i]);
+    ingredientItemEl.append(ingText)
+    //add delete button
+    ingredientItemEl.append('<button class="ml-2 mb-2 delete-btn">Remove</button>');
+    ingredientUl.append(ingredientItemEl);
+    //clear input field
+    $('input[name="ingredient-input"]').val('');
+  }
+}
 
+function handleRemoveIngrItem(event) {
+  // convert button we pressed (`event.target`) to a jQuery DOM object
+var btnClicked = $(event.target);
+ // get the parent `<li>` element from the button we pressed and remove it
+ console.log(btnClicked.parent('li').children().eq(0).text());
+//  var removeItem = btnClicked.parent('li').text().split('Remove')[0]
+var removeItem = btnClicked.siblings().text()
+ console.log({removeItem})
+ console.log('before', pushIngrToApi)
+ pushIngrToApi = pushIngrToApi.filter(function(ing) {
+  return ing !== removeItem
+ })
+ console.log('after', pushIngrToApi)
+ localStorage.setItem("userInput", JSON.stringify(pushIngrToApi));
+ btnClicked.parent('li').remove();
+
+}
+
+ingredientUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
 
 function getRecipes(ingredients) {
     const options = {
@@ -90,6 +114,7 @@ function displayRecipes(recipes) {
 const userOptions = getRecipes;
 console.log(userOptions)
 
+<<<<<<< Updated upstream
 var ingredientListEl = $('#ingredient-list');
 
 
@@ -124,6 +149,8 @@ console.log(ingredientItemEl);
 
 ingredientUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
 
+=======
+>>>>>>> Stashed changes
 // cocktail section
 
 var userDrinkInput = $("#inputdrinks");
