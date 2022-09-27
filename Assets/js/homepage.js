@@ -114,96 +114,66 @@ function displayRecipes(recipes) {
 const userOptions = getRecipes;
 console.log(userOptions)
 
-<<<<<<< Updated upstream
-var ingredientListEl = $('#ingredient-list');
 
+// // cocktail section
 
-//display list of items the user inputs
-function creatListItem(){
-  //first remove all listitems and create them again from the array
-  $('#ingredient-list').empty();
-  for (var i = 0; i < pushIngrToApi.length; i++) {
-    ingredientItemEl = $('<li>'+ pushIngrToApi[i] + '</li>');
-    //add delete button
-    ingredientItemEl.append('<button class="delete-btn">Remove</button>');
-    ingredientUl.append(ingredientItemEl);
-    //clear input field
-    $('input[name="ingredient-input"]').val('');
-  }
-}
+// var userDrinkInput = $("#inputdrinks");
+// var drinkUl = $("drink-list");
+// var drinkItemEl = $("drink-list");
+// console.log(drinkUl);
+// console.log(userDrinkInput);
+// console.log(userDrinkInput.val());
 
-function handleRemoveIngrItem(event) {
-  // convert button we pressed (`event.target`) to a jQuery DOM object
-var btnClicked = $(event.target);
-console.log(btnClicked);
- // get the parent `<li>` element from the button we pressed and remove it
- console.log(btnClicked.parent('li'));
- btnClicked.parent('li').remove();
+// const options = {
+// 	method: 'GET',
+// 	headers: {
+// 		'X-RapidAPI-Key': 'e1e7badd01msh59a701f1225e72ep1d550ajsnd6058ae1acbd',
+// 		'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
+// 	}
+// };
 
- //TODO --- need to also remove from localstorage
-//  var removeItem = btnClicked.firstChild('data').val();
-//  console.log(removeItem);
+// fetch('https://the-cocktail-db.p.rapidapi.com/filter.php?i=' + userDrinkInput, options)
+// 	.then(response => response.json())
+// 	.then(response => console.log(response))
+// 	.catch(err => console.error(err));
 
-}
-console.log(ingredientItemEl);
+// $(".form-inline").on("click", "#drinkBtn", function (event) {
+//   event.preventDefault();
 
-ingredientUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
-
-=======
->>>>>>> Stashed changes
+//   userInput = $(this).siblings("#inputdrinks").val();
 // cocktail section
+var drinkInput = $("#inputdrinks");
+var drinkSubmit = $("drinkBtn");
+console.log(drinkSubmit);
+console.log(drinkInput);
+console.log(drinkInput.val());
 
-var userDrinkInput = $("#inputdrinks");
-var drinkUl = $("drink-list");
-var drinkItemEl = $("drink-list");
-console.log(drinkUl);
-console.log(userDrinkInput);
-console.log(userDrinkInput.val());
+//   localStorage.setItem("userInput", JSON.stringify(userInput));
+//   forSearch = JSON.parse(localStorage.getItem("userInput"));
+//   pushToApi = userInput.split(" ");
+//   userInput.replace(" ", ",");
+//   console.log(userInput);
+// creatListItem(pushToApi);
+// getRecipes(userInput);
+// });
 
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': 'e1e7badd01msh59a701f1225e72ep1d550ajsnd6058ae1acbd',
-		'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
-	}
-};
+// function createDrinkList(){
+//   $("#inputdrinks").empty();
+//   for (var i = 0; i < pushIngrToApi.length; i++) {
+//     drinkItemEl = $('<li>'+ pushIngrToApi[i] + '</li>');
+//     drinkItemEl.append('<button class="delete-btn">Remove</button>');
+//     userDrinkInput.append(drinkItemEl);
+//     $('input[name="drink-input"]').val('');
+//   }
+// }
 
-fetch('https://the-cocktail-db.p.rapidapi.com/filter.php?i=' + userDrinkInput, options)
-	.then(response => response.json())
-	.then(response => console.log(response))
-	.catch(err => console.error(err));
+// function handleRemoveIngrItem(event) {
+// var btnClicked = $(event.target);
+// console.log(btnClicked);
+// console.log(btnClicked.parent('li'));
+// btnClicked.parent('li').remove();
 
-$(".form-inline").on("click", "#drinkBtn", function (event) {
-  event.preventDefault();
+// }
+// console.log(drinkItemEl);
 
-  userInput = $(this).siblings("#inputdrinks").val();
-
-  localStorage.setItem("userInput", JSON.stringify(userInput));
-  forSearch = JSON.parse(localStorage.getItem("userInput"));
-  pushToApi = userInput.split(" ");
-  userInput.replace(" ", ",");
-  console.log(userInput);
-creatListItem(pushToApi);
-getRecipes(userInput);
-});
-
-function createDrinkList(){
-  $("#inputdrinks").empty();
-  for (var i = 0; i < pushIngrToApi.length; i++) {
-    drinkItemEl = $('<li>'+ pushIngrToApi[i] + '</li>');
-    drinkItemEl.append('<button class="delete-btn">Remove</button>');
-    userDrinkInput.append(drinkItemEl);
-    $('input[name="drink-input"]').val('');
-  }
-}
-
-function handleRemoveIngrItem(event) {
-var btnClicked = $(event.target);
-console.log(btnClicked);
-console.log(btnClicked.parent('li'));
-btnClicked.parent('li').remove();
-
-}
-console.log(drinkItemEl);
-
-drinkUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
+// drinkUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
