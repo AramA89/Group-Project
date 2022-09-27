@@ -1,9 +1,14 @@
-var userIngredientsInput = $("#inputingredients");
 var ingredientUl = $('#ingredient-list');
+var drinkUl = $('#drink-list');
 
 var userInput;
 var pushIngrToApi;
 var ingredientItemEl;
+
+var userDrinkInput;
+var pushDrinkToApi;
+var drinkItemEl;
+
 var response;
 var responses;
 
@@ -14,11 +19,13 @@ init();
 //set ingredient storage to an empty array when page is refreshed
 function init(){
   pushIngrToApi = [];
-  localStorage.setItem("userInput", JSON.stringify(pushIngrToApi));
+  localStorage.setItem("ingredients", JSON.stringify(pushIngrToApi));
+  pushDrinkToApi = [];
+  localStorage.setItem("drinks", JSON.stringify(pushDrinkToApi));
 }
 //Ingredients:
-//listens for the input click and assign value to userInput
-$(".form-inline").on("click", "#ingredient-submit-btn", function (event) {
+//listens for the input click and assign value to ingredients
+$("#ingredient-form").on("click", "#ingredient-submit-btn", function (event) {
   event.preventDefault();
 
   userInput = $(this).siblings("#inputingredients").val();
@@ -26,24 +33,47 @@ $(".form-inline").on("click", "#ingredient-submit-btn", function (event) {
   if (userInput.indexOf(',') !== -1){
     userInput = userInput.split(",");
     pushIngrToApi = pushIngrToApi.concat(userInput);
-    localStorage.setItem("userInput", JSON.stringify(pushIngrToApi));
+    localStorage.setItem("ingredients", JSON.stringify(pushIngrToApi));
   } else if (userInput.indexOf(" ") !== -1){
     userInput = userInput.split(" ");
     pushIngrToApi = pushIngrToApi.concat(userInput);
-    localStorage.setItem("userInput", JSON.stringify(pushIngrToApi));
+    localStorage.setItem("ingredients", JSON.stringify(pushIngrToApi));
   } else {
   pushIngrToApi = pushIngrToApi.concat(userInput);
-  localStorage.setItem("userInput", JSON.stringify(pushIngrToApi));
+  localStorage.setItem("ingredients", JSON.stringify(pushIngrToApi));
 }
   
-creatListItem();
+creatIngredientList();
 getRecipes(userInput);
 });
 
-var ingredientListEl = $('#ingredient-list');
+//Drinks:
+//listens for the input click and assign value to drinks
+$("#drink-form").on("click", "#drink-submit-btn", function (event) {
+  event.preventDefault();
 
+  userDrinkInput = $(this).siblings("#inputdrinks").val();
+// check to see if input includes space or comma. if value is not found method will return -1
+  if (userDrinkInput.indexOf(',') !== -1){
+    userDrinkInput = userDrinkInput.split(",");
+    pushDrinkToApi = pushDrinkToApi.concat(userDrinkInput);
+    localStorage.setItem("drinks", JSON.stringify(pushDrinkToApi));
+  } else if (userDrinkInput.indexOf(" ") !== -1){
+    userDrinkInput = userDrinkInput.split(" ");
+    pushDrinkToApi = pushDrinkToApi.concat(userDrinkInput);
+    localStorage.setItem("drinks", JSON.stringify(pushDrinkToApi));
+  } else {
+    pushDrinkToApi = pushDrinkToApi.concat(userDrinkInput);
+  localStorage.setItem("drinks", JSON.stringify(pushDrinkToApi));
+}
+creatDrinkList();
+// getRecipes(userInput);
+});
+
+
+//Ingredients:
 //display list of items the user inputs
-function creatListItem(){
+function creatIngredientList(){
   //first remove all listitems and create them again from the array
   $('#ingredient-list').empty();
   for (var i = 0; i < pushIngrToApi.length; i++) {
@@ -58,6 +88,25 @@ function creatListItem(){
   }
 }
 
+//Drinks:
+//display list of items the user inputs
+function creatDrinkList(){
+  //first remove all listitems and create them again from the array
+  $('#drink-list').empty();
+  for (var i = 0; i < pushDrinkToApi.length; i++) {
+    drinkItemEl = $('<li>')
+    var drinkText = $('<span>').text(pushDrinkToApi[i]);
+    drinkItemEl.append(drinkText)
+    //add delete button
+    drinkItemEl.append('<button class="ml-2 mb-2 delete-btn">Remove</button>');
+    drinkUl.append(drinkItemEl);
+    //clear input field
+    $('input[name="drink-input"]').val('');
+  }
+}
+
+//Ingredients: 
+//Remove list item from li and storage
 function handleRemoveIngrItem(event) {
   // convert button we pressed (`event.target`) to a jQuery DOM object
 var btnClicked = $(event.target);
@@ -71,12 +120,33 @@ var removeItem = btnClicked.siblings().text()
   return ing !== removeItem
  })
  console.log('after', pushIngrToApi)
- localStorage.setItem("userInput", JSON.stringify(pushIngrToApi));
+ localStorage.setItem("ingredients", JSON.stringify(pushIngrToApi));
+ btnClicked.parent('li').remove();
+}
+
+ingredientUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
+
+//Drinks: 
+//Remove list item from li and storage
+function handleRemoveDrinkItem(event) {
+  // convert button we pressed (`event.target`) to a jQuery DOM object
+var btnClicked = $(event.target);
+ // get the parent `<li>` element from the button we pressed and remove it
+ console.log(btnClicked.parent('li').children().eq(0).text());
+//  var removeItem = btnClicked.parent('li').text().split('Remove')[0]
+var removeItem = btnClicked.siblings().text()
+ console.log({removeItem})
+ console.log('before', pushDrinkToApi)
+ pushDrinkToApi = pushDrinkToApi.filter(function(ing) {
+  return ing !== removeItem
+ })
+ console.log('after', pushDrinkToApi)
+ localStorage.setItem("drinks", JSON.stringify(pushDrinkToApi));
  btnClicked.parent('li').remove();
 
 }
 
-ingredientUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
+drinkUl.on('click', 'button.delete-btn', handleRemoveDrinkItem);
 
 function getRecipes(ingredients) {
     const options = {
