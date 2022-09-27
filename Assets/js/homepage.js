@@ -114,39 +114,6 @@ function displayRecipes(recipes) {
 const userOptions = getRecipes;
 console.log(userOptions)
 
-var ingredientListEl = $('#ingredient-list');
-
-
-//display list of items the user inputs
-function creatListItem(){
-  //first remove all listitems and create them again from the array
-  $('#ingredient-list').empty();
-  for (var i = 0; i < pushIngrToApi.length; i++) {
-    ingredientItemEl = $('<li>'+ pushIngrToApi[i] + '</li>');
-    //add delete button
-    ingredientItemEl.append('<button class="delete-btn">Remove</button>');
-    ingredientUl.append(ingredientItemEl);
-    //clear input field
-    $('input[name="ingredient-input"]').val('');
-  }
-}
-
-function handleRemoveIngrItem(event) {
-  // convert button we pressed (`event.target`) to a jQuery DOM object
-var btnClicked = $(event.target);
-console.log(btnClicked);
- // get the parent `<li>` element from the button we pressed and remove it
- console.log(btnClicked.parent('li'));
- btnClicked.parent('li').remove();
-
- //TODO --- need to also remove from localstorage
-//  var removeItem = btnClicked.firstChild('data').val();
-//  console.log(removeItem);
-
-}
-console.log(ingredientItemEl);
-
-ingredientUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
 
 // // cocktail section
 
@@ -174,6 +141,12 @@ ingredientUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
 //   event.preventDefault();
 
 //   userInput = $(this).siblings("#inputdrinks").val();
+// cocktail section
+var drinkInput = $("#inputdrinks");
+var drinkSubmit = $("drinkBtn");
+console.log(drinkSubmit);
+console.log(drinkInput);
+console.log(drinkInput.val());
 
 //   localStorage.setItem("userInput", JSON.stringify(userInput));
 //   forSearch = JSON.parse(localStorage.getItem("userInput"));
