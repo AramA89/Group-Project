@@ -9,20 +9,6 @@ var response;
 
 var responses;
 
-// const drinkOptions = {
-// 	method: 'GET',
-// 	headers: {
-// 		'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
-// 		'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
-// 	}
-// };
-
-// fetch('https://the-cocktail-db.p.rapidapi.com/search.php?s=vodka', drinkOptions)
-// 	.then(response => response.json())
-// 	.then(response => console.log(response))
-// 	.catch(err => console.error(err));
-
-
 // run event on click for the ingredient submit button
 checkStorage();
 
@@ -138,19 +124,27 @@ console.log(ingredientItemEl);
 
 ingredientUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
 
-
-
-}
-
-}
-
-
 // cocktail section
-var drinkInput = $("#inputdrinks");
-var drinkSubmit = $("drinkBtn");
-console.log(drinkSubmit);
-console.log(drinkInput);
-console.log(drinkInput.val());
+
+var userDrinkInput = $("#inputdrinks");
+var drinkUl = $("drink-list");
+var drinkItemEl = $("drink-list");
+console.log(drinkUl);
+console.log(userDrinkInput);
+console.log(userDrinkInput.val());
+
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': 'e1e7badd01msh59a701f1225e72ep1d550ajsnd6058ae1acbd',
+		'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
+	}
+};
+
+fetch('https://the-cocktail-db.p.rapidapi.com/filter.php?i=' + userDrinkInput, options)
+	.then(response => response.json())
+	.then(response => console.log(response))
+	.catch(err => console.error(err));
 
 $(".form-inline").on("click", "#drinkBtn", function (event) {
   event.preventDefault();
@@ -166,3 +160,23 @@ creatListItem(pushToApi);
 getRecipes(userInput);
 });
 
+function createDrinkList(){
+  $("#inputdrinks").empty();
+  for (var i = 0; i < pushIngrToApi.length; i++) {
+    drinkItemEl = $('<li>'+ pushIngrToApi[i] + '</li>');
+    drinkItemEl.append('<button class="delete-btn">Remove</button>');
+    userDrinkInput.append(drinkItemEl);
+    $('input[name="drink-input"]').val('');
+  }
+}
+
+function handleRemoveIngrItem(event) {
+var btnClicked = $(event.target);
+console.log(btnClicked);
+console.log(btnClicked.parent('li'));
+btnClicked.parent('li').remove();
+
+}
+console.log(drinkItemEl);
+
+drinkUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
