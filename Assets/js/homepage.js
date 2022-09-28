@@ -9,8 +9,8 @@ var userDrinkInput;
 var pushDrinkToApi;
 var drinkItemEl;
 
-var response;
-var responses;
+var responses = [];
+var responsesDrinks = [];
 
 // run event on click for the ingredient submit button
 init();
@@ -86,6 +86,7 @@ $("#drink-form").on("click", "#drink-submit-btn", function (event) {
     localStorage.setItem("drinks", JSON.stringify(pushDrinkToApi));
 }
 creatDrinkList();
+getDrinkRecipes(userDrinkInput)
 // getRecipes(userInput);
 });
 
@@ -157,24 +158,53 @@ function handleRemoveDrinkItem(event) {
 
 drinkUl.on('click', 'button.delete-btn', handleRemoveDrinkItem);
 
+//get recipe array based on user input of
 function getRecipes(ingredients) {
-    const options = {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
-        'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
-      }
-    };
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
+      'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+    }
+  };
 
-   fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients + "&number=5&ignorePantry=true&ranking=1", options)
-      .then(function(response) { return response.json()})
-      .then(function(data) { 
-        console.log('data', data)
-        responses = data
-        console.log('responses', responses)
-        displayRecipes(data)
-      })
-      .catch(err => console.error(err));
+ fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients + "&number=5&ignorePantry=true&ranking=1", options)
+    .then(function(response) { return response.json()})
+    .then(function(data) { 
+      // console.log('data', data)
+      responses = [...responses, ...data]
+      console.log('responses', responses)
+      getInstructions(responses)
+      displayRecipes(data)
+    })
+    .catch(err => console.error(err));
+  }
+
+// get recipe instructions by using recipe ID from getRecipes results
+function getInstructions(recipeArr) {
+console.log("recipeArr", recipeArr)
+recipeArr.forEach(function(recipeArr){
+  console.log(recipeArr.id)
+  const instructions = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
+      'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+    }
+  };
+  
+  fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + recipeArr.id + "/analyzedInstructions?stepBreakdown=true", instructions)
+    .then(response => response.json())
+    .then(function(data){
+      recipeID = data
+      console.log(recipeID)
+      console.log(recipeID[0].steps)
+      for (var i = 0; i < recipeID[0].steps.length; i++){
+      console.log(recipeID[0].steps[i])
+      }
+    })
+    .catch(err => console.error(err));
+})
 }
 
 // Function to populate screen with recipes found
@@ -190,5 +220,22 @@ function displayRecipes(recipes) {
 
 }
 
-const userOptions = getRecipes;
-console.log(userOptions)
+// Get Drink Recipes
+function getDrinkRecipes(ingredients) {
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
+      'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
+    }
+  };
+
+ fetch('https://the-cocktail-db.p.rapidapi.com/filter.php?i=' + ingredients + '', options)
+    .then(function(response) { return response.json()})
+    .then(function(data) { 
+      console.log('data', data)
+      responsesDrinks = [...responsesDrinks, ...data.drinks]
+      console.log('responsesDrinks', responsesDrinks)
+    })
+    .catch(err => console.error(err));
+  }
