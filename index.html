@@ -22,240 +22,168 @@
         background-size: cover;
       }
     </style>
-    <header class="jumbotron bg-transparent" id="header">
-      <div class="container">
-        <h1 class="display-2" id="title">Quickly</h1>
-        <p class="lead">
-          Recipes based on your ingredients paired with the perfect drink!
-        </p>
+    <header class="jumbotron jumbotron-fluid " id="header">
+      <h1 class="display-2 text-center" id="title">Quickly</h1>
+      <p class="lead text-center">
+        Recipes based on your ingredients paired with the perfect drink!
+      </p>
+      <h3 class="text-center mb-4">
+        Check your pantry and let's get coooking!
+      </h3>
+      <div class="container-fluid pull-right">
         <nav class="nav nav-pills justify-content-end">
-          <a class="nav-link active" href="#">My Recipes</a>
+          <button type="button" class="get-recipes-btn btn-success">
+            Get Recipes
+          </button>
+          <button type="button" class="make-dinner-btn btn-success">
+            Make Dinner
+          </button>
+           <a class="nav-link active Text btn-outline-success" href="#">My Recipes</a> 
         </nav>
       </div>
     </header>
     <!-- pantry items start -->
-    <section class="pantry">
-      <h3 class="text-center mb-4">
-        Check what you have available in your pantry
-      </h3>
+    <section class="pantry container-fluid">
+          <!-- search bar -->
+          <div class="col-md-6 mb-4">
+            <div class="card bg-light mb-3">
+              <div class="input-group">
+                 <input type="search" class="form-control rounded" placeholder="Search Ingredients and Drinks" aria-label="Search" aria-describedby="search-addon" />
+                <button type="button" class="btn btn-outline-primary">search</button>
+              </div>
+            </div>
+          </div>
+          
 
-      <!-- ingredients section -->
-      <div class="row ml-2 mr-2">
-        <!-- Foods available -->
-        <div class="col-md-6 mb-4">
-          <div class="card bg-light mb-3">
-            <h3 class="card-header">Ingredients:</h3>
-            <!-- Protein -->
-            <div class="card bg-light mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Protein</h5>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox"/>
-                  <label class="form-check-label">chicken</label>
+              <!-- Soft Drinks -->
+            <div class="col-md-6 mb-4">
+              <div class="card bg-light mb-3">
+                <div class="card-header"> Soft Drinks
                 </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox"/>
-                  <label class="form-check-label">steak</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Fish</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Pork</label>
+                <div class="card-body">
+                  <div class="nav nav-pills">
+                       <button type="button" class="btn btn-outline-success">water</button>
+                       <button type="button" class="btn btn-outline-success">Coke</button>
+                       <button type="button" class="btn btn-outline-success">Sprite</button>
+                       <button type="button" class="btn btn-outline-success">Milk</button>
+                       <button type="button" class="btn btn-outline-success">Tea</button>
+                       <button type="button" class="btn btn-outline-success">Lemonade</button>
+                       <button type="button" class="btn btn-outline-success">other</button>
+                  </div>
                 </div>
               </div>
             </div>
-            <!-- Vegetables -->
-            <div class="card bg-light mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Vegetables</h5>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Onion</label>
+          
+              <!-- Alcohol -->
+            <div class="col-md-6 mb-4">
+              <div class="card bg-light mb-3">
+                <div class="card-header"> Alcohol
                 </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Zucchini</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Mushroom</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Tomatoe</label>
+                <div class="card-body">
+                  <div class=" nav nav-pills">
+                    <button type="button" class="btn btn-outline-success">Beer</button>
+                    <button type="button" class="btn btn-outline-success">Red Wine</button>
+                    <button type="button" class="btn btn-outline-success">White Wine</button>
+                    <button type="button" class="btn btn-outline-success">Brandy</button>
+                    <button type="button" class="btn btn-outline-success">Vodka</button>
+                    <button type="button" class="btn btn-outline-success">Gin</button>
+                    <button type="button" class="btn btn-outline-success">Tequila</button>
                 </div>
               </div>
             </div>
+            </div>
+
+              <!-- Protein -->
+            <div class="col-md-6 mb-4">
+              <div class="card bg-light mb-3">
+                <div class="card-header"> Protein
+                </div>
+                <div class="card-body">
+                  <div class="nav nav-pills">
+                    <button type="button" class="btn btn-outline-success">  Beef</button>
+                    <button type="button" class="btn btn-outline-success">Patties</button>
+                    <button type="button" class="btn btn-outline-success">Duck</button>
+                    <button type="button" class="btn btn-outline-success">Pork</button>
+                    <button type="button" class="btn btn-outline-success">chicken</button>
+                    <button type="button" class="btn btn-outline-success">Wings</button>
+                    <button type="button" class="btn btn-outline-success">Eggs</button>
+                    <button type="button" class="btn btn-outline-success">Other</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+              <!-- Vegetables -->
+            <div class="col-md-6 mb-4">
+              <div class="card bg-light mb-3">
+                <div class="card-header"> Grains & Pasta
+                </div>
+                <div class="card-body">
+                    <button type="button" class="btn btn-outline-success">Rice</button>
+                    <button type="button" class="btn btn-outline-success">Spaghetti</button>
+                    <button type="button" class="btn btn-outline-success">Quiona</button>
+                    <button type="button" class="btn btn-outline-success">Orzo</button>
+                    <button type="button" class="btn btn-outline-success">Fettuccine</button>
+                    <button type="button" class="btn btn-outline-success">Penne</button>
+                    <button type="button" class="btn btn-outline-success">Gnochi</button>
+                    <button type="button" class="btn btn-outline-success">Macaroni</button>
+                    <button type="button" class="btn btn-outline-success">Other</button>
+              </div>
+            </div>
+          </div>
+
             <!-- Dairy -->
+            <div class="col-md-6 mb-4"> 
             <div class="card bg-light mb-3">
+              <div class="card-header"> Dairy
+              </div>
               <div class="card-body">
-                <h5 class="card-title">Dairy</h5>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Milk</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Eggs</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Cheese</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Sour Cream</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Yogurt</label>
-                </div>
+                <button type="button" class="btn btn-outline-success">  Milk</button>
+                    <button type="button" class="btn btn-outline-success">Cheese</button>
+                    <button type="button" class="btn btn-outline-success">Yogurt</button>
+                    <button type="button" class="btn btn-outline-success">Sour Cream</button>
+                    <button type="button" class="btn btn-outline-success">Other</button>
               </div>
             </div>
-            <!-- Fruits -->
-            <div class="card bg-light mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Fruits</h5>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Lemon</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Apple</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Orange</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Banana</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Peach</label>
-                </div>
-              </div>
             </div>
-
-
-            
-            <!-- Additional Ingredients -->
-            <form class="form-inline" id="ingredient-form">
-              <div class="form-group">
-                <label>
-                  Additional Ingredients:
-                </label>
-                <input
-                  type="text"
-                  id="inputingredients"
-                  name="ingredient-input"
-                  class="form-control mx-sm-3"
-                />
-                <button
-                  type="submit"
-                  id="ingredient-submit-btn"
-                  class="btn btn-primary mb-2"
-                >Submit
-                </button>
-                <!-- populate with additional li as visitor adds items -->
+          <!-- fruit -->
+           <div class="col-md-6 mb-4">
+            <div class="card bg-light mb-3">
+              <div class="card-header"> Fruits & Vegetables
               </div>
-            </form>
-            <ul id="ingredient-list"></ul>
+              <div class="card-body">
+            <div class="nav nav-pills">
+              <button type="button" class="btn btn-outline-success">Pepper</button>
+                    <button type="button" class="btn btn-outline-success">Apple</button>
+                    <button type="button" class="btn btn-outline-success">Carrot</button>
+                    <button type="button" class="btn btn-outline-success">Banana</button>
+                    <button type="button" class="btn btn-outline-success">Potatoe</button>
+                    <button type="button" class="btn btn-outline-success">Green Bean</button>
+                    <button type="button" class="btn btn-outline-success">Mushrooms</button>
+                    <button type="button" class="btn btn-outline-success">Asparagus</button>
+                    <button type="button" class="btn btn-outline-success">Corn</button>
+                    <button type="button" class="btn btn-outline-success">Other</button>
+            </div>
           </div>
+          </div> 
+      <div class="card bg-light mb-3">
+        <div class="card-header"> Other ingredients
         </div>
-
-        <!-- Drinks available -->
-        <div class="col-md-6 mb-4">
-          <div class="card bg-light mb-3">
-            <h3 class="card-header">Drinks:</h3>
-            <!-- Soft Drinks -->
-            <div class="card bg-light mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Soft Drinks</h5>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">water</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Coke</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Sprite</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Lemonade</label>
-                </div>
-              </div>
-            </div>
-
-            <!-- Alcohol -->
-            <div class="card bg-light mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Alcohol</h5>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Beer</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Red Wine</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">White Wine</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Brandy</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Vodka</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Gin</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Tequila</label>
-                </div>
-              </div>
-            </div>
-
-            <!-- Additional Drinks -->
-            <form class="form-inline">
-              <div class="form-group">
-                <label for="additionaldrinks">Additional Drinks:</label>
-                <input
-                  type="text"
-                  id="inputdrinks"
-                  class="form-control mx-sm-3"
-                />
-                <button id="drinkBtn" type="submit" class="btn btn-primary mb-2">
-                  Submit
-                </button>
-                <!-- populate with additional li as visitor adds items -->
-              </div>
-            </form>
-          </div>
+        <div class="card-body">
+          <button type="button" class="btn btn-outline-success">other</button>
+          <button type="button" class="btn btn-outline-success">Other</button>
+          <button type="button" class="btn btn-outline-success">Other</button>
+          <button type="button" class="btn btn-outline-success">Other</button>
+          <button type="button" class="btn btn-outline-success">Other</button>
         </div>
       </div>
     </section>
 
-    <!-- section populates with list of matching recipes with images -->
-    <!-- Make Dinner button has to hide until recipe is chosen becomes-->
-    <button type="button" class="make-dinner-btn btn-primary">
-      Make Dinner
-    </button>
+    <!-- <section class="recipes">
+      <div class="section-block">
+
+      </div>
+    </section> -->
 
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -270,3 +198,5 @@
     <script src="./Assets/js/homepage.js"></script>
   </body>
 </html>
+
+
