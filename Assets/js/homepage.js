@@ -1,6 +1,8 @@
 var ingredientUl = $('#ingredient-list');
 var drinkUl = $('#drink-list');
 
+var userInputSection = $(".pantry")
+
 var userInput;
 var pushIngrToApi;
 var ingredientItemEl;
@@ -9,7 +11,7 @@ var userDrinkInput;
 var pushDrinkToApi;
 var drinkItemEl;
 
-var responses = [];
+var responsesFood = [];
 var responsesDrinks = [];
 
 // run event on click for the ingredient submit button
@@ -54,7 +56,8 @@ $("#ingredient-form").on("click", "#ingredient-submit-btn", function (event) {
 }
   
 creatIngredientList();
-getRecipes(userInput);
+console.log(pushIngrToApi)
+getRecipes(pushIngrToApi);
 });
 
 //Drinks:
@@ -86,7 +89,7 @@ $("#drink-form").on("click", "#drink-submit-btn", function (event) {
     localStorage.setItem("drinks", JSON.stringify(pushDrinkToApi));
 }
 creatDrinkList();
-getDrinkRecipes(userDrinkInput)
+getDrinkRecipes(pushDrinkToApi)
 // getRecipes(userInput);
 });
 
@@ -172,10 +175,11 @@ function getRecipes(ingredients) {
     .then(function(response) { return response.json()})
     .then(function(data) { 
       // console.log('data', data)
-      responses = [...responses, ...data]
-      console.log('responses', responses)
-      getInstructions(responses)
-      displayRecipes(data)
+      responsesFood = [...responsesFood, ...data]
+      console.log('responsesFood', responsesFood)
+      getInstructions(responsesFood)
+      // displayRecipes(data)
+      displayRecipes(responsesFood)
     })
     .catch(err => console.error(err));
   }
@@ -198,7 +202,6 @@ recipeArr.forEach(function(recipeArr){
     .then(function(data){
       recipeID = data
       console.log(recipeID)
-      console.log(recipeID[0].steps)
       for (var i = 0; i < recipeID[0].steps.length; i++){
       console.log(recipeID[0].steps[i])
       }
@@ -209,13 +212,32 @@ recipeArr.forEach(function(recipeArr){
 
 // Function to populate screen with recipes found
 function displayRecipes(recipes) {
-  console.log('recipes', recipes)
-  // console.log('responses', responses)
+// create section to contain grabbed recipes
+  var userRecipeSection = $("<section>")
+  $("body").append(userRecipeSection)
+// Loop through grabbed recipes to populate page with image and name of recipes
   recipes.forEach(function(recipe) {
-    console.log(recipe.title)
-    recipe.usedIngredients.forEach(function(usedIng) {
-      console.log(usedIng.originalName)
-    })
+    // Pattern is create element -- stlye element -- append element
+    var recipeRow = $("<div>")
+    recipeRow.attr("class", "row mt-2")
+    userRecipeSection.append(recipeRow)
+    var recipeCol = $("<div>")
+    recipeCol.attr("class", "col-12")
+    recipeRow.append(recipeCol)
+    var recipeCard = $("<div>")
+    recipeCard.addClass("card")
+    recipeRow.append(recipeCard)
+    var recipeImg = $("<img>")
+    recipeImg.attr("src", recipe.image);
+    recipeImg.addClass("card-img-top")
+    recipeCard.append(recipeImg)
+    var recipeCardBody = $("<div>")
+    recipeCardBody.attr("class", "card-body")
+    recipeCard.append(recipeCardBody)
+    var recipeCardTitle = $("<h5>")
+    recipeCardTitle.attr("class", "card-title")
+    recipeCardTitle.text(recipe.title)
+    recipeCard.append(recipeCardTitle)
   })
 
 }
