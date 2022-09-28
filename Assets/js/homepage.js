@@ -9,7 +9,6 @@ var userDrinkInput;
 var pushDrinkToApi;
 var drinkItemEl;
 
-var responses;
 // var response;
 var responses = [];
 
