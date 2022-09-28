@@ -140,9 +140,6 @@ ingredientUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
 
 
 
-}
-
-}
 
 
 // cocktail section
