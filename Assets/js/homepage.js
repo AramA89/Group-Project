@@ -212,14 +212,14 @@ recipeArr.forEach(function(recipeArr){
 
 // Function to populate screen with recipes found
 function displayRecipes(recipes) {
-  // console.log('recipes', recipes)
-  // console.log('responses', responses)
+// create section to contain grabbed recipes
   var userRecipeSection = $("<section>")
   $("body").append(userRecipeSection)
+// Loop through grabbed recipes to populate page with image and name of recipes
   recipes.forEach(function(recipe) {
-    console.log(recipe.title)
+    // Pattern is create element -- stlye element -- append element
     var recipeRow = $("<div>")
-    recipeRow.attr("class", "row ml-2 mr-2")
+    recipeRow.attr("class", "row mt-2")
     userRecipeSection.append(recipeRow)
     var recipeCol = $("<div>")
     recipeCol.attr("class", "col-12")
@@ -238,7 +238,6 @@ function displayRecipes(recipes) {
     recipeCardTitle.attr("class", "card-title")
     recipeCardTitle.text(recipe.title)
     recipeCard.append(recipeCardTitle)
-    console.log("end of displayRecipes")
   })
 
 }
@@ -262,27 +261,3 @@ function getDrinkRecipes(ingredients) {
     })
     .catch(err => console.error(err));
   }
-
-  // Display recipes based on available ingredients
-  // function possibleRecipes(responsesFood){
-  //   for (var i = 0; i < responsesFood.length; i++){
-  //     var recipeCard = $("<div class="card" style="width: 18rem;"></div>")
-  //   }
-  // }
-
-//   div class="card" style="width: 18rem;">
-//   <img src="..." class="card-img-top" alt="...">
-//   <div class="card-body">
-//     <h5 class="card-title">Card title</h5>
-//     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-//   </div>
-//   <ul class="list-group list-group-flush">
-//     <li class="list-group-item">An item</li>
-//     <li class="list-group-item">A second item</li>
-//     <li class="list-group-item">A third item</li>
-//   </ul>
-//   <div class="card-body">
-//     <a href="#" class="card-link">Card link</a>
-//     <a href="#" class="card-link">Another link</a>
-//   </div>
-// </div>
