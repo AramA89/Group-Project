@@ -213,8 +213,9 @@ recipeArr.forEach(function(recipeArr){
 // Function to populate screen with recipes found
 function displayRecipes(recipes) {
 // create section to contain grabbed recipes
-  var userRecipeSection = $("<section>")
-  $("body").append(userRecipeSection)
+  var userRecipeSection = $("#availableRecipes")
+  userRecipeSection.attr("class", "col-6")
+  $("#content").append(userRecipeSection)
 // Loop through grabbed recipes to populate page with image and name of recipes
   recipes.forEach(function(recipe) {
     // Pattern is create element -- stlye element -- append element

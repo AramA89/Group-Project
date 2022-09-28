@@ -10,7 +10,7 @@
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="./Assets/CSS/style.css"/>
+    <link rel="stylesheet" href="./Assets/CSS/style.css" />
     <title>Quickly</title>
   </head>
   <body>
@@ -34,218 +34,235 @@
       </div>
     </header>
     <!-- pantry items start -->
-    <section class="pantry">
-      <h3 class="text-center mb-4">
-        Check what you have available in your pantry
-      </h3>
+    <section class="container-fluid row" id="content">
+      <section class="pantry col-6">
+        <h3 class="text-center mb-4">
+          Check what you have available in your pantry
+        </h3>
 
-      <!-- ingredients section -->
-      <div class="row ml-2 mr-2">
-        <!-- Foods available -->
-        <div class="col-md-6 mb-4">
-          <div class="card bg-light mb-3">
-            <h3 class="card-header">Ingredients:</h3>
-            <!-- Protein -->
+        <!-- ingredients section -->
+        <div class="row ml-2 mr-2">
+          <!-- Foods available -->
+          <div class="col-md-6 mb-4">
             <div class="card bg-light mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Protein</h5>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox"/>
-                  <label class="form-check-label">chicken</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox"/>
-                  <label class="form-check-label">steak</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox" />
-                  <label class="form-check-label">Fish</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox" />
-                  <label class="form-check-label">Pork</label>
+              <h3 class="card-header">Ingredients:</h3>
+              <!-- Protein -->
+              <div class="card bg-light mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Protein</h5>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">chicken</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">steak</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">Fish</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">Pork</label>
+                  </div>
                 </div>
               </div>
-            </div>
-            <!-- Vegetables -->
-            <div class="card bg-light mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Vegetables</h5>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox" />
-                  <label class="form-check-label">Onion</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox" />
-                  <label class="form-check-label">Zucchini</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox" />
-                  <label class="form-check-label">Mushroom</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox" />
-                  <label class="form-check-label">Tomatoe</label>
-                </div>
-              </div>
-            </div>
-            <!-- Dairy -->
-            <div class="card bg-light mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Dairy</h5>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox" />
-                  <label class="form-check-label">Milk</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox" />
-                  <label class="form-check-label">Eggs</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox" />
-                  <label class="form-check-label">Cheese</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox" />
-                  <label class="form-check-label">Sour Cream</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox" />
-                  <label class="form-check-label">Yogurt</label>
+              <!-- Vegetables -->
+              <div class="card bg-light mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Vegetables</h5>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">Onion</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">Zucchini</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">Mushroom</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">Tomatoe</label>
+                  </div>
                 </div>
               </div>
-            </div>
-            <!-- Fruits -->
-            <div class="card bg-light mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Fruits</h5>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox" />
-                  <label class="form-check-label">Lemon</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox" />
-                  <label class="form-check-label">Apple</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox" />
-                  <label class="form-check-label">Orange</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox" />
-                  <label class="form-check-label">Banana</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input ingrcb" type="checkbox" />
-                  <label class="form-check-label">Peach</label>
+              <!-- Dairy -->
+              <div class="card bg-light mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Dairy</h5>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">Milk</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">Eggs</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">Cheese</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">Sour Cream</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">Yogurt</label>
+                  </div>
                 </div>
               </div>
-            </div>
+              <!-- Fruits -->
+              <div class="card bg-light mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Fruits</h5>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">Lemon</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">Apple</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">Orange</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">Banana</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input ingrcb" type="checkbox" />
+                    <label class="form-check-label">Peach</label>
+                  </div>
+                </div>
+              </div>
 
+              <!-- Additional Ingredients -->
+              <form class="card form-inline" id="ingredient-form">
+                <div class="form-group">
+                  <label> Additional Ingredients: </label>
+                  <input
+                    type="text"
+                    id="inputingredients"
+                    name="ingredient-input"
+                    class="form-control mx-sm-3"
+                  />
+                  <button
+                    type="submit"
+                    id="ingredient-submit-btn"
+                    class="btn btn-primary m-2"
+                  >
+                    Submit
+                  </button>
+                  <!-- populate with additional li as visitor adds items -->
+                </div>
+              </form>
+              <ul id="ingredient-list" class="m-2"></ul>
+            </div>
+          </div>
 
-            
-            <!-- Additional Ingredients -->
-            <form class=" card form-inline" id="ingredient-form">
-              <div class="form-group">
-                <label> Additional Ingredients: </label>
-                <input
-                  type="text" id="inputingredients" name="ingredient-input" class="form-control mx-sm-3"/>
-                <button
-                  type="submit" id="ingredient-submit-btn"                  class="btn btn-primary m-2">Submit
-                </button>
-                <!-- populate with additional li as visitor adds items -->
+          <!-- Drinks available -->
+          <div class="col-md-6 mb-4">
+            <div class="card bg-light mb-3">
+              <h3 class="card-header">Drinks:</h3>
+              <!-- Soft Drinks -->
+              <div class="card bg-light mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Soft Drinks</h5>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input drinkcb" type="checkbox" />
+                    <label class="form-check-label">water</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input drinkcb" type="checkbox" />
+                    <label class="form-check-label">Coke</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input drinkcb" type="checkbox" />
+                    <label class="form-check-label">Sprite</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input drinkcb" type="checkbox" />
+                    <label class="form-check-label">Lemonade</label>
+                  </div>
+                </div>
               </div>
-            </form>
-            <ul id="ingredient-list" class="m-2"></ul>
+
+              <!-- Alcohol -->
+              <div class="card bg-light mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Alcohol</h5>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input drinkcb" type="checkbox" />
+                    <label class="form-check-label">Beer</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input drinkcb" type="checkbox" />
+                    <label class="form-check-label">Red Wine</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input drinkcb" type="checkbox" />
+                    <label class="form-check-label">White Wine</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input drinkcb" type="checkbox" />
+                    <label class="form-check-label">Brandy</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input drinkcb" type="checkbox" />
+                    <label class="form-check-label">Vodka</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input drinkcb" type="checkbox" />
+                    <label class="form-check-label">Gin</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input drinkcb" type="checkbox" />
+                    <label class="form-check-label">Tequila</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Additional Drinks -->
+              <form class="card form-inline" id="drink-form">
+                <div class="form-group">
+                  <label> Additional Drinks: </label>
+                  <input
+                    type="text"
+                    id="inputdrinks"
+                    name="drink-input"
+                    class="form-control mx-sm-3"
+                  />
+                  <button
+                    type="submit"
+                    id="drink-submit-btn"
+                    class="btn btn-primary mb-2"
+                  >
+                    Submit
+                  </button>
+                  <ul id="drink-list" class="m-2"></ul>
+                  <!-- populate with additional li as visitor adds items -->
+                </div>
+              </form>
+            </div>
           </div>
         </div>
+      </section>
 
-        <!-- Drinks available -->
-        <div class="col-md-6 mb-4">
-          <div class="card bg-light mb-3">
-            <h3 class="card-header">Drinks:</h3>
-            <!-- Soft Drinks -->
-            <div class="card bg-light mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Soft Drinks</h5>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input drinkcb" type="checkbox" />
-                  <label class="form-check-label">water</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input drinkcb" type="checkbox" />
-                  <label class="form-check-label">Coke</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input drinkcb" type="checkbox" />
-                  <label class="form-check-label">Sprite</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input drinkcb" type="checkbox" />
-                  <label class="form-check-label">Lemonade</label>
-                </div>
-              </div>
-            </div>
-
-            <!-- Alcohol -->
-            <div class="card bg-light mb-3">
-              <div class="card-body">
-                <h5 class="card-title">Alcohol</h5>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input drinkcb" type="checkbox" />
-                  <label class="form-check-label">Beer</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input drinkcb" type="checkbox" />
-                  <label class="form-check-label">Red Wine</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input drinkcb" type="checkbox" />
-                  <label class="form-check-label">White Wine</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input drinkcb" type="checkbox" />
-                  <label class="form-check-label">Brandy</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input drinkcb" type="checkbox" />
-                  <label class="form-check-label">Vodka</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input drinkcb" type="checkbox" />
-                  <label class="form-check-label">Gin</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input drinkcb" type="checkbox" />
-                  <label class="form-check-label">Tequila</label>
-                </div>
-              </div>
-            </div>
-
-            <!-- Additional Drinks -->
-            <form class="card form-inline" id="drink-form">
-              <div class="form-group">
-                <label> Additional Drinks: </label>
-                <input
-                  type="text" id="inputdrinks" name="drink-input"
-                  class="form-control mx-sm-3"/>
-                <button type="submit" id="drink-submit-btn" class="btn btn-primary mb-2"> Submit
-                </button>
-                <ul id="drink-list" class="m-2"></ul>
-                <!-- populate with additional li as visitor adds items -->
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+      <!-- section populates with list of matching recipes with images -->
+      <!-- Make Dinner button has to hide until recipe is chosen becomes-->
+      <section id="availableRecipes">
+        <button type="button" class="make-dinner-btn btn-primary">
+          Make Dinner
+        </button>
+      </section>
     </section>
-
-    <!-- section populates with list of matching recipes with images -->
-    <!-- Make Dinner button has to hide until recipe is chosen becomes-->
-    <button type="button" class="make-dinner-btn btn-primary">
-      Make Dinner
-    </button>
-   
 
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
