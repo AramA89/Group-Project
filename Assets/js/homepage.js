@@ -227,6 +227,10 @@ var ingredientListEl = $('#ingredient-list');
 
 ingredientUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
 
+
+
+
+
 // cocktail section
 var drinkInput = $("#inputdrinks");
 var drinkSubmit = $("drinkBtn");

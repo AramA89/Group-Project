@@ -1,4 +1,37 @@
 #header {
-    color: orange;
+    color: #F0EAD6;
     font-weight: 400; 
 }
+
+.jumbotron {
+    background-color: #654321; 
+    font-family: 'Courier New', Courier, monospace;
+};
+
+body {
+    margin: 0px;
+    height: 100%;
+    flex-direction: column;
+    overflow: hidden;
+
+  }
+
+  .pantry {
+    float: left;
+    margin: 0px;
+    padding-top: 5%;
+    padding-bottom: 0%;
+    width: 50%;
+  };
+
+  .recipes{
+    background-color: blue;
+    color: white;
+    position: sticky;
+    float: right;
+    margin: 0px;
+    padding-top: 20%;
+    padding-bottom: 40%;
+    width: 50%;
+    height: 100vh;
+  };
