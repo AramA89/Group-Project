@@ -9,8 +9,9 @@ var userDrinkInput;
 var pushDrinkToApi;
 var drinkItemEl;
 
-var response;
 var responses;
+// var response;
+var responses = [];
 
 // run event on click for the ingredient submit button
 init();
@@ -157,6 +158,7 @@ function handleRemoveDrinkItem(event) {
 
 drinkUl.on('click', 'button.delete-btn', handleRemoveDrinkItem);
 
+//get recipe array based on user input of
 function getRecipes(ingredients) {
     const options = {
       method: 'GET',
@@ -169,26 +171,85 @@ function getRecipes(ingredients) {
    fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients + "&number=5&ignorePantry=true&ranking=1", options)
       .then(function(response) { return response.json()})
       .then(function(data) { 
-        console.log('data', data)
-        responses = data
+        // console.log('data', data)
+        responses = [...responses, ...data]
         console.log('responses', responses)
+        getInstructions(responses)
         displayRecipes(data)
       })
       .catch(err => console.error(err));
+    }
+
+// get recipe instructions by using recipe ID from getRecipes results
+function getInstructions(recipeArr) {
+  console.log("recipeArr", recipeArr)
+  recipeArr.forEach(function(recipeArr){
+    console.log(recipeArr.id)
+    const instructions = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
+        'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+      }
+    };
+    
+    fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + recipeArr.id + "/analyzedInstructions?stepBreakdown=true", instructions)
+      .then(response => response.json())
+      .then(function(data){
+        recipeID = data
+        console.log(recipeID)
+        console.log(recipeID[0].steps)
+        for (var i = 0; i < recipeID[0].steps.length; i++){
+        console.log(recipeID[0].steps[i])
+        }
+      })
+      .catch(err => console.error(err));
+  })
 }
 
 // Function to populate screen with recipes found
 function displayRecipes(recipes) {
-  console.log('recipes', recipes)
+  // console.log('recipes', recipes)
   // console.log('responses', responses)
   recipes.forEach(function(recipe) {
-    console.log(recipe.title)
+    // console.log(recipe.title)
     recipe.usedIngredients.forEach(function(usedIng) {
-      console.log(usedIng.originalName)
+      // console.log(usedIng.originalName)
     })
   })
 
 }
 
 const userOptions = getRecipes;
-console.log(userOptions)
+
+var ingredientListEl = $('#ingredient-list');
+
+
+ingredientUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
+
+// cocktail section
+var drinkInput = $("#inputdrinks");
+var drinkSubmit = $("drinkBtn");
+console.log(drinkSubmit);
+console.log(drinkInput);
+console.log(drinkInput.val());
+
+var userDrinkInput = $("#inputdrinks");
+var drinkUl = $("drink-list");
+var drinkItemEl = $("drink-list");
+
+
+function createDrinkList(){
+  $("#inputdrinks").empty();
+  for (var i = 0; i < pushIngrToApi.length; i++) {
+    drinkItemEl = $('<li>'+ pushIngrToApi[i] + '</li>');
+    drinkItemEl.append('<button class="delete-btn">Remove</button>');
+    userDrinkInput.append(drinkItemEl);
+    $('input[name="drink-input"]').val('');
+  }
+}
+
+
+
+drinkUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
+
