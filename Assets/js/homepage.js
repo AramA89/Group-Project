@@ -1,6 +1,8 @@
 var ingredientUl = $('#ingredient-list');
 var drinkUl = $('#drink-list');
 
+var userInputSection = $(".pantry")
+
 var userInput;
 var pushIngrToApi;
 var ingredientItemEl;
@@ -9,7 +11,7 @@ var userDrinkInput;
 var pushDrinkToApi;
 var drinkItemEl;
 
-var responses = [];
+var responsesFood = [];
 var responsesDrinks = [];
 
 // run event on click for the ingredient submit button
@@ -54,7 +56,8 @@ $("#ingredient-form").on("click", "#ingredient-submit-btn", function (event) {
 }
   
 creatIngredientList();
-getRecipes(userInput);
+console.log(pushIngrToApi)
+getRecipes(pushIngrToApi);
 });
 
 //Drinks:
@@ -86,7 +89,7 @@ $("#drink-form").on("click", "#drink-submit-btn", function (event) {
     localStorage.setItem("drinks", JSON.stringify(pushDrinkToApi));
 }
 creatDrinkList();
-getDrinkRecipes(userDrinkInput)
+getDrinkRecipes(pushDrinkToApi)
 // getRecipes(userInput);
 });
 
@@ -172,10 +175,11 @@ function getRecipes(ingredients) {
     .then(function(response) { return response.json()})
     .then(function(data) { 
       // console.log('data', data)
-      responses = [...responses, ...data]
-      console.log('responses', responses)
-      getInstructions(responses)
-      displayRecipes(data)
+      responsesFood = [...responsesFood, ...data]
+      console.log('responsesFood', responsesFood)
+      getInstructions(responsesFood)
+      // displayRecipes(data)
+      displayRecipes(responsesFood)
     })
     .catch(err => console.error(err));
   }
@@ -198,7 +202,6 @@ recipeArr.forEach(function(recipeArr){
     .then(function(data){
       recipeID = data
       console.log(recipeID)
-      console.log(recipeID[0].steps)
       for (var i = 0; i < recipeID[0].steps.length; i++){
       console.log(recipeID[0].steps[i])
       }
@@ -209,13 +212,33 @@ recipeArr.forEach(function(recipeArr){
 
 // Function to populate screen with recipes found
 function displayRecipes(recipes) {
-  console.log('recipes', recipes)
+  // console.log('recipes', recipes)
   // console.log('responses', responses)
+  var userRecipeSection = $("<section>")
+  $("body").append(userRecipeSection)
   recipes.forEach(function(recipe) {
     console.log(recipe.title)
-    recipe.usedIngredients.forEach(function(usedIng) {
-      console.log(usedIng.originalName)
-    })
+    var recipeRow = $("<div>")
+    recipeRow.attr("class", "row ml-2 mr-2")
+    userRecipeSection.append(recipeRow)
+    var recipeCol = $("<div>")
+    recipeCol.attr("class", "col-12")
+    recipeRow.append(recipeCol)
+    var recipeCard = $("<div>")
+    recipeCard.addClass("card")
+    recipeRow.append(recipeCard)
+    var recipeImg = $("<img>")
+    recipeImg.attr("src", recipe.image);
+    recipeImg.addClass("card-img-top")
+    recipeCard.append(recipeImg)
+    var recipeCardBody = $("<div>")
+    recipeCardBody.attr("class", "card-body")
+    recipeCard.append(recipeCardBody)
+    var recipeCardTitle = $("<h5>")
+    recipeCardTitle.attr("class", "card-title")
+    recipeCardTitle.text(recipe.title)
+    recipeCard.append(recipeCardTitle)
+    console.log("end of displayRecipes")
   })
 
 }
@@ -239,3 +262,27 @@ function getDrinkRecipes(ingredients) {
     })
     .catch(err => console.error(err));
   }
+
+  // Display recipes based on available ingredients
+  // function possibleRecipes(responsesFood){
+  //   for (var i = 0; i < responsesFood.length; i++){
+  //     var recipeCard = $("<div class="card" style="width: 18rem;"></div>")
+  //   }
+  // }
+
+//   div class="card" style="width: 18rem;">
+//   <img src="..." class="card-img-top" alt="...">
+//   <div class="card-body">
+//     <h5 class="card-title">Card title</h5>
+//     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+//   </div>
+//   <ul class="list-group list-group-flush">
+//     <li class="list-group-item">An item</li>
+//     <li class="list-group-item">A second item</li>
+//     <li class="list-group-item">A third item</li>
+//   </ul>
+//   <div class="card-body">
+//     <a href="#" class="card-link">Card link</a>
+//     <a href="#" class="card-link">Another link</a>
+//   </div>
+// </div>
