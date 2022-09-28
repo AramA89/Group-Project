@@ -14,7 +14,7 @@
     <title>Quickly</title>
   </head>
   <body>
-    <!-- <style> -->
+    <style>
       body {
         background-image: url("./Assets/Img/ingredients.jpg");
         background-repeat: no-repeat;
@@ -43,55 +43,17 @@
       </div>
     </header>
     <!-- pantry items start -->
-    <section class="pantry container-fluid">
+    <section class="pantry container-fluid" id="ingredient-form">
           <!-- search bar -->
           <div class="col-md-6 mb-4">
             <div class="card bg-light mb-3">
               <div class="input-group">
-                 <input type="search" class="form-control rounded" placeholder="Search Ingredients and Drinks" aria-label="Search" aria-describedby="search-addon" />
-                <button type="button" class="btn btn-outline-primary">search</button>
+                 <input type="text" id="inputingredients" class="form-control rounded" placeholder="Search Ingredients" aria-label="Search" aria-describedby="search-addon" />
+                <button type="button" id="ingredient-submit-btn" class="btn btn-outline-primary">search</button>
               </div>
             </div>
           </div>
-          
 
-              <!-- Soft Drinks -->
-            <div class="col-md-6 mb-4">
-              <div class="card bg-light mb-3">
-                <div class="card-header"> Soft Drinks
-                </div>
-                <div class="card-body">
-                  <div class="nav nav-pills">
-                       <button type="button" class="btn btn-outline-success">water</button>
-                       <button type="button" class="btn btn-outline-success">Coke</button>
-                       <button type="button" class="btn btn-outline-success">Sprite</button>
-                       <button type="button" class="btn btn-outline-success">Milk</button>
-                       <button type="button" class="btn btn-outline-success">Tea</button>
-                       <button type="button" class="btn btn-outline-success">Lemonade</button>
-                       <button type="button" class="btn btn-outline-success">other</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          
-              <!-- Alcohol -->
-            <div class="col-md-6 mb-4">
-              <div class="card bg-light mb-3">
-                <div class="card-header"> Alcohol
-                </div>
-                <div class="card-body">
-                  <div class=" nav nav-pills">
-                    <button type="button" class="btn btn-outline-success">Beer</button>
-                    <button type="button" class="btn btn-outline-success">Red Wine</button>
-                    <button type="button" class="btn btn-outline-success">White Wine</button>
-                    <button type="button" class="btn btn-outline-success">Brandy</button>
-                    <button type="button" class="btn btn-outline-success">Vodka</button>
-                    <button type="button" class="btn btn-outline-success">Gin</button>
-                    <button type="button" class="btn btn-outline-success">Tequila</button>
-                </div>
-              </div>
-            </div>
-            </div>
 
               <!-- Protein -->
             <div class="col-md-6 mb-4">
@@ -179,11 +141,56 @@
       </div>
     </section>
 
-    <!-- <section class="recipes">
-      <div class="section-block">
-
+    <section class="drink container-fluid" id="drink-form">         
+      <div class="col-md-6 mb-4">
+      <div class="card bg-light mb-3">
+        <div class="input-group">
+           <input type="search" id="inputdrinks" class="form-control rounded" placeholder="Search Drinks" aria-label="Search" aria-describedby="search-addon" />
+          <button type="button" id="drink-submit-btn" class="btn btn-outline-primary">search</button>
+        </div>
       </div>
-    </section> -->
+    </div>
+    
+
+        <!-- Soft Drinks -->
+      <div class="col-md-6 mb-4">
+        <div class="card bg-light mb-3">
+          <div class="card-header"> Soft Drinks
+          </div>
+          <div class="card-body">
+            <div class="nav nav-pills">
+                 <button type="button" class="btn btn-outline-success">water</button>
+                 <button type="button" class="btn btn-outline-success">Coke</button>
+                 <button type="button" class="btn btn-outline-success">Sprite</button>
+                 <button type="button" class="btn btn-outline-success">Milk</button>
+                 <button type="button" class="btn btn-outline-success">Tea</button>
+                 <button type="button" class="btn btn-outline-success">Lemonade</button>
+                 <button type="button" class="btn btn-outline-success">other</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+        <!-- Alcohol -->
+      <div class="col-md-6 mb-4">
+        <div class="card bg-light mb-3">
+          <div class="card-header"> Alcohol
+          </div>
+          <div class="card-body">
+            <div class=" nav nav-pills">
+              <button type="button" class="btn btn-outline-success">Beer</button>
+              <button type="button" class="btn btn-outline-success">Red Wine</button>
+              <button type="button" class="btn btn-outline-success">White Wine</button>
+              <button type="button" class="btn btn-outline-success">Brandy</button>
+              <button type="button" class="btn btn-outline-success">Vodka</button>
+              <button type="button" class="btn btn-outline-success">Gin</button>
+              <button type="button" class="btn btn-outline-success">Tequila</button>
+          </div>
+        </div>
+      </div>
+      </div>
+      
+    </section> 
 
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

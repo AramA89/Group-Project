@@ -9,8 +9,6 @@ var userDrinkInput;
 var pushDrinkToApi;
 var drinkItemEl;
 
-var responses;
-// var response;
 var responses = [];
 
 // run event on click for the ingredient submit button
@@ -30,7 +28,7 @@ function init(){
 $("#ingredient-form").on("click", "#ingredient-submit-btn", function (event) {
   event.preventDefault();
 
-  // check selected checkbox ingredients
+ // check selected checkbox ingredients
   $.each($('.ingrcb:checkbox:checked'), function() {
     pushIngrToApi.push($(this).siblings('label').text());
     //Clear checkboxes
@@ -255,5 +253,4 @@ function createDrinkList(){
 
 
 
-drinkUl.on('click', 'button.delete-btn', handleRemoveIngrItem);
 
