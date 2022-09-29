@@ -214,15 +214,15 @@ recipeArr.forEach(function(recipeArr){
 // Function to populate screen with recipes found
 function displayRecipes(recipes) {
 // create section to contain grabbed recipes
-  var userRecipeSection = $("#availableRecipes")
-  userRecipeSection.attr("class", "col-6")
-  $("#content").append(userRecipeSection)
+  var foodSection = $("#food")
+  // userRecipeSection.attr("class", "col-6")
+  // $("#content").append(userRecipeSection)
 // Loop through grabbed recipes to populate page with image and name of recipes
   recipes.forEach(function(recipe) {
     // Pattern is create element -- stlye element -- append element
     var recipeRow = $("<div>")
     recipeRow.attr("class", "row mt-2")
-    userRecipeSection.append(recipeRow)
+    foodSection.append(recipeRow)
     var recipeCol = $("<div>")
     recipeCol.attr("class", "col-8")
     recipeRow.append(recipeCol)
@@ -237,7 +237,7 @@ function displayRecipes(recipes) {
     recipeCardBody.attr("class", "card-body")
     recipeCard.append(recipeCardBody)
     var recipeCardTitle = $("<h5>")
-    recipeCardTitle.attr("class", "card-title")
+    recipeCardTitle.addClass("card-title")
     recipeCardTitle.text(recipe.title)
     recipeCard.append(recipeCardTitle)
   })
@@ -297,15 +297,16 @@ function getDrinkRecipes(ingredients) {
   // Function to populate screen with drinks found
 function displayDrinks(recipe) {
   // create section to contain grabbed recipes
-    var userRecipeSection = $("#availableRecipes")
-    userRecipeSection.attr("class", "col-6")
-    $("#content").append(userRecipeSection)
+    var drinkSection = $("#drinks")
+    console.log(drinkSection)
+    // userRecipeSection.attr("class", "col-6")
+    // $("#content").append(userRecipeSection)
   // Loop through grabbed recipes to populate page with image and name of recipes
   for (var i = 0; i < 5; i++){
       // Pattern is create element -- stlye element -- append element
       var recipeRow = $("<div>")
       recipeRow.attr("class", "row mt-2")
-      userRecipeSection.append(recipeRow)
+      drinkSection.append(recipeRow)
       var recipeCol = $("<div>")
       recipeCol.attr("class", "col-4")
       recipeRow.append(recipeCol)
@@ -320,7 +321,7 @@ function displayDrinks(recipe) {
       recipeCardBody.attr("class", "card-body")
       recipeCard.append(recipeCardBody)
       var recipeCardTitle = $("<h5>")
-      recipeCardTitle.attr("class", "card-title")
+      recipeCardTitle.addClass("card-title")
       recipeCardTitle.text(recipe[i].strDrink)
       recipeCard.append(recipeCardTitle)
     }
