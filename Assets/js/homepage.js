@@ -224,7 +224,7 @@ function displayRecipes(recipes) {
     recipeRow.attr("class", "row mt-2")
     userRecipeSection.append(recipeRow)
     var recipeCol = $("<div>")
-    recipeCol.attr("class", "col-12")
+    recipeCol.attr("class", "col-8")
     recipeRow.append(recipeCol)
     var recipeCard = $("<div>")
     recipeCard.addClass("card")
@@ -241,7 +241,6 @@ function displayRecipes(recipes) {
     recipeCardTitle.text(recipe.title)
     recipeCard.append(recipeCardTitle)
   })
-
 }
 
 // Get Drink Recipes
@@ -261,6 +260,7 @@ function getDrinkRecipes(ingredients) {
       responsesDrinks = [...responsesDrinks, ...data.drinks]
       console.log('responsesDrinks', responsesDrinks)
       getDrinkDetails(responsesDrinks);
+      displayDrinks(responsesDrinks)
     })
     .catch(err => console.error(err));
   }
@@ -270,7 +270,6 @@ function getDrinkRecipes(ingredients) {
   // strIngredient
   // strMeasure
   // strImageSource
-
   function getDrinkDetails(drinkArr) {
     console.log("drinkArr", drinkArr)
     for (var i = 0; i < 5; i++) {
@@ -286,11 +285,43 @@ function getDrinkRecipes(ingredients) {
 	.then(function(response) { return response.json()})
     .then(function(data) { 
       console.log('data', data)
-      drinkID = data.drinks,0
-      console.log(drinkID)
-      console.log(drinkID[i].strDrink);
+      drinkID = data
+      console.log("drinkID", drinkID)
+      console.log(drinkID.drinks[0].strInstructions);
       // console.log(drinkID.strInstructions);
     })
     .catch(err => console.error(err));
+    }
+  }
+
+  // Function to populate screen with drinks found
+function displayDrinks(recipe) {
+  // create section to contain grabbed recipes
+    var userRecipeSection = $("#availableRecipes")
+    userRecipeSection.attr("class", "col-6")
+    $("#content").append(userRecipeSection)
+  // Loop through grabbed recipes to populate page with image and name of recipes
+  for (var i = 0; i < 5; i++){
+      // Pattern is create element -- stlye element -- append element
+      var recipeRow = $("<div>")
+      recipeRow.attr("class", "row mt-2")
+      userRecipeSection.append(recipeRow)
+      var recipeCol = $("<div>")
+      recipeCol.attr("class", "col-4")
+      recipeRow.append(recipeCol)
+      var recipeCard = $("<div>")
+      recipeCard.addClass("card")
+      recipeRow.append(recipeCard)
+      var recipeImg = $("<img>")
+      recipeImg.attr("src", recipe[i].strDrinkThumb);
+      recipeImg.addClass("card-img-top")
+      recipeCard.append(recipeImg)
+      var recipeCardBody = $("<div>")
+      recipeCardBody.attr("class", "card-body")
+      recipeCard.append(recipeCardBody)
+      var recipeCardTitle = $("<h5>")
+      recipeCardTitle.attr("class", "card-title")
+      recipeCardTitle.text(recipe[i].strDrink)
+      recipeCard.append(recipeCardTitle)
     }
   }
