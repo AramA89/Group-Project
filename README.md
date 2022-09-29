@@ -16,7 +16,8 @@ Quickly appilication accepts user input of available meal ingredients and alcoho
 
 Technologies used:
 - Bootstrap  
-- jQuery 
+- jQuery
+
 
 API’s used:  
 - Recipe – Food – Nutrition 
