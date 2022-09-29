@@ -243,7 +243,7 @@ function displayRecipes(recipes) {
   })
 }
 
-// Get Drink Recipes
+// Get Drink Recipes by Ingredient
 function getDrinkRecipes(ingredients) {
   const options = {
     method: 'GET',
@@ -287,8 +287,13 @@ function getDrinkRecipes(ingredients) {
       console.log('data', data)
       drinkID = data
       console.log("drinkID", drinkID)
+      console.log(drinkID.drinks[0].strDrink);
       console.log(drinkID.drinks[0].strInstructions);
-      // console.log(drinkID.strInstructions);
+      console.log(drinkID.drinks[0].strIngredient1);
+      console.log(drinkID.drinks[0].strMeasure1);
+      
+      // need to grab all ingredients and measurements
+    
     })
     .catch(err => console.error(err));
     }
