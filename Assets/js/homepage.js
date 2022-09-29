@@ -13,6 +13,7 @@ var drinkItemEl;
 
 var responsesFood = [];
 var responsesDrinks = [];
+var drinkID = [];
 
 // run event on click for the ingredient submit button
 init();
@@ -259,6 +260,37 @@ function getDrinkRecipes(ingredients) {
       console.log('data', data)
       responsesDrinks = [...responsesDrinks, ...data.drinks]
       console.log('responsesDrinks', responsesDrinks)
+      getDrinkDetails(responsesDrinks);
     })
     .catch(err => console.error(err));
+  }
+
+  // grab drink ID and fetch full cocktail details by ID 
+  // strInstructions
+  // strIngredient
+  // strMeasure
+  // strImageSource
+
+  function getDrinkDetails(drinkArr) {
+    console.log("drinkArr", drinkArr)
+    for (var i = 0; i < 5; i++) {
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
+        'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
+      }
+    };
+
+  fetch('https://the-cocktail-db.p.rapidapi.com/lookup.php?i=' + drinkArr[i].idDrink , options)
+	.then(function(response) { return response.json()})
+    .then(function(data) { 
+      console.log('data', data)
+      drinkID = data.drinks,0
+      console.log(drinkID)
+      console.log(drinkID[i].strDrink);
+      // console.log(drinkID.strInstructions);
+    })
+    .catch(err => console.error(err));
+    }
   }
