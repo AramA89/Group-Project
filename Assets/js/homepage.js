@@ -237,8 +237,6 @@ function displayRecipes() {
   console.log(responsesFood)
   // create section to contain grabbed recipes
   var foodSection = $("#food");
-  // userRecipeSection.attr("class", "col-6")
-  // $("#content").append(userRecipeSection)
   // Loop through grabbed recipes to populate page with image and name of recipes
   responsesFood.forEach(function (recipe) {
     console.log(recipe.id)
