@@ -140,6 +140,7 @@ var removeItem = btnClicked.siblings().text()
   return ing !== removeItem
  })
  localStorage.setItem("ingredients", JSON.stringify(pushIngrToApi));
+ getRecipes(pushIngrToApi);
  btnClicked.parent('li').remove();
 }
 
