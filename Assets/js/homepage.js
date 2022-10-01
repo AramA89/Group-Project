@@ -18,6 +18,7 @@ var recipeInstructions = [];
 var savedRecipes = [];
 var recipeRow = $("<div>");
 var foodSection = $("#food");
+var savedRecipes = [];
 
 // run event on click for the ingredient submit button
 init();
@@ -463,6 +464,7 @@ function createModal(recipe) {
   modalSaveBtn.attr({
     type: "button",
     class: "btn btn-primary",
+    id: "saveBtn"
   });
   modalSaveBtn.text("Save Recipe");
   modalFooter.append(modalSaveBtn);
@@ -477,6 +479,10 @@ function createModal(recipe) {
 
   modalDialog.append(modalContent);
   modal.append(modalDialog);
+  modal.on("click", "#saveBtn", function (event) {
+    savedRecipes.push(recipe)
+    localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes))
+  })
+  console.log(savedRecipes)
   return modal;
 }
-
