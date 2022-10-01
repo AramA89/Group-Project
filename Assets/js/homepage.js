@@ -191,8 +191,8 @@ async function getRecipes(ingredients) {
   try {
     var response = await fetch(
       "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" +
-        ingredients +
-        "&number=5&ignorePantry=true&ranking=1",
+      ingredients +
+      "&number=5&ignorePantry=true&ranking=1",
       options
     );
     var data = await response.json();
@@ -218,8 +218,8 @@ async function getInstructions(recipes) {
     try {
       var response = await fetch(
         "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" +
-          recipe.id +
-          "/analyzedInstructions?stepBreakdown=true",
+        recipe.id +
+        "/analyzedInstructions?stepBreakdown=true",
         instructions
       );
       var data = await response.json();
@@ -313,7 +313,7 @@ function getDrinkDetails(drinkArr) {
 
     fetch(
       "https://the-cocktail-db.p.rapidapi.com/lookup.php?i=" +
-        drinkArr[i].idDrink,
+      drinkArr[i].idDrink,
       options
     )
       .then(function (response) {
@@ -437,11 +437,18 @@ function createModal(recipe) {
   modalBody.append(modalBodyInst)
   console.log(recipe)
   for (var i = 0; i < recipe.usedIngredients.length; i++) {
-    var modalBodySpan = $("<div>");
-    modalBodySpan.text(" " + recipe.usedIngredients[i].name + ":" + recipe.usedIngredients[i].original + " ");
-    console.log(recipe.instructionsArr[i].name)
-    console.log(recipe.instructionsArr[i].original)
-    modalBodyIngr.append(modalBodySpan)
+    var modalBodySpanIncl = $("<div>");
+    modalBodySpanIncl.text(recipe.usedIngredients[i].name + ": " + recipe.usedIngredients[i].original + " ");
+    modalBodyIngr.append(modalBodySpanIncl)
+  }
+  for (var i = 0; i < recipe.missedIngredients.length; i++) {
+    var modalBodySpanMis = $("<div>");
+    modalBodySpanMis.text(recipe.missedIngredients[i].name + ": " + recipe.missedIngredients[i].amount + recipe.missedIngredients[i].unit + " " + recipe.missedIngredients[i].originalName)
+    modalBodyIngr.append(modalBodySpanMis)
+    console.log(recipe.missedIngredients[i].name)
+    console.log(recipe.missedIngredients[i].amount)
+    console.log(recipe.missedIngredients[i].unit)
+    console.log(recipe.missedIngredients[i].originalName)
   }
   for (var i = 0; i < recipe.instructionsArr.length; i++) {
     var modalBodySpan = $("<div>");
