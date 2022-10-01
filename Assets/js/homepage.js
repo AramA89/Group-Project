@@ -234,38 +234,6 @@ async function getInstructions(recipes) {
 
 // Function to populate screen with recipes found
 function displayRecipes(recipe) {
-<<<<<<< Updated upstream
-  console.log(recipe);
-  // create section to contain grabbed recipes
-
-  // Pattern is create element -- stlye element -- append element
-  var recipeRow = $("<div>");
-  recipeRow.attr("class", "row mt-2");
-  recipeRow.attr("id", "recipeContainer");
-  foodSection.append(recipeRow);
-  var recipeCol = $("<div>");
-  recipeCol.attr("class", "col-8");
-  recipeRow.append(recipeCol);
-  var recipeCard = $("<div>");
-  recipeCard.attr({ class: "card" });
-  recipeCard.attr("data-recipe-id", recipe.id);
-  recipeCard.attr("data-toggle", "modal");
-  recipeCard.attr("data-target", `#modal-${recipe.id}`);
-  recipeRow.append(recipeCard);
-  var recipeImg = $("<img>");
-  recipeImg.attr("src", recipe.image);
-  recipeImg.addClass("card-img-top");
-  recipeCard.append(recipeImg);
-  var recipeCardBody = $("<div>");
-  recipeCardBody.attr("class", "card-body");
-  recipeCard.append(recipeCardBody);
-  var recipeCardTitle = $("<h5>");
-  recipeCardTitle.addClass("card-title");
-  recipeCardTitle.text(recipe.title);
-  recipeCard.append(recipeCardTitle);
-  var modal = createModal(recipe);
-  $("#food").append(modal);
-=======
 	console.log(recipe);
 	// create section to contain grabbed recipes
 	
@@ -296,7 +264,6 @@ function displayRecipes(recipe) {
 	recipeCard.append(recipeCardTitle);
 	var modal = createModal(recipe);
 	$('#food').append(modal);
->>>>>>> Stashed changes
 }
 
 // Get Drink Recipes by Ingredient
@@ -304,21 +271,13 @@ function getDrinkRecipes(ingredients) {
   const options = {
     method: "GET",
     headers: {
-<<<<<<< Updated upstream
-      "X-RapidAPI-Key": "e1e7badd01msh59a701f1225e72ep1d550ajsnd6058ae1acbd",
-=======
       "X-RapidAPI-Key": "3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a",
->>>>>>> Stashed changes
       "X-RapidAPI-Host": "the-cocktail-db.p.rapidapi.com",
     },
   };
 
   fetch(
-<<<<<<< Updated upstream
-    "https://the-cocktail-db.p.rapidapi.com/filter.php?i=" + ingredients,
-=======
     "https://the-cocktail-db.p.rapidapi.com/filter.php?i=" + ingredients + "",
->>>>>>> Stashed changes
     options
   )
     .then(function (response) {
@@ -333,68 +292,32 @@ function getDrinkRecipes(ingredients) {
     })
     .catch((err) => console.error(err));
 }
-<<<<<<< Updated upstream
-// grab drink ID and fetch full cocktail details by ID
-
-=======
 
 // grab drink ID and fetch full cocktail details by ID
 // strInstructions
 // strIngredient
 // strMeasure
 // strImageSource
->>>>>>> Stashed changes
 function getDrinkDetails(drinkArr) {
   console.log("drinkArr", drinkArr);
   for (var i = 0; i < 5; i++) {
     const options = {
       method: "GET",
       headers: {
-<<<<<<< Updated upstream
-        "X-RapidAPI-Key": "e1e7badd01msh59a701f1225e72ep1d550ajsnd6058ae1acbd",
-=======
         "X-RapidAPI-Key": "3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a",
->>>>>>> Stashed changes
         "X-RapidAPI-Host": "the-cocktail-db.p.rapidapi.com",
       },
     };
 
     fetch(
       "https://the-cocktail-db.p.rapidapi.com/lookup.php?i=" +
-<<<<<<< Updated upstream
-      drinkArr[i].idDrink,
-=======
         drinkArr[i].idDrink,
->>>>>>> Stashed changes
       options
     )
       .then(function (response) {
         return response.json();
       })
       .then(function (data) {
-<<<<<<< Updated upstream
-        drinkID = data;
-        console.log("drinkID", drinkID);
-        var drinkIngredients = [];
-        var drinkMeasurements = [];
-        var drinkIngMeasure = [];
-        var drinkInstructions = drinkID.drinks[0].strInstructions;
-        console.log(drinkID.drinks[0]);
-        for (var num = 1; num <= 15; num++) {
-          var strIng = "strIngredient" + num.toString();
-          var strMeasure = "strMeasure" + num.toString();
-          var wantedIng = drinkID.drinks[0][strIng];
-          var wantedMeasure = drinkID.drinks[0][strMeasure];
-          if (wantedIng && wantedMeasure) {
-            drinkIngredients.push(wantedIng.trim());
-            drinkMeasurements.push(wantedMeasure.trim());
-            drinkIngMeasure.push(
-              wantedMeasure.trim() + " of " + wantedIng.trim()
-            );
-          }
-        }
-        console.log(drinkIngMeasure + drinkInstructions);
-=======
         console.log("data", data);
         drinkID = data;
         console.log("drinkID", drinkID);
@@ -404,7 +327,6 @@ function getDrinkDetails(drinkArr) {
         console.log(drinkID.drinks[0].strMeasure1);
 
         // need to grab all ingredients and measurements
->>>>>>> Stashed changes
       })
       .catch((err) => console.error(err));
   }
@@ -542,7 +464,6 @@ function createModal(recipe) {
     class: "btn btn-secondary",
   });
   modalCloseBtn.attr("data-dismiss", "modal");
-<<<<<<< Updated upstream
   modalCloseBtn.text("Close");
   modalFooter.append(modalCloseBtn);
 
@@ -554,12 +475,4 @@ function createModal(recipe) {
   })
   console.log(savedRecipes)
   return modal;
-=======
-  modalCloseBtn.text("Close")
-  modalFooter.append(modalCloseBtn)
-
-  modalDialog.append(modalContent)
-  modal.append(modalDialog)
-return modal
->>>>>>> Stashed changes
 }
