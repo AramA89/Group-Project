@@ -16,7 +16,6 @@ var responsesDrinks = [];
 var drinkID = [];
 var recipeInstructions =[];
 var savedRecipes = [];
-var recipeRow = $("<div>");
 var foodSection = $('#food');
 
 // run event on click for the ingredient submit button
@@ -60,7 +59,6 @@ $("#ingredient-form").on("click", "#ingredient-submit-btn", function (event) {
     localStorage.setItem("ingredients", JSON.stringify(pushIngrToApi));
   }
 
-  console.log(pushIngrToApi);
   getRecipes(pushIngrToApi);
   creatIngredientList();
 });
@@ -103,8 +101,7 @@ $("#drink-form").on("click", "#drink-submit-btn", function (event) {
 function creatIngredientList() {
   //first remove all listitems and create them again from the array
   $("#ingredient-list").empty();
-  $("#food").empty();
-  console.log(recipeRow)
+ 
   for (var i = 0; i < pushIngrToApi.length; i++) {
     ingredientItemEl = $("<li>");
     var ingText = $("<span>").text(pushIngrToApi[i]);
@@ -139,7 +136,7 @@ function creatDrinkList() {
 //Ingredients:
 //Remove list item from li and storage
 function handleRemoveIngrItem(event) {
-  console.log(pushIngrToApi)
+  console.log('IngArray before remove ' + pushIngrToApi)
   // convert button we pressed (`event.target`) to a jQuery DOM object
   var btnClicked = $(event.target);
   // get the parent `<li>` element from the button we pressed and remove it
@@ -148,15 +145,10 @@ function handleRemoveIngrItem(event) {
     return ing !== removeItem;
   });
   localStorage.setItem("ingredients", JSON.stringify(pushIngrToApi));
-  for (var i = 0; i < pushIngrToApi.length; i++){
-    if (pushIngrToApi[i].id){
-      pushIngrToApi.splice(i, 1)
-      // console.log(pushIngrToApi[i].id)
-    }
-  }
-  console.log(pushIngrToApi)
+
   btnClicked.parent("li").remove();
-  recipeRow.empty()
+  //remove DisplayIngredient list
+  foodSection.children($("#recipeContainer")).remove();
   getRecipes(pushIngrToApi)
 }
 
@@ -249,26 +241,32 @@ function displayRecipes(recipe) {
 	recipeRow.attr('class', 'row mt-2');
   recipeRow.attr("id", "recipeContainer")
 	foodSection.append(recipeRow);
+
 	var recipeCol = $('<div>');
 	recipeCol.attr('class', 'col-8');
 	recipeRow.append(recipeCol);
+
 	var recipeCard = $('<div>');
 	recipeCard.attr({ class: 'card' });
 	recipeCard.attr('data-recipe-id', recipe.id);
 	recipeCard.attr('data-toggle', 'modal');
 	recipeCard.attr('data-target', `#modal-${recipe.id}`);
 	recipeRow.append(recipeCard);
+
 	var recipeImg = $('<img>');
 	recipeImg.attr('src', recipe.image);
 	recipeImg.addClass('card-img-top');
 	recipeCard.append(recipeImg);
+
 	var recipeCardBody = $('<div>');
 	recipeCardBody.attr('class', 'card-body');
 	recipeCard.append(recipeCardBody);
+
 	var recipeCardTitle = $('<h5>');
 	recipeCardTitle.addClass('card-title');
 	recipeCardTitle.text(recipe.title);
 	recipeCard.append(recipeCardTitle);
+  
 	var modal = createModal(recipe);
 	$('#food').append(modal);
 }
@@ -347,19 +345,24 @@ function displayDrinks(recipe) {
     var recipeRow = $("<div>");
     recipeRow.attr("class", "row mt-2");
     drinkSection.append(recipeRow);
+
     var recipeCol = $("<div>");
     recipeCol.attr("class", "col-4");
     recipeRow.append(recipeCol);
+
     var recipeCard = $("<div>");
     recipeCard.addClass("card");
     recipeRow.append(recipeCard);
+
     var recipeImg = $("<img>");
     recipeImg.attr("src", recipe[i].strDrinkThumb);
     recipeImg.addClass("card-img-top");
     recipeCard.append(recipeImg);
+
     var recipeCardBody = $("<div>");
     recipeCardBody.attr("class", "card-body");
     recipeCard.append(recipeCardBody);
+    
     var recipeCardTitle = $("<h5>");
     recipeCardTitle.addClass("card-title");
     recipeCardTitle.text(recipe[i].strDrink);
