@@ -35,3 +35,7 @@ body {
   width: 50%;
   height: 100vh;
 };
+
+div.modal-body > div{
+  background-color: red;
+}
