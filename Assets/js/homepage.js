@@ -14,9 +14,11 @@ var drinkItemEl;
 var responsesFood = [];
 var responsesDrinks = [];
 var drinkID = [];
-var recipeInstructions =[];
+var recipeInstructions = [];
 var savedRecipes = [];
-var foodSection = $('#food');
+var recipeRow = $("<div>");
+var foodSection = $("#food");
+var savedRecipes = [];
 
 // run event on click for the ingredient submit button
 init();
@@ -101,7 +103,8 @@ $("#drink-form").on("click", "#drink-submit-btn", function (event) {
 function creatIngredientList() {
   //first remove all listitems and create them again from the array
   $("#ingredient-list").empty();
- 
+  $("#food").empty();
+  console.log(recipeRow);
   for (var i = 0; i < pushIngrToApi.length; i++) {
     ingredientItemEl = $("<li>");
     var ingText = $("<span>").text(pushIngrToApi[i]);
@@ -173,102 +176,95 @@ drinkUl.on("click", "button.delete-btn", handleRemoveDrinkItem);
 //get recipe array based on user input of
 
 async function getRecipes(ingredients) {
-	const options = {
-		method: 'GET',
-		headers: {
-			'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
-			'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-		},
-	};
-	try {
-		var response = await fetch(
-			'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=' +
-				ingredients +
-				'&number=5&ignorePantry=true&ranking=1',
-			options
-		);
-		var data = await response.json();
-		getInstructions(data);
-	} catch (err) {
-		console.error(err);
-	}
+  const options = {
+    method: "GET",
+    headers: {
+      "X-RapidAPI-Key": "3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a",
+      "X-RapidAPI-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+    },
+  };
+  try {
+    var response = await fetch(
+      "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" +
+      ingredients +
+      "&number=5&ignorePantry=true&ranking=1",
+      options
+    );
+    var data = await response.json();
+    getInstructions(data);
+  } catch (err) {
+    console.error(err);
+  }
 }
-
 
 // get recipe instructions by using recipe ID from getRecipes results
 async function getInstructions(recipes) {
-	recipes.forEach(async function (recipe) {
-		console.log(recipe);
-		const instructions = {
-			method: 'GET',
-			headers: {
-				'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
-				'X-RapidAPI-Host':
-					'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-			},
-		};
+  recipes.forEach(async function (recipe) {
+    console.log(recipe);
+    const instructions = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": "3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a",
+        "X-RapidAPI-Host":
+          "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+      },
+    };
 
-		try {
-			var response = await fetch(
-				'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/' +
-					recipe.id +
-					'/analyzedInstructions?stepBreakdown=true',
-				instructions
-			);
-			var data = await response.json();
-			// console.log(data);
-			if (data !== []) {
-				if (data[0].steps) {
-					recipe.instructionsArr = data[0].steps;
-					pushIngrToApi = [...pushIngrToApi, recipe];
-					displayRecipes(recipe);
-				}
-			}
-		} catch (err) {
-			console.error(err);
-		}
-		console.log(pushIngrToApi);
-	});
+    try {
+      var response = await fetch(
+        "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" +
+        recipe.id +
+        "/analyzedInstructions?stepBreakdown=true",
+        instructions
+      );
+      var data = await response.json();
+      // console.log(data);
+      if (data !== []) {
+        if (data[0].steps) {
+          recipe.instructionsArr = data[0].steps;
+          pushIngrToApi = [...pushIngrToApi, recipe];
+          displayRecipes(recipe);
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    console.log(pushIngrToApi);
+  });
 }
 
 // Function to populate screen with recipes found
 function displayRecipes(recipe) {
-	console.log(recipe);
-	// create section to contain grabbed recipes
-	
-	// Pattern is create element -- stlye element -- append element
-  var recipeRow = $("<div>")
-	recipeRow.attr('class', 'row mt-2');
-  recipeRow.attr("id", "recipeContainer")
-	foodSection.append(recipeRow);
+  console.log(recipe);
+  // create section to contain grabbed recipes
 
-	var recipeCol = $('<div>');
-	recipeCol.attr('class', 'col-8');
-	recipeRow.append(recipeCol);
-
-	var recipeCard = $('<div>');
-	recipeCard.attr({ class: 'card' });
-	recipeCard.attr('data-recipe-id', recipe.id);
-	recipeCard.attr('data-toggle', 'modal');
-	recipeCard.attr('data-target', `#modal-${recipe.id}`);
-	recipeRow.append(recipeCard);
-
-	var recipeImg = $('<img>');
-	recipeImg.attr('src', recipe.image);
-	recipeImg.addClass('card-img-top');
-	recipeCard.append(recipeImg);
-
-	var recipeCardBody = $('<div>');
-	recipeCardBody.attr('class', 'card-body');
-	recipeCard.append(recipeCardBody);
-
-	var recipeCardTitle = $('<h5>');
-	recipeCardTitle.addClass('card-title');
-	recipeCardTitle.text(recipe.title);
-	recipeCard.append(recipeCardTitle);
-  
-	var modal = createModal(recipe);
-	$('#food').append(modal);
+  // Pattern is create element -- stlye element -- append element
+  var recipeRow = $("<div>");
+  recipeRow.attr("class", "row mt-2");
+  recipeRow.attr("id", "recipeContainer");
+  foodSection.append(recipeRow);
+  var recipeCol = $("<div>");
+  recipeCol.attr("class", "col-8");
+  recipeRow.append(recipeCol);
+  var recipeCard = $("<div>");
+  recipeCard.attr({ class: "card" });
+  recipeCard.attr("data-recipe-id", recipe.id);
+  recipeCard.attr("data-toggle", "modal");
+  recipeCard.attr("data-target", `#modal-${recipe.id}`);
+  recipeRow.append(recipeCard);
+  var recipeImg = $("<img>");
+  recipeImg.attr("src", recipe.image);
+  recipeImg.addClass("card-img-top");
+  recipeCard.append(recipeImg);
+  var recipeCardBody = $("<div>");
+  recipeCardBody.attr("class", "card-body");
+  recipeCard.append(recipeCardBody);
+  var recipeCardTitle = $("<h5>");
+  recipeCardTitle.addClass("card-title");
+  recipeCardTitle.text(recipe.title);
+  recipeCard.append(recipeCardTitle);
+  var modal = createModal(recipe);
+  $("#food").append(modal);
 }
 
 // Get Drink Recipes by Ingredient
@@ -276,61 +272,74 @@ function getDrinkRecipes(ingredients) {
   const options = {
     method: "GET",
     headers: {
-      'X-RapidAPI-Key': 'e1e7badd01msh59a701f1225e72ep1d550ajsnd6058ae1acbd',
-      'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
-    }
+      "X-RapidAPI-Key": "e1e7badd01msh59a701f1225e72ep1d550ajsnd6058ae1acbd",
+      "X-RapidAPI-Host": "the-cocktail-db.p.rapidapi.com",
+    },
   };
 
- fetch('https://the-cocktail-db.p.rapidapi.com/filter.php?i=' + ingredients, options)
-    .then(function(response) { return response.json()})
-    .then(function(data) { 
-      console.log('data', data)
-      responsesDrinks = [...responsesDrinks, ...data.drinks]
-      console.log('responsesDrinks', responsesDrinks)
+  fetch(
+    "https://the-cocktail-db.p.rapidapi.com/filter.php?i=" + ingredients,
+    options
+  )
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log("data", data);
+      responsesDrinks = [...responsesDrinks, ...data.drinks];
+      console.log("responsesDrinks", responsesDrinks);
       getDrinkDetails(responsesDrinks);
       displayDrinks(responsesDrinks);
     })
     .catch((err) => console.error(err));
 }
-  // grab drink ID and fetch full cocktail details by ID 
+// grab drink ID and fetch full cocktail details by ID
 
-  function getDrinkDetails(drinkArr) {
-    console.log("drinkArr", drinkArr)
-    for (var i = 0; i < 5; i++) {
+function getDrinkDetails(drinkArr) {
+  console.log("drinkArr", drinkArr);
+  for (var i = 0; i < 5; i++) {
     const options = {
       method: "GET",
       headers: {
-        'X-RapidAPI-Key': 'e1e7badd01msh59a701f1225e72ep1d550ajsnd6058ae1acbd',
-        'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
-      }
+        "X-RapidAPI-Key": "e1e7badd01msh59a701f1225e72ep1d550ajsnd6058ae1acbd",
+        "X-RapidAPI-Host": "the-cocktail-db.p.rapidapi.com",
+      },
     };
 
-  fetch('https://the-cocktail-db.p.rapidapi.com/lookup.php?i=' + drinkArr[i].idDrink , options)
-	.then(function(response) { return response.json()})
-    .then(function(data) { 
-      drinkID = data
-      console.log("drinkID", drinkID)
-      var drinkIngredients = [];
-      var drinkMeasurements = [];
-      var drinkIngMeasure = [];
-      var drinkInstructions = (drinkID.drinks[0].strInstructions)
-      console.log(drinkID.drinks[0])
-      for (var num = 1; num <= 15; num++) {
-        var strIng = "strIngredient" + num.toString()
-        var strMeasure = "strMeasure" + num.toString()
-        var wantedIng = drinkID.drinks[0][strIng]
-        var wantedMeasure = drinkID.drinks[0][strMeasure]
-        if (wantedIng && wantedMeasure) {
-          drinkIngredients.push(wantedIng.trim())
-          drinkMeasurements.push(wantedMeasure.trim())
-          drinkIngMeasure.push(wantedMeasure.trim() + " of " + wantedIng.trim())
-        }         
-      }      
-      console.log(drinkIngMeasure + drinkInstructions)      
-    })
-    .catch(err => console.error(err));
-    }
+    fetch(
+      "https://the-cocktail-db.p.rapidapi.com/lookup.php?i=" +
+      drinkArr[i].idDrink,
+      options
+    )
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        drinkID = data;
+        console.log("drinkID", drinkID);
+        var drinkIngredients = [];
+        var drinkMeasurements = [];
+        var drinkIngMeasure = [];
+        var drinkInstructions = drinkID.drinks[0].strInstructions;
+        console.log(drinkID.drinks[0]);
+        for (var num = 1; num <= 15; num++) {
+          var strIng = "strIngredient" + num.toString();
+          var strMeasure = "strMeasure" + num.toString();
+          var wantedIng = drinkID.drinks[0][strIng];
+          var wantedMeasure = drinkID.drinks[0][strMeasure];
+          if (wantedIng && wantedMeasure) {
+            drinkIngredients.push(wantedIng.trim());
+            drinkMeasurements.push(wantedMeasure.trim());
+            drinkIngMeasure.push(
+              wantedMeasure.trim() + " of " + wantedIng.trim()
+            );
+          }
+        }
+        console.log(drinkIngMeasure + drinkInstructions);
+      })
+      .catch((err) => console.error(err));
   }
+}
 
 // Function to populate screen with drinks found
 function displayDrinks(recipe) {
@@ -373,35 +382,34 @@ function displayDrinks(recipe) {
 // modal to populate when recipe is clicked
 // $(".food").on("click", ".card",
 function createModal(recipe) {
-
-  // create and style modal elemenets 
+  // create and style modal elemenets
 
   var modal = $("<div>");
   modal.attr({
     class: "modal fade",
     tabindex: "-1",
     role: "dialog",
-    id: `modal-${recipe.id}`
+    id: `modal-${recipe.id}`,
   });
-  modal.attr("data-recipe-id", recipe.id)
-  modal.attr("aria-labelledby", "recipeModalLabel")
-  modal.attr("aria-hidden", "true")
+  modal.attr("data-recipe-id", recipe.id);
+  modal.attr("aria-labelledby", "recipeModalLabel");
+  modal.attr("aria-hidden", "true");
   var modalDialog = $("<div>");
   modalDialog.attr({
     class: "modal-dialog",
     role: "document",
   });
-  var modalContent = $("<div>")
-  modalContent.attr("class", "modal-content")
-  var modalHeader = $("<div>")
-  modalHeader.attr("class", "modal-header")
+  var modalContent = $("<div>");
+  modalContent.attr("class", "modal-content");
+  var modalHeader = $("<div>");
+  modalHeader.attr("class", "modal-header");
   var modalTitle = $("<h5>");
   modalTitle.attr({
     class: "modal-title",
-    id: "recipeModalLabel"
+    id: "recipeModalLabel",
   });
-  modalTitle.text(recipe.title)
-  modalHeader.append(modalTitle)
+  modalTitle.text(recipe.title);
+  modalHeader.append(modalTitle);
   var modalExitBtn = $("<button>");
   modalExitBtn.attr({
     type: "button",
@@ -409,41 +417,71 @@ function createModal(recipe) {
   });
   modalExitBtn.attr("data-dismiss", "modal");
   modalExitBtn.attr("aria-label", "Close");
-  modalHeader.append(modalExitBtn)
+  modalHeader.append(modalExitBtn);
   var modalSpan = $("<span>");
   modalSpan.attr("aria-hidden", "true");
-  modalSpan.text("&times;")
-  modalExitBtn.append(modalSpan)
-  modalContent.append(modalHeader)
+  modalSpan.text("X");
+  modalExitBtn.append(modalSpan);
+  modalContent.append(modalHeader);
   var modalBody = $("<div>");
   modalBody.attr("class", "modal-body");
-  modalBody.text("test")
-  modalContent.append(modalBody)
-  // var modalBodySpan = $("<span>");
-  // modalBodySpan.text()
+  modalBody.text("");
+  modalContent.append(modalBody);
+  var modalBodyIngr = $("<div>")
+  modalBodyIngr.attr("id", "modalBodyIngr")
+  modalBodyIngr.text("INGREDIENTS:")
+  modalBody.append(modalBodyIngr)
+  var modalBodyInst = $("<div>")
+  modalBodyInst.attr("id", "modalBodyInst")
+  modalBodyInst.text("INSTRUCTIONS:")
+  modalBody.append(modalBodyInst)
+  console.log(recipe)
+  for (var i = 0; i < recipe.usedIngredients.length; i++) {
+    var modalBodySpanIncl = $("<div>");
+    modalBodySpanIncl.text(recipe.usedIngredients[i].name + ": " + recipe.usedIngredients[i].original + " ");
+    modalBodyIngr.append(modalBodySpanIncl)
+  }
+  for (var i = 0; i < recipe.missedIngredients.length; i++) {
+    var modalBodySpanMis = $("<div>");
+    modalBodySpanMis.text(recipe.missedIngredients[i].name + ": " + recipe.missedIngredients[i].amount + recipe.missedIngredients[i].unit + " " + recipe.missedIngredients[i].originalName)
+    modalBodyIngr.append(modalBodySpanMis)
+    console.log(recipe.missedIngredients[i].name)
+    console.log(recipe.missedIngredients[i].amount)
+    console.log(recipe.missedIngredients[i].unit)
+    console.log(recipe.missedIngredients[i].originalName)
+  }
+  for (var i = 0; i < recipe.instructionsArr.length; i++) {
+    var modalBodySpan = $("<div>");
+    modalBodySpan.text(" " + recipe.instructionsArr[i].step + " ");
+    console.log(recipe.instructionsArr[i].step)
+    modalBodyInst.append(modalBodySpan)
+  }
   var modalFooter = $("<div>");
   modalFooter.addClass("modal-footer");
-  modalContent.append(modalFooter)
+  modalContent.append(modalFooter);
   var modalSaveBtn = $("<button>");
   modalSaveBtn.attr({
     type: "button",
     class: "btn btn-primary",
+    id: "saveBtn"
   });
   modalSaveBtn.text("Save Recipe");
-  modalFooter.append(modalSaveBtn)
+  modalFooter.append(modalSaveBtn);
   var modalCloseBtn = $("<button>");
   modalCloseBtn.attr({
     type: "button",
     class: "btn btn-secondary",
   });
   modalCloseBtn.attr("data-dismiss", "modal");
-  modalCloseBtn.text("Close")
-  modalFooter.append(modalCloseBtn)
+  modalCloseBtn.text("Close");
+  modalFooter.append(modalCloseBtn);
 
-  modalDialog.append(modalContent)
-  modal.append(modalDialog)
-return modal
+  modalDialog.append(modalContent);
+  modal.append(modalDialog);
+  modal.on("click", "#saveBtn", function (event) {
+    savedRecipes.push(recipe)
+    localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes))
+  })
+  console.log(savedRecipes)
+  return modal;
 }
-
-
-
