@@ -94,7 +94,8 @@ $("#drink-form").on("click", "#drink-submit-btn", function (event) {
     localStorage.setItem("drinks", JSON.stringify(pushDrinkToApi));
   }
   creatDrinkList();
-  getDrinkRecipes(pushDrinkToApi);
+  console.log(pushDrinkToApi)
+  getDrinkRecipes("vodka");
   // getRecipes(userInput);
 });
 
@@ -271,13 +272,14 @@ function getDrinkRecipes(ingredients) {
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": "3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a",
-      "X-RapidAPI-Host": "the-cocktail-db.p.rapidapi.com",
-    },
+      'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
+      'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
+    }
   };
-
+  
+console.log(ingredients)
   fetch(
-    "https://the-cocktail-db.p.rapidapi.com/filter.php?i=" + ingredients + "",
+    "https://the-cocktail-db.p.rapidapi.com/filter.php?i=" + ingredients,
     options
   )
     .then(function (response) {
@@ -287,8 +289,8 @@ function getDrinkRecipes(ingredients) {
       console.log("data", data);
       responsesDrinks = [...responsesDrinks, ...data.drinks];
       console.log("responsesDrinks", responsesDrinks);
-      getDrinkDetails(responsesDrinks);
-      displayDrinks(responsesDrinks);
+      // getDrinkDetails(responsesDrinks);
+      // displayDrinks(responsesDrinks);
     })
     .catch((err) => console.error(err));
 }
