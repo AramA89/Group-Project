@@ -276,10 +276,7 @@ function getDrinkRecipes(ingredients) {
     },
   };
 
-  fetch(
-    "https://the-cocktail-db.p.rapidapi.com/filter.php?i=" + ingredients + "",
-    options
-  )
+  fetch("https://the-cocktail-db.p.rapidapi.com/filter.php?i=" + ingredients + "", options)
     .then(function (response) {
       return response.json();
     })
