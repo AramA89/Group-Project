@@ -8,13 +8,20 @@
     font-family: 'Courier New', Courier, monospace;
 };
 
-body {
-    margin: 0px;
-    height: 100%;
-    flex-direction: column;
-    overflow: hidden;
+
+  ul li {padding: 10px;
+     background-color: #eedc82;
+box-shadow: -2em 0 #eedc82;
 
   }
+
+  
+
+  .h3 {
+    color: #F0EAD6;
+    font-weight: 400; 
+}
+  
 
   .pantry {
     float: left;
@@ -35,3 +42,6 @@ body {
     width: 50%;
     height: 100vh;
   };
+
+  
+  
