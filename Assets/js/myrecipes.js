@@ -1,3 +1,6 @@
+var ingredientsStored = JSON.parse(localStorage.getItem('ingredients'));
+console.log('homepageingredients array ' + ingredientsStored);
+
 // Function to populate screen with recipes found
 function displayRecipes(recipes) {
     // create section to contain grabbed recipes
