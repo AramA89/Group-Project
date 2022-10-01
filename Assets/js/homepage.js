@@ -276,10 +276,7 @@ function getDrinkRecipes(ingredients) {
     },
   };
 
-  fetch(
-    "https://the-cocktail-db.p.rapidapi.com/filter.php?i=" + ingredients + "",
-    options
-  )
+  fetch("https://the-cocktail-db.p.rapidapi.com/filter.php?i=" + ingredients + "", options)
     .then(function (response) {
       return response.json();
     })
@@ -294,10 +291,7 @@ function getDrinkRecipes(ingredients) {
 }
 
 // grab drink ID and fetch full cocktail details by ID
-// strInstructions
-// strIngredient
-// strMeasure
-// strImageSource
+
 function getDrinkDetails(drinkArr) {
   console.log("drinkArr", drinkArr);
   for (var i = 0; i < 5; i++) {
@@ -309,28 +303,35 @@ function getDrinkDetails(drinkArr) {
       },
     };
 
-    fetch(
-      "https://the-cocktail-db.p.rapidapi.com/lookup.php?i=" +
-        drinkArr[i].idDrink,
-      options
-    )
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        console.log("data", data);
-        drinkID = data;
-        console.log("drinkID", drinkID);
-        console.log(drinkID.drinks[0].strDrink);
-        console.log(drinkID.drinks[0].strInstructions);
-        console.log(drinkID.drinks[0].strIngredient1);
-        console.log(drinkID.drinks[0].strMeasure1);
-
-        // need to grab all ingredients and measurements
-      })
-      .catch((err) => console.error(err));
+  fetch('https://the-cocktail-db.p.rapidapi.com/lookup.php?i=' + drinkArr[i].idDrink , options)
+	.then(function(response) { return response.json()})
+    .then(function(data) { 
+      drinkID = data
+      console.log("drinkID", drinkID)
+      var drinkIngredients = [];
+      var drinkMeasurements = [];
+      var drinkIngMeasure = [];
+      var drinkInstructions = (drinkID.drinks[0].strInstructions);
+      var drinkName = (drinkID.drinks[0].strDrink);
+      console.log(drinkID.drinks[0])
+      for (var num = 1; num <= 15; num++) {
+        var strIng = "strIngredient" + num.toString()
+        var strMeasure = "strMeasure" + num.toString()
+        var wantedIng = drinkID.drinks[0][strIng]
+        var wantedMeasure = drinkID.drinks[0][strMeasure]
+        if (wantedIng && wantedMeasure) {
+          drinkIngredients.push(wantedIng.trim())
+          drinkMeasurements.push(wantedMeasure.trim())
+          drinkIngMeasure.push(wantedMeasure.trim() + " of " + wantedIng.trim())
+        }         
+      }      
+      console.log("NAME - " + drinkName +
+       " - INGREDIENTS - " + drinkIngMeasure + 
+       " - INSTRUCTIONS - " + drinkInstructions)      
+    })
+    .catch(err => console.error(err));
+    }
   }
-}
 
 // Function to populate screen with drinks found
 function displayDrinks(recipe) {
