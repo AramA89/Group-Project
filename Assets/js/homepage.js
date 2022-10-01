@@ -420,25 +420,25 @@ function createModal(recipe) {
   modalHeader.append(modalExitBtn);
   var modalSpan = $("<span>");
   modalSpan.attr("aria-hidden", "true");
-  modalSpan.text(`&times;`);
+  modalSpan.text("X");
   modalExitBtn.append(modalSpan);
   modalContent.append(modalHeader);
   var modalBody = $("<div>");
   modalBody.attr("class", "modal-body");
-  modalBody.text();
+  modalBody.text("INFO");
   modalContent.append(modalBody);
   console.log(recipe)
-  for (var i = 0; i < recipe.instructionsArr.length; i++) {
-    var modalBodySpan = $("<span>");
-    modalBodySpan.text(" " + recipe.instructionsArr[i].step + " ");
-    console.log(recipe.instructionsArr[i].step)
-    modalBody.append(modalBodySpan)
-  }
   for (var i = 0; i < recipe.usedIngredients.length; i++) {
-    var modalBodySpan = $("<span>");
-    modalBodySpan.text(" " + recipe.usedIngredients[i].name + ":" + recipe.usedIngredients[i].original + " ");
+    var modalBodySpan = $("<div>");
+    modalBodySpan.text("INGREDIENTS" + " " + recipe.usedIngredients[i].name + ":" + recipe.usedIngredients[i].original + " ");
     console.log(recipe.instructionsArr[i].name)
     console.log(recipe.instructionsArr[i].original)
+    modalBody.append(modalBodySpan)
+  }
+  for (var i = 0; i < recipe.instructionsArr.length; i++) {
+    var modalBodySpan = $("<DIV>");
+    modalBodySpan.text("INSTRUCTIONS" + " " + recipe.instructionsArr[i].step + " ");
+    console.log(recipe.instructionsArr[i].step)
     modalBody.append(modalBodySpan)
   }
   var modalFooter = $("<div>");
