@@ -333,7 +333,6 @@ function getDrinkRecipes(ingredients) {
     .catch(err => console.error(err));
     }
   }
-}
 
 // Function to populate screen with drinks found
 function displayDrinks(recipe) {
