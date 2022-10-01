@@ -1,11 +1,11 @@
 #header {
-    color: #F0EAD6;
-    font-weight: 400; 
+  color: #F0EAD6;
+  font-weight: 400; 
 }
 
 .jumbotron {
-    background-color: #654321; 
-    font-family: 'Courier New', Courier, monospace;
+  background-color: #654321; 
+  font-family: 'Courier New', Courier, monospace;
 };
 
 
@@ -13,7 +13,7 @@
      background-color: #eedc82;
 box-shadow: -2em 0 #eedc82;
 
-  }
+}
 
   
 
@@ -48,3 +48,10 @@ box-shadow: -2em 0 #eedc82;
     align-items: center;
 }
   
+#modalBodyIngr {
+  padding: 15px;
+}
+
+#modalBodyInst {
+  padding: 15px;
+}
