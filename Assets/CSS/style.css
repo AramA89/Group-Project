@@ -8,38 +8,46 @@
   font-family: 'Courier New', Courier, monospace;
 };
 
-body {
-  margin: 0px;
-  height: 100%;
-  flex-direction: column;
-  overflow: hidden;
+
+  ul li {padding: 10px;
+     background-color: #eedc82;
+box-shadow: -2em 0 #eedc82;
 
 }
 
-.pantry {
-  float: left;
-  margin: 0px;
-  padding-top: 5%;
-  padding-bottom: 0%;
-  width: 50%;
-};
+  
 
-.recipes{
-  background-color: blue;
-  color: white;
-  position: sticky;
-  float: right;
-  margin: 0px;
-  padding-top: 20%;
-  padding-bottom: 40%;
-  width: 50%;
-  height: 100vh;
-};
-
-div.modal-body > div{
-  background-color: red;
+  .h3 {
+    color: #F0EAD6;
+    font-weight: 400; 
 }
+  
 
+  .pantry {
+    float: left;
+    margin: 0px;
+    padding-top: 5%;
+    padding-bottom: 0%;
+    width: 50%;
+  };
+
+  .recipes{
+    background-color: blue;
+    color: white;
+    position: sticky;
+    float: right;
+    margin: 0px;
+    padding-top: 20%;
+    padding-bottom: 40%;
+    width: 50%;
+    height: 100vh;
+  };
+
+  .form-inline {
+    flex-flow: row wrap;
+    align-items: center;
+}
+  
 #modalBodyIngr {
   padding: 15px;
 }
