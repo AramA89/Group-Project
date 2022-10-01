@@ -15,6 +15,9 @@ var responsesFood = [];
 var responsesDrinks = [];
 var drinkID = [];
 var recipeInstructions =[];
+var savedRecipes = [];
+var recipeRow = $("<div>");
+var foodSection = $('#food');
 
 // run event on click for the ingredient submit button
 init();
@@ -57,9 +60,9 @@ $("#ingredient-form").on("click", "#ingredient-submit-btn", function (event) {
     localStorage.setItem("ingredients", JSON.stringify(pushIngrToApi));
   }
 
-  creatIngredientList();
   console.log(pushIngrToApi);
   getRecipes(pushIngrToApi);
+  creatIngredientList();
 });
 
 //Drinks:
@@ -100,6 +103,8 @@ $("#drink-form").on("click", "#drink-submit-btn", function (event) {
 function creatIngredientList() {
   //first remove all listitems and create them again from the array
   $("#ingredient-list").empty();
+  $("#food").empty();
+  console.log(recipeRow)
   for (var i = 0; i < pushIngrToApi.length; i++) {
     ingredientItemEl = $("<li>");
     var ingText = $("<span>").text(pushIngrToApi[i]);
@@ -134,6 +139,7 @@ function creatDrinkList() {
 //Ingredients:
 //Remove list item from li and storage
 function handleRemoveIngrItem(event) {
+  console.log(pushIngrToApi)
   // convert button we pressed (`event.target`) to a jQuery DOM object
   var btnClicked = $(event.target);
   // get the parent `<li>` element from the button we pressed and remove it
@@ -142,7 +148,16 @@ function handleRemoveIngrItem(event) {
     return ing !== removeItem;
   });
   localStorage.setItem("ingredients", JSON.stringify(pushIngrToApi));
+  for (var i = 0; i < pushIngrToApi.length; i++){
+    if (pushIngrToApi[i].id){
+      pushIngrToApi.splice(i, 1)
+      // console.log(pushIngrToApi[i].id)
+    }
+  }
+  console.log(pushIngrToApi)
   btnClicked.parent("li").remove();
+  recipeRow.empty()
+  getRecipes(pushIngrToApi)
 }
 
 ingredientUl.on("click", "button.delete-btn", handleRemoveIngrItem);
@@ -164,111 +179,96 @@ function handleRemoveDrinkItem(event) {
 drinkUl.on("click", "button.delete-btn", handleRemoveDrinkItem);
 
 //get recipe array based on user input of
-function getRecipes(ingredients) {
-  const options = {
-    method: "GET",
-    headers: {
-      "X-RapidAPI-Key": "3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a",
-      "X-RapidAPI-Host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-    },
-  };
-
-  fetch(
-    "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" +
-      ingredients +
-      "&number=3&ignorePantry=true&ranking=1",
-    options
-  )
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      // console.log('data', data)
-      responsesFood = [...responsesFood, ...data];
-      console.log("responsesFood", responsesFood);
-      getInstructions(responsesFood);
-      // displayRecipes(data)
-      // displayRecipes(responsesFood);
-    })
-    .catch((err) => console.error(err));
+async function getRecipes(ingredients) {
+	const options = {
+		method: 'GET',
+		headers: {
+			'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
+			'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
+		},
+	};
+	try {
+		var response = await fetch(
+			'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=' +
+				ingredients +
+				'&number=5&ignorePantry=true&ranking=1',
+			options
+		);
+		var data = await response.json();
+		getInstructions(data);
+	} catch (err) {
+		console.error(err);
+	}
 }
 
 // get recipe instructions by using recipe ID from getRecipes results
-function getInstructions(recipeArr) {
-  console.log("recipeArr", recipeArr);
-  recipeArr.forEach(function (recipe) {
-    console.log(recipe.id);
-    const instructions = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": "3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a",
-        "X-RapidAPI-Host":
-          "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-      },
-    };
+async function getInstructions(recipes) {
+	recipes.forEach(async function (recipe) {
+		console.log(recipe);
+		const instructions = {
+			method: 'GET',
+			headers: {
+				'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
+				'X-RapidAPI-Host':
+					'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
+			},
+		};
 
-    fetch(
-      "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" +
-        recipe.id +
-        "/analyzedInstructions?stepBreakdown=true",
-      instructions
-    )
-      .then((response) => response.json())
-      .then(function (data) {
-        console.log(data)
-        if (data !== []){
-          if (data[0].steps)
-          {recipe.instructionsArr = data[0].steps
-          displayRecipes()}
-        }
-        // for (var i = 0; i < recipeID[0].steps.length; i++) {
-        //   console.log(recipeID[0].steps[i]);
-        //   recipeInstructions.push(recipeID[0].steps[i])
-        //   console.log(recipeInstructions)
-        // }
-      })
-      .catch((err) => console.error(err));
-  });
-  console.log(recipeArr)
+		try {
+			var response = await fetch(
+				'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/' +
+					recipe.id +
+					'/analyzedInstructions?stepBreakdown=true',
+				instructions
+			);
+			var data = await response.json();
+			// console.log(data);
+			if (data !== []) {
+				if (data[0].steps) {
+					recipe.instructionsArr = data[0].steps;
+					pushIngrToApi = [...pushIngrToApi, recipe];
+					displayRecipes(recipe);
+				}
+			}
+		} catch (err) {
+			console.error(err);
+		}
+		console.log(pushIngrToApi);
+	});
 }
 
 // Function to populate screen with recipes found
-function displayRecipes() {
-  console.log(responsesFood)
-  // create section to contain grabbed recipes
-  var foodSection = $("#food");
-  // Loop through grabbed recipes to populate page with image and name of recipes
-  responsesFood.forEach(function (recipe) {
-    console.log(recipe.id)
-  if (recipe.instructionsArr){
-    // Pattern is create element -- stlye element -- append element
-    var recipeRow = $("<div>");
-    recipeRow.attr("class", "row mt-2");
-    foodSection.append(recipeRow);
-    var recipeCol = $("<div>");
-    recipeCol.attr("class", "col-8");
-    recipeRow.append(recipeCol);
-    var recipeCard = $("<div>");
-    recipeCard.attr({class: "card"});
-    recipeCard.attr("data-recipe-id", recipe.id)
-    recipeCard.attr("data-toggle", "modal")
-    recipeCard.attr("data-target", `#modal-${recipe.id}`)
-    recipeRow.append(recipeCard);
-    var recipeImg = $("<img>");
-    recipeImg.attr("src", recipe.image);
-    recipeImg.addClass("card-img-top");
-    recipeCard.append(recipeImg);
-    var recipeCardBody = $("<div>");
-    recipeCardBody.attr("class", "card-body");
-    recipeCard.append(recipeCardBody);
-    var recipeCardTitle = $("<h5>");
-    recipeCardTitle.addClass("card-title");
-    recipeCardTitle.text(recipe.title);
-    recipeCard.append(recipeCardTitle);
-    var modal = createModal(recipe)
-    $("#food").append(modal)
-  }
-  });
+function displayRecipes(recipe) {
+	console.log(recipe);
+	// create section to contain grabbed recipes
+	
+	// Pattern is create element -- stlye element -- append element
+  var recipeRow = $("<div>")
+	recipeRow.attr('class', 'row mt-2');
+  recipeRow.attr("id", "recipeContainer")
+	foodSection.append(recipeRow);
+	var recipeCol = $('<div>');
+	recipeCol.attr('class', 'col-8');
+	recipeRow.append(recipeCol);
+	var recipeCard = $('<div>');
+	recipeCard.attr({ class: 'card' });
+	recipeCard.attr('data-recipe-id', recipe.id);
+	recipeCard.attr('data-toggle', 'modal');
+	recipeCard.attr('data-target', `#modal-${recipe.id}`);
+	recipeRow.append(recipeCard);
+	var recipeImg = $('<img>');
+	recipeImg.attr('src', recipe.image);
+	recipeImg.addClass('card-img-top');
+	recipeCard.append(recipeImg);
+	var recipeCardBody = $('<div>');
+	recipeCardBody.attr('class', 'card-body');
+	recipeCard.append(recipeCardBody);
+	var recipeCardTitle = $('<h5>');
+	recipeCardTitle.addClass('card-title');
+	recipeCardTitle.text(recipe.title);
+	recipeCard.append(recipeCardTitle);
+	var modal = createModal(recipe);
+	$('#food').append(modal);
 }
 
 // Get Drink Recipes by Ingredient
