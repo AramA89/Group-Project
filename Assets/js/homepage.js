@@ -479,3 +479,4 @@ function createModal(recipe) {
   modal.append(modalDialog);
   return modal;
 }
+
