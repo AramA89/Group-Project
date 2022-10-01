@@ -3,18 +3,31 @@
     font-weight: 400; 
 }
 
+
+body {
+  position: relative;
+  background-image: url(../../Assets/Img/ingredients.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  margin: 0px;
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  background-color: rgba(0,0,0,0.25);
+}
+
 .jumbotron {
     background-color: #654321; 
     font-family: 'Courier New', Courier, monospace;
 };
 
-body {
-    margin: 0px;
-    height: 100%;
-    flex-direction: column;
-    overflow: hidden;
 
-  }
 
   .pantry {
     float: left;
