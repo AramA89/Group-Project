@@ -3,7 +3,7 @@ var drinkUl = $("#drink-list");
 
 var userInputSection = $(".pantry");
 
-var userInput;
+var userIngInput;
 var pushIngrToApi;
 var ingredientItemEl;
 
@@ -11,14 +11,11 @@ var userDrinkInput;
 var pushDrinkToApi;
 var drinkItemEl;
 
-var responsesFood = [];
 var responsesDrinks = [];
 var drinkID = [];
 var recipeInstructions = [];
 var savedRecipes = [];
-var recipeRow = $("<div>");
 var foodSection = $("#food");
-var savedRecipes = [];
 
 // run event on click for the ingredient submit button
 init();
@@ -44,20 +41,20 @@ $("#ingredient-form").on("click", "#ingredient-submit-btn", function (event) {
     $('input[type="checkbox"]').prop("checked", false);
   });
 
-  userInput = $(this).siblings("#inputingredients").val();
+  userIngInput = $(this).siblings("#inputingredients").val();
   // check to see if input includes space or comma. if value is not found method will return -1
-  if (userInput.indexOf(",") !== -1) {
-    userInput = userInput.split(",");
-    pushIngrToApi = pushIngrToApi.concat(userInput);
+  if (userIngInput.indexOf(",") !== -1) {
+    userIngInput = userIngInput.split(",");
+    pushIngrToApi = pushIngrToApi.concat(userIngInput);
     localStorage.setItem("ingredients", JSON.stringify(pushIngrToApi));
-  } else if (userInput.indexOf(" ") !== -1) {
-    userInput = userInput.split(" ");
-    pushIngrToApi = pushIngrToApi.concat(userInput);
+  } else if (userIngInput.indexOf(" ") !== -1) {
+    userIngInputt = userIngInput.split(" ");
+    pushIngrToApi = pushIngrToApi.concat(userIngInput);
     localStorage.setItem("ingredients", JSON.stringify(pushIngrToApi));
-  } else if (userInput === "") {
+  } else if (userIngInput === "") {
     localStorage.setItem("ingredients", JSON.stringify(pushIngrToApi));
   } else {
-    pushIngrToApi = pushIngrToApi.concat(userInput);
+    pushIngrToApi = pushIngrToApi.concat(userIngInput);
     localStorage.setItem("ingredients", JSON.stringify(pushIngrToApi));
   }
 
@@ -95,7 +92,6 @@ $("#drink-form").on("click", "#drink-submit-btn", function (event) {
   }
   creatDrinkList();
   getDrinkRecipes(pushDrinkToApi);
-  // getRecipes(userInput);
 });
 
 //Ingredients:
@@ -104,7 +100,6 @@ function creatIngredientList() {
   //first remove all listitems and create them again from the array
   $("#ingredient-list").empty();
   $("#food").empty();
-  console.log(recipeRow);
   for (var i = 0; i < pushIngrToApi.length; i++) {
     ingredientItemEl = $("<li>");
     var ingText = $("<span>").text(pushIngrToApi[i]);
@@ -139,7 +134,6 @@ function creatDrinkList() {
 //Ingredients:
 //Remove list item from li and storage
 function handleRemoveIngrItem(event) {
-  console.log('IngArray before remove ' + pushIngrToApi)
   // convert button we pressed (`event.target`) to a jQuery DOM object
   var btnClicked = $(event.target);
   // get the parent `<li>` element from the button we pressed and remove it
@@ -234,6 +228,7 @@ async function getInstructions(recipes) {
 
 // Function to populate screen with recipes found
 function displayRecipes(recipe) {
+<<<<<<< Updated upstream
 	console.log(recipe);
 	// create section to contain grabbed recipes
 	
@@ -264,6 +259,44 @@ function displayRecipes(recipe) {
 	recipeCard.append(recipeCardTitle);
 	var modal = createModal(recipe);
 	$('#food').append(modal);
+=======
+  console.log(recipe);
+  // create section to contain grabbed recipes
+
+  // Pattern is create element -- stlye element -- append element
+  var recipeRow = $("<div>");
+  recipeRow.attr("class", "row mt-2");
+  recipeRow.attr("id", "recipeContainer");
+  foodSection.append(recipeRow);
+
+  var recipeCol = $("<div>");
+  recipeCol.attr("class", "col-8");
+  recipeRow.append(recipeCol);
+
+  var recipeCard = $("<div>");
+  recipeCard.attr({ class: "card" });
+  recipeCard.attr("data-recipe-id", recipe.id);
+  recipeCard.attr("data-toggle", "modal");
+  recipeCard.attr("data-target", `#modal-${recipe.id}`);
+  recipeRow.append(recipeCard);
+
+  var recipeImg = $("<img>");
+  recipeImg.attr("src", recipe.image);
+  recipeImg.addClass("card-img-top");
+  recipeCard.append(recipeImg);
+
+  var recipeCardBody = $("<div>");
+  recipeCardBody.attr("class", "card-body");
+  recipeCard.append(recipeCardBody);
+
+  var recipeCardTitle = $("<h5>");
+  recipeCardTitle.addClass("card-title");
+  recipeCardTitle.text(recipe.title);
+  recipeCard.append(recipeCardTitle);
+
+  var modal = createModal(recipe);
+  $("#food").append(modal);
+>>>>>>> Stashed changes
 }
 
 // Get Drink Recipes by Ingredient
