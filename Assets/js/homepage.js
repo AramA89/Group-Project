@@ -179,6 +179,7 @@ function handleRemoveDrinkItem(event) {
 drinkUl.on("click", "button.delete-btn", handleRemoveDrinkItem);
 
 //get recipe array based on user input of
+
 async function getRecipes(ingredients) {
 	const options = {
 		method: 'GET',
@@ -200,6 +201,7 @@ async function getRecipes(ingredients) {
 		console.error(err);
 	}
 }
+
 
 // get recipe instructions by using recipe ID from getRecipes results
 async function getInstructions(recipes) {
@@ -276,64 +278,60 @@ function getDrinkRecipes(ingredients) {
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": "3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a",
-      "X-RapidAPI-Host": "the-cocktail-db.p.rapidapi.com",
-    },
+      'X-RapidAPI-Key': 'e1e7badd01msh59a701f1225e72ep1d550ajsnd6058ae1acbd',
+      'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
+    }
   };
 
-  fetch(
-    "https://the-cocktail-db.p.rapidapi.com/filter.php?i=" + ingredients + "",
-    options
-  )
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log("data", data);
-      responsesDrinks = [...responsesDrinks, ...data.drinks];
-      console.log("responsesDrinks", responsesDrinks);
+ fetch('https://the-cocktail-db.p.rapidapi.com/filter.php?i=' + ingredients, options)
+    .then(function(response) { return response.json()})
+    .then(function(data) { 
+      console.log('data', data)
+      responsesDrinks = [...responsesDrinks, ...data.drinks]
+      console.log('responsesDrinks', responsesDrinks)
       getDrinkDetails(responsesDrinks);
       displayDrinks(responsesDrinks);
     })
     .catch((err) => console.error(err));
 }
+  // grab drink ID and fetch full cocktail details by ID 
 
-// grab drink ID and fetch full cocktail details by ID
-// strInstructions
-// strIngredient
-// strMeasure
-// strImageSource
-function getDrinkDetails(drinkArr) {
-  console.log("drinkArr", drinkArr);
-  for (var i = 0; i < 5; i++) {
+  function getDrinkDetails(drinkArr) {
+    console.log("drinkArr", drinkArr)
+    for (var i = 0; i < 5; i++) {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a",
-        "X-RapidAPI-Host": "the-cocktail-db.p.rapidapi.com",
-      },
+        'X-RapidAPI-Key': 'e1e7badd01msh59a701f1225e72ep1d550ajsnd6058ae1acbd',
+        'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
+      }
     };
 
-    fetch(
-      "https://the-cocktail-db.p.rapidapi.com/lookup.php?i=" +
-        drinkArr[i].idDrink,
-      options
-    )
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        console.log("data", data);
-        drinkID = data;
-        console.log("drinkID", drinkID);
-        console.log(drinkID.drinks[0].strDrink);
-        console.log(drinkID.drinks[0].strInstructions);
-        console.log(drinkID.drinks[0].strIngredient1);
-        console.log(drinkID.drinks[0].strMeasure1);
-
-        // need to grab all ingredients and measurements
-      })
-      .catch((err) => console.error(err));
+  fetch('https://the-cocktail-db.p.rapidapi.com/lookup.php?i=' + drinkArr[i].idDrink , options)
+	.then(function(response) { return response.json()})
+    .then(function(data) { 
+      drinkID = data
+      console.log("drinkID", drinkID)
+      var drinkIngredients = [];
+      var drinkMeasurements = [];
+      var drinkIngMeasure = [];
+      var drinkInstructions = (drinkID.drinks[0].strInstructions)
+      console.log(drinkID.drinks[0])
+      for (var num = 1; num <= 15; num++) {
+        var strIng = "strIngredient" + num.toString()
+        var strMeasure = "strMeasure" + num.toString()
+        var wantedIng = drinkID.drinks[0][strIng]
+        var wantedMeasure = drinkID.drinks[0][strMeasure]
+        if (wantedIng && wantedMeasure) {
+          drinkIngredients.push(wantedIng.trim())
+          drinkMeasurements.push(wantedMeasure.trim())
+          drinkIngMeasure.push(wantedMeasure.trim() + " of " + wantedIng.trim())
+        }         
+      }      
+      console.log(drinkIngMeasure + drinkInstructions)      
+    })
+    .catch(err => console.error(err));
+    }
   }
 }
 
