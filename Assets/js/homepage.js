@@ -273,11 +273,13 @@ function getDrinkRecipes(ingredients) {
     method: 'GET',
     headers: {
       'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
-      'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
-    }
+      'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com',
+      Connection: 'Keep-Alive',
+      'Keep-Alive': 'timeout=60',
+    },
   };
   
-  fetch('https://the-cocktail-db.p.rapidapi.com/filter.php?i=' + ingredients, options)
+  fetch('https://the-cocktail-db.p.rapidapi.com/filter.php?i=' + ingredients + '', options)
     .then(function (response) {
       return response.json();
     })
@@ -489,7 +491,7 @@ function createModal(recipe) {
 
 // drinks modal
 
-function createDrinkModal(recipe) {
+function createDrinkModal(drinkRecipe) {
   // create and style modal elemenets
 
   var modal = $("<div>");
@@ -543,24 +545,21 @@ function createDrinkModal(recipe) {
   modalBodyInst.attr("id", "modalBodyInst")
   modalBodyInst.text("INSTRUCTIONS:")
   modalBody.append(modalBodyInst)
-  console.log(recipe)
-  for (var i = 0; i < recipe.usedIngredients.length; i++) {
+  console.log(drinkRecipe)
+  for (var i = 0; i < drinkRecipe.ingredients.length; i++) {
     var modalBodySpanIncl = $("<div>");
-    modalBodySpanIncl.text(recipe.usedIngredients[i].name + ": " + recipe.usedIngredients[i].original + " ");
+    modalBodySpanIncl.text(drinkRecipe.ingredients[i].drinkName);
     modalBodyIngr.append(modalBodySpanIncl)
   }
-  for (var i = 0; i < recipe.missedIngredients.length; i++) {
+  for (var i = 0; i < drinkRecipe.measures.length; i++) {
     var modalBodySpanMis = $("<div>");
-    modalBodySpanMis.text(recipe.missedIngredients[i].name + ": " + recipe.missedIngredients[i].amount + recipe.missedIngredients[i].unit + " " + recipe.missedIngredients[i].originalName)
+    modalBodySpanMis.text(drinkRecipe.measures[i].drinkName)
     modalBodyIngr.append(modalBodySpanMis)
-    // console.log(recipe.missedIngredients[i].name)
-    // console.log(recipe.missedIngredients[i].amount)
-    // console.log(recipe.missedIngredients[i].unit)
-    // console.log(recipe.missedIngredients[i].originalName)
   }
-  for (var i = 0; i < recipe.instructionsArr.length; i++) {
+  for (var i = 0; i < drinkRecipe.drinkInstructions.length; i++) {
     var modalBodySpan = $("<div>");
-    modalBodySpan.text(" " + recipe.instructionsArr[i].step + " ");
+    modalBodySpan.text(" " + drinkRecipe.drinkInstructions[i].drinkName);
+    console.log(drinkRecipe.drinkInstructions)
     modalBodyInst.append(modalBodySpan)
   }
   var modalFooter = $("<div>");
@@ -586,7 +585,7 @@ function createDrinkModal(recipe) {
   modalDialog.append(modalContent);
   modal.append(modalDialog);
   modal.on("click", "#saveBtn", function (event) {
-    savedRecipes.push(recipe)
+    savedRecipes.push(drinkRecipe)
     localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes))
   })
   console.log(savedRecipes)
