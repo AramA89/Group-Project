@@ -228,7 +228,6 @@ async function getInstructions(recipes) {
 
 // Function to populate screen with recipes found
 function displayRecipes(recipe) {
-<<<<<<< Updated upstream
 	console.log(recipe);
 	// create section to contain grabbed recipes
 	
@@ -259,57 +258,19 @@ function displayRecipes(recipe) {
 	recipeCard.append(recipeCardTitle);
 	var modal = createModal(recipe);
 	$('#food').append(modal);
-=======
-  console.log(recipe);
-  // create section to contain grabbed recipes
-
-  // Pattern is create element -- stlye element -- append element
-  var recipeRow = $("<div>");
-  recipeRow.attr("class", "row mt-2");
-  recipeRow.attr("id", "recipeContainer");
-  foodSection.append(recipeRow);
-
-  var recipeCol = $("<div>");
-  recipeCol.attr("class", "col-8");
-  recipeRow.append(recipeCol);
-
-  var recipeCard = $("<div>");
-  recipeCard.attr({ class: "card" });
-  recipeCard.attr("data-recipe-id", recipe.id);
-  recipeCard.attr("data-toggle", "modal");
-  recipeCard.attr("data-target", `#modal-${recipe.id}`);
-  recipeRow.append(recipeCard);
-
-  var recipeImg = $("<img>");
-  recipeImg.attr("src", recipe.image);
-  recipeImg.addClass("card-img-top");
-  recipeCard.append(recipeImg);
-
-  var recipeCardBody = $("<div>");
-  recipeCardBody.attr("class", "card-body");
-  recipeCard.append(recipeCardBody);
-
-  var recipeCardTitle = $("<h5>");
-  recipeCardTitle.addClass("card-title");
-  recipeCardTitle.text(recipe.title);
-  recipeCard.append(recipeCardTitle);
-
-  var modal = createModal(recipe);
-  $("#food").append(modal);
->>>>>>> Stashed changes
 }
 
 // Get Drink Recipes by Ingredient
 function getDrinkRecipes(ingredients) {
   const options = {
-    method: "GET",
+    method: 'GET',
     headers: {
       'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
       'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
     }
   };
-
-  fetch("https://the-cocktail-db.p.rapidapi.com/filter.php?i=" + ingredients + "", options)
+  
+  fetch('https://the-cocktail-db.p.rapidapi.com/filter.php?i=' + ingredients, options)
     .then(function (response) {
       return response.json();
     })
@@ -317,8 +278,8 @@ function getDrinkRecipes(ingredients) {
       console.log("data", data);
       responsesDrinks = [...responsesDrinks, ...data.drinks];
       console.log("responsesDrinks", responsesDrinks);
-      // getDrinkDetails(responsesDrinks);
-      // displayDrinks(responsesDrinks);
+      getDrinkDetails(responsesDrinks);
+      displayDrinks(responsesDrinks);
     })
     .catch((err) => console.error(err));
 }
@@ -331,8 +292,8 @@ function getDrinkDetails(drinkArr) {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a",
-        "X-RapidAPI-Host": "the-cocktail-db.p.rapidapi.com",
+        'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
+        'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com',
       },
     };
 
@@ -341,10 +302,14 @@ function getDrinkDetails(drinkArr) {
     .then(function(data) { 
       drinkID = data
       console.log("drinkID", drinkID)
+      var userDrinks = [];
+      var userDrink = [];
       var drinkIngredients = [];
       var drinkMeasurements = [];
       var drinkIngMeasure = [];
       var drinkInstructions = (drinkID.drinks[0].strInstructions);
+      userDrink.drinkInst = drinkInstructions
+      userDrink.push(userDrinks)
       var drinkName = (drinkID.drinks[0].strDrink);
       console.log(drinkID.drinks[0])
       for (var num = 1; num <= 15; num++) {
@@ -352,10 +317,16 @@ function getDrinkDetails(drinkArr) {
         var strMeasure = "strMeasure" + num.toString()
         var wantedIng = drinkID.drinks[0][strIng]
         var wantedMeasure = drinkID.drinks[0][strMeasure]
+        userDrink.ingredients = strIng
+        userDrink.ingredients.push(userDrinks)
+        userDrink.measures = strMeasure
+        userDrink.measures.push(userDrinks)
         if (wantedIng && wantedMeasure) {
           drinkIngredients.push(wantedIng.trim())
           drinkMeasurements.push(wantedMeasure.trim())
           drinkIngMeasure.push(wantedMeasure.trim() + " of " + wantedIng.trim())
+          userDrink.ingMeasure = drinkIngMeasure
+          userDrink.ingMeasure.push(userDrinks)
         }         
       }      
       console.log("NAME - " + drinkName +

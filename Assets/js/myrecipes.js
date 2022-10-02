@@ -39,10 +39,12 @@ function createMyRecipeList(recipe) {
       recipeTitle.text(recipe[i].title);
       recipeContent.append(recipeTitle);
       
+      for (var i = 0; i < recipe.usedIngredients.length; i++){
       var recipeIngredients = $("<p>");
       recipeIngredients.addClass("card-text");
-      recipeIngredients.text('Ingredients: ' + recipe[i].usedIngredients);
+      recipeIngredients.text('Ingredients: ' + recipe.usedIngredients);
       recipeContent.append(recipeIngredients);
+    }
 
       var recipeInstructions = $("<p>");
       recipeInstructions.addClass("card-text");
