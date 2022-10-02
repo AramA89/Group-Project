@@ -14,7 +14,7 @@ var drinkItemEl;
 var responsesDrinks = [];
 var drinkID = [];
 var recipeInstructions = [];
-var savedRecipes = [];
+var savedRecipes;
 var foodSection = $("#food");
 
 // run event on click for the ingredient submit button
@@ -27,6 +27,11 @@ function init() {
   localStorage.setItem("ingredients", JSON.stringify(pushIngrToApi));
   pushDrinkToApi = [];
   localStorage.setItem("drinks", JSON.stringify(pushDrinkToApi));
+  if (localStorage.getItem("savedRecipes")){
+  savedRecipes = JSON.parse(localStorage.getItem("savedRecipes"))
+  } else {
+    savedRecipes = [];
+  }
 }
 
 //Ingredients:
@@ -100,14 +105,17 @@ function creatIngredientList() {
   //first remove all listitems and create them again from the array
   $("#ingredient-list").empty();
   $("#food").empty();
+  console.log(pushDrinkToApi)
   for (var i = 0; i < pushIngrToApi.length; i++) {
+    console.log(pushIngrToApi)
+    if (typeof pushIngrToApi[i] !== 'object') {
     ingredientItemEl = $("<li>");
     var ingText = $("<span>").text(pushIngrToApi[i]);
     ingredientItemEl.append(ingText);
     //add delete button
     ingredientItemEl.append(
-      '<button class="ml-2 mb-2 delete-btn">Remove</button>'
-    );
+      '<button class="ml-2 mb-2 delete-btn">Remove</button>')
+};
     ingredientUl.append(ingredientItemEl);
     //clear input field
     $('input[name="ingredient-input"]').val("");
@@ -211,9 +219,8 @@ async function getInstructions(recipes) {
         instructions
       );
       var data = await response.json();
-      // console.log(data);
       if (data !== []) {
-        if (data[0].steps) {
+        if ('steps' in data[0]) {
           recipe.instructionsArr = data[0].steps;
           pushIngrToApi = [...pushIngrToApi, recipe];
           displayRecipes(recipe);
@@ -275,19 +282,21 @@ function getDrinkRecipes(ingredients) {
       return response.json();
     })
     .then(function (data) {
-      console.log("data", data);
       responsesDrinks = [...responsesDrinks, ...data.drinks];
       console.log("responsesDrinks", responsesDrinks);
       getDrinkDetails(responsesDrinks);
       displayDrinks(responsesDrinks);
     })
     .catch((err) => console.error(err));
+    if (response.status === 522) {
+      getDrinkDetails(mockUpResponsesDrinks);
+      displayDrinks(mockUpResponsesDrinks);   
+        }  
 }
 
 // grab drink ID and fetch full cocktail details by ID
 
 function getDrinkDetails(drinkArr) {
-  console.log("drinkArr", drinkArr);
   for (var i = 0; i < 5; i++) {
     const options = {
       method: "GET",
@@ -301,7 +310,6 @@ function getDrinkDetails(drinkArr) {
 	.then(function(response) { return response.json()})
     .then(function(data) { 
       drinkID = data
-      console.log("drinkID", drinkID)
       var userDrinks = [];
       var userDrink = [];
       var drinkIngredients = [];
@@ -311,7 +319,6 @@ function getDrinkDetails(drinkArr) {
       userDrink.drinkInst = drinkInstructions
       userDrink.push(userDrinks)
       var drinkName = (drinkID.drinks[0].strDrink);
-      console.log(drinkID.drinks[0])
       for (var num = 1; num <= 15; num++) {
         var strIng = "strIngredient" + num.toString()
         var strMeasure = "strMeasure" + num.toString()
@@ -341,7 +348,6 @@ function getDrinkDetails(drinkArr) {
 function displayDrinks(recipe) {
   // create section to contain grabbed recipes
   var drinkSection = $("#drinks");
-  console.log(drinkSection);
   // userRecipeSection.attr("class", "col-6")
   // $("#content").append(userRecipeSection)
   // Loop through grabbed recipes to populate page with image and name of recipes
@@ -392,7 +398,7 @@ function createModal(recipe) {
   modal.attr("aria-hidden", "true");
   var modalDialog = $("<div>");
   modalDialog.attr({
-    class: "modal-dialog",
+    class: "modal-dialog gfdgdfg",
     role: "document",
   });
   var modalContent = $("<div>");
@@ -441,15 +447,14 @@ function createModal(recipe) {
     var modalBodySpanMis = $("<div>");
     modalBodySpanMis.text(recipe.missedIngredients[i].name + ": " + recipe.missedIngredients[i].amount + recipe.missedIngredients[i].unit + " " + recipe.missedIngredients[i].originalName)
     modalBodyIngr.append(modalBodySpanMis)
-    console.log(recipe.missedIngredients[i].name)
-    console.log(recipe.missedIngredients[i].amount)
-    console.log(recipe.missedIngredients[i].unit)
-    console.log(recipe.missedIngredients[i].originalName)
+    // console.log(recipe.missedIngredients[i].name)
+    // console.log(recipe.missedIngredients[i].amount)
+    // console.log(recipe.missedIngredients[i].unit)
+    // console.log(recipe.missedIngredients[i].originalName)
   }
   for (var i = 0; i < recipe.instructionsArr.length; i++) {
     var modalBodySpan = $("<div>");
     modalBodySpan.text(" " + recipe.instructionsArr[i].step + " ");
-    console.log(recipe.instructionsArr[i].step)
     modalBodyInst.append(modalBodySpan)
   }
   var modalFooter = $("<div>");
@@ -548,15 +553,14 @@ function createDrinkModal(recipe) {
     var modalBodySpanMis = $("<div>");
     modalBodySpanMis.text(recipe.missedIngredients[i].name + ": " + recipe.missedIngredients[i].amount + recipe.missedIngredients[i].unit + " " + recipe.missedIngredients[i].originalName)
     modalBodyIngr.append(modalBodySpanMis)
-    console.log(recipe.missedIngredients[i].name)
-    console.log(recipe.missedIngredients[i].amount)
-    console.log(recipe.missedIngredients[i].unit)
-    console.log(recipe.missedIngredients[i].originalName)
+    // console.log(recipe.missedIngredients[i].name)
+    // console.log(recipe.missedIngredients[i].amount)
+    // console.log(recipe.missedIngredients[i].unit)
+    // console.log(recipe.missedIngredients[i].originalName)
   }
   for (var i = 0; i < recipe.instructionsArr.length; i++) {
     var modalBodySpan = $("<div>");
     modalBodySpan.text(" " + recipe.instructionsArr[i].step + " ");
-    console.log(recipe.instructionsArr[i].step)
     modalBodyInst.append(modalBodySpan)
   }
   var modalFooter = $("<div>");
