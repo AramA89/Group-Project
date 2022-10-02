@@ -12,7 +12,6 @@
   ul li {padding: 10px;
      background-color: #eedc82;
 box-shadow: -2em 0 #eedc82;
-
 }
 
   
@@ -42,6 +41,10 @@ box-shadow: -2em 0 #eedc82;
     width: 50%;
     height: 100vh;
   };
+  
+  input[type=checkbox]:checked + label.strikethrough{
+    text-decoration: line-through;
+  }
 
   .form-inline {
     flex-flow: row wrap;
@@ -54,4 +57,17 @@ box-shadow: -2em 0 #eedc82;
 
 #modalBodyInst {
   padding: 15px;
+}
+
+#ingredient-form{
+display: flex;
+align-content: flex-start;
+padding: 10px;
+
+}
+
+#drink-form{
+display: flex;
+align-content: flex-start;
+padding: 10px;
 }
