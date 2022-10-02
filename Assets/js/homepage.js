@@ -481,3 +481,110 @@ function createModal(recipe) {
   console.log(savedRecipes)
   return modal;
 }
+
+// drinks modal
+
+function createDrinkModal(recipe) {
+  // create and style modal elemenets
+
+  var modal = $("<div>");
+  modal.attr({
+    class: "modal fade",
+    tabindex: "-1",
+    role: "dialog",
+    id: `modal-${drinkArr[i].idDrink}`,
+  });
+  modal.attr("data-recipe-id", drinkArr[i].idDrink);
+  modal.attr("aria-labelledby", "recipeModalLabel");
+  modal.attr("aria-hidden", "true");
+  var modalDialog = $("<div>");
+  modalDialog.attr({
+    class: "modal-dialog",
+    role: "document",
+  });
+  var modalContent = $("<div>");
+  modalContent.attr("class", "modal-content");
+  var modalHeader = $("<div>");
+  modalHeader.attr("class", "modal-header");
+  var modalTitle = $("<h5>");
+  modalTitle.attr({
+    class: "modal-title",
+    id: "recipeModalLabel",
+  });
+  modalTitle.text(recipe.title);
+  modalHeader.append(modalTitle);
+  var modalExitBtn = $("<button>");
+  modalExitBtn.attr({
+    type: "button",
+    class: "close",
+  });
+  modalExitBtn.attr("data-dismiss", "modal");
+  modalExitBtn.attr("aria-label", "Close");
+  modalHeader.append(modalExitBtn);
+  var modalSpan = $("<span>");
+  modalSpan.attr("aria-hidden", "true");
+  modalSpan.text("X");
+  modalExitBtn.append(modalSpan);
+  modalContent.append(modalHeader);
+  var modalBody = $("<div>");
+  modalBody.attr("class", "modal-body");
+  modalBody.text("");
+  modalContent.append(modalBody);
+  var modalBodyIngr = $("<div>")
+  modalBodyIngr.attr("id", "modalBodyIngr")
+  modalBodyIngr.text("INGREDIENTS:")
+  modalBody.append(modalBodyIngr)
+  var modalBodyInst = $("<div>")
+  modalBodyInst.attr("id", "modalBodyInst")
+  modalBodyInst.text("INSTRUCTIONS:")
+  modalBody.append(modalBodyInst)
+  console.log(recipe)
+  for (var i = 0; i < recipe.usedIngredients.length; i++) {
+    var modalBodySpanIncl = $("<div>");
+    modalBodySpanIncl.text(recipe.usedIngredients[i].name + ": " + recipe.usedIngredients[i].original + " ");
+    modalBodyIngr.append(modalBodySpanIncl)
+  }
+  for (var i = 0; i < recipe.missedIngredients.length; i++) {
+    var modalBodySpanMis = $("<div>");
+    modalBodySpanMis.text(recipe.missedIngredients[i].name + ": " + recipe.missedIngredients[i].amount + recipe.missedIngredients[i].unit + " " + recipe.missedIngredients[i].originalName)
+    modalBodyIngr.append(modalBodySpanMis)
+    console.log(recipe.missedIngredients[i].name)
+    console.log(recipe.missedIngredients[i].amount)
+    console.log(recipe.missedIngredients[i].unit)
+    console.log(recipe.missedIngredients[i].originalName)
+  }
+  for (var i = 0; i < recipe.instructionsArr.length; i++) {
+    var modalBodySpan = $("<div>");
+    modalBodySpan.text(" " + recipe.instructionsArr[i].step + " ");
+    console.log(recipe.instructionsArr[i].step)
+    modalBodyInst.append(modalBodySpan)
+  }
+  var modalFooter = $("<div>");
+  modalFooter.addClass("modal-footer");
+  modalContent.append(modalFooter);
+  var modalSaveBtn = $("<button>");
+  modalSaveBtn.attr({
+    type: "button",
+    class: "btn btn-primary",
+    id: "saveBtn"
+  });
+  modalSaveBtn.text("Save Recipe");
+  modalFooter.append(modalSaveBtn);
+  var modalCloseBtn = $("<button>");
+  modalCloseBtn.attr({
+    type: "button",
+    class: "btn btn-secondary",
+  });
+  modalCloseBtn.attr("data-dismiss", "modal");
+  modalCloseBtn.text("Close");
+  modalFooter.append(modalCloseBtn);
+
+  modalDialog.append(modalContent);
+  modal.append(modalDialog);
+  modal.on("click", "#saveBtn", function (event) {
+    savedRecipes.push(recipe)
+    localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes))
+  })
+  console.log(savedRecipes)
+  return modal;
+}
