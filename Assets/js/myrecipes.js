@@ -24,7 +24,7 @@ function createMyFoodList(recipes) {
   console.log(recipes);
   recipes.forEach(function (recipe) {
     var recipeCardParent = $("<div>");
-    recipeCardParent.attr({class: "container-fluid pull-right rounded border mt-5 p-3 cardParent"});
+    recipeCardParent.attr({class: "container-fluid pull-right rounded border p-3 cardParent"});
     $(".food-recipe-container").append(recipeCardParent);
 
     var recipeCard = $("<div>");
@@ -76,7 +76,7 @@ function createMyFoodList(recipes) {
     recipeContent.append(recipeBtnContainer);
 
     recipeBtnContainer.append(
-      '<button class="btn btn-primary delete-recipe" type="button">Remove</button>'
+      '<button class="btn btn-success delete-recipe" type="button">Remove</button>'
     );
   });
 }
@@ -89,7 +89,7 @@ function createMyDrinkList(recipes) {
   console.log("drinks object " + recipes);
   recipes.forEach(function (recipe) {
     var drinkCardParent = $("<div>");
-    drinkCardParent.attr({class: "container-fluid pull-right rounded border mt-5 p-3 drinkParent"});
+    drinkCardParent.attr({class: "container-fluid pull-right rounded border p-3 drinkParent"});
     $(".drink-recipe-container").append(drinkCardParent);
 
     var drinkCard = $("<div>");

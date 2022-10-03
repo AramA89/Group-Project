@@ -1,4 +1,28 @@
-#cardParent {
-    border: solid grey;
-    border-width: 20px !important;
+:root {
+    --yellow: #e1ad01;
+    --green: #808000;
+    --burgundy: #A52A2A;
+    --white: #F0EAD6;
+}
+
+.jumbotron {
+    background-color: #654321; 
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#header {
+  color: #F0EAD6;
+  font-weight: 400; 
+}
+
+h3 {
+  color: var(--white);
+}
+
+h5 {
+  text-align: left;
+}
+
+.cardParent {
+   background-color: tan;
 }
