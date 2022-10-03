@@ -16,6 +16,7 @@ var drinkID = [];
 var recipeInstructions = [];
 var savedRecipes;
 var foodSection = $("#food");
+var savedDrinks;
 
 // run event on click for the ingredient submit button
 init();
