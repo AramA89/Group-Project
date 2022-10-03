@@ -9,15 +9,14 @@
 }; */
 
 
-
-  #ingredient-list.li {
+  #ingredient-list ul, #drink-list ul{
     padding: 10px;
     background-color: #eedc82;
     box-shadow: -2em 0 #eedc82;
 
 };
 
-#ingredient-list.li {
+#ingredient-list ul, #drink-list ul{
   padding: 10px;
   background-color: #eedc82;
   box-shadow: -2em 0 #eedc82;
@@ -60,10 +59,12 @@
   
 #modalBodyIngr {
   padding: 15px;
+  cursor:grab;
 }
 
 #modalBodyInst {
   padding: 15px;
+    cursor:grab;
 };
 
 #ingredient-form{
@@ -78,3 +79,7 @@ display: flex;
 align-content: flex-start;
 padding: 10px;
 }; 
+
+.img-src{
+  cursor:grab;
+}
