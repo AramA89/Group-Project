@@ -14,26 +14,32 @@
 }
 
 .jumbotron {
-  background-color: #654321; 
+  background-color: #654321;
   font-family: 'Courier New', Courier, monospace;
+};
+
+
+  #ingredient-list ul, #drink-list ul{
+    padding: 10px;
+    background-color: #eedc82;
+    box-shadow: -2em 0 #eedc82;
+
 };
 
 #ingredient-list ul, #drink-list ul{
   padding: 10px;
   background-color: #eedc82;
-  box-shadow: -3em 0 #eedc82;
-  margin: 0;
-}
+  box-shadow: -2em 0 #eedc82;
 
-#ingredient-list li, #drink-list li{
-  padding: 10px;
-  background-color: #eedc82;
-  box-shadow: -3em 0 #eedc82;
-}
+};
+
   
-ul {
-  list-style-type: none;
-}
+
+  .h3 {
+    color: #F0EAD6;
+    font-weight: 400; 
+};
+  
 
 .pantry {
   float: left;
@@ -42,31 +48,48 @@ ul {
   width: 50%;
 };
 
-.recipes{
-  background-color: blue;
-  color: white;
-  position: sticky;
-  float: right;
-  margin: 0px;
-  padding-top: 20%;
-  padding-bottom: 40%;
-  width: 50%;
-  height: 100vh;
-};
-
-.form-inline {
-  flex-flow: row wrap;
-  align-items: center;
+  .recipes{
+    background-color: blue;
+    color: white;
+    position: sticky;
+    float: right;
+    margin: 0px;
+    padding-top: 20%;
+    padding-bottom: 40%;
+    width: 50%;
+    height: 100vh;
+  };
+   
+  
+   .form-inline {
+    flex-flow: row wrap;
+    align-items: center;
 }
-
-/* .modal {
-  cursor: pointer;
-} */
 
 #modalBodyIngr {
   padding: 15px;
+  cursor:grab;
 }
 
 #modalBodyInst {
   padding: 15px;
+    cursor:grab;
+};
+
+#ingredient-form{
+display: flex;
+align-content: flex-start;
+padding: 10px;
+
+};
+
+#drink-form{
+display: flex;
+align-content: flex-start;
+padding: 10px;
+}; 
+
+.img-src{
+  cursor:grab;
 }
+
