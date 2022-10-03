@@ -1,4 +1,4 @@
-#header {
+ #header {
   color: #F0EAD6;
   font-weight: 400; 
 }
@@ -6,20 +6,30 @@
 .jumbotron {
   background-color: #654321; 
   font-family: 'Courier New', Courier, monospace;
+}; */
+
+
+
+  #ingredient-list.li {
+    padding: 10px;
+    background-color: #eedc82;
+    box-shadow: -2em 0 #eedc82;
+
 };
 
+#ingredient-list.li {
+  padding: 10px;
+  background-color: #eedc82;
+  box-shadow: -2em 0 #eedc82;
 
-  ul li {padding: 10px;
-     background-color: #eedc82;
-box-shadow: -2em 0 #eedc82;
-}
+};
 
   
 
   .h3 {
     color: #F0EAD6;
     font-weight: 400; 
-}
+};
   
 
   .pantry {
@@ -41,12 +51,9 @@ box-shadow: -2em 0 #eedc82;
     width: 50%;
     height: 100vh;
   };
+   
   
-  input[type=checkbox]:checked + label.strikethrough{
-    text-decoration: line-through;
-  }
-
-  .form-inline {
+   .form-inline {
     flex-flow: row wrap;
     align-items: center;
 }
@@ -57,17 +64,17 @@ box-shadow: -2em 0 #eedc82;
 
 #modalBodyInst {
   padding: 15px;
-}
+};
 
 #ingredient-form{
 display: flex;
 align-content: flex-start;
 padding: 10px;
 
-}
+};
 
 #drink-form{
 display: flex;
 align-content: flex-start;
 padding: 10px;
-}
+}; 
