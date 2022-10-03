@@ -193,7 +193,7 @@ function handleRemoveDrink(event) {
   console.log(savedDrinks);
 
   $('.cardParent').remove();
-  createMyDrinkList(savedDrinks);
+  // createMyDrinkList(savedDrinks);
 }
 //Drink Remove button click
 drinkRecipeEl.on("click", "button.delete-recipe", handleRemoveDrink);
