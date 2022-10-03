@@ -1,6 +1,7 @@
 //Food Section Variables
 var foodRecipeEl = $('.food-recipe-container');
 var myRecipes = JSON.parse(localStorage.getItem("savedRecipes"));
+var myDrinks = JSON.parse(localStorage.getItem("savedDrinks"));
 var recipeBtnContainer;
 
 //Give page time to load the initial array
@@ -192,7 +193,7 @@ function handleRemoveDrink(event) {
   console.log(savedDrinks);
 
   $('.cardParent').remove();
-  createMyDrinkList(savedDrinks);
+  // createMyDrinkList(savedDrinks);
 }
 //Drink Remove button click
 drinkRecipeEl.on("click", "button.delete-recipe", handleRemoveDrink);
