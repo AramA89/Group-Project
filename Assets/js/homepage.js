@@ -255,6 +255,7 @@ function displayRecipes(recipe) {
 	recipeRow.append(recipeCol);
 	var recipeCard = $('<div>');
 	recipeCard.attr({ class: 'card' });
+  recipeCard.attr({ id: 'foodCard' });
 	recipeCard.attr('data-recipe-id', recipe.id);
 	recipeCard.attr('data-toggle', 'modal');
 	recipeCard.attr('data-target', `#modal-${recipe.id}`);
@@ -383,6 +384,7 @@ function displayDrinks(recipe) {
 
     var recipeCard = $("<div>");
     recipeCard.addClass("card");
+    recipeCard.attr({ id: 'drinkCard' });
     recipeRow.append(recipeCard);
 
     var recipeImg = $("<img>");

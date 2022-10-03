@@ -2,10 +2,7 @@
   --yellow: #e1ad01;
   --green: #808000;
   --burgundy: #A52A2A;
-
-}
-.card {
-  background-color: var(--yellow);
+  --white: #F0EAD6;
 }
 
 #header {
@@ -13,10 +10,22 @@
   font-weight: 400; 
 }
 
+#foodCard, #drinkCard {
+  background-color: var(--yellow);
+}
+
 .jumbotron {
   background-color: #654321; 
   font-family: 'Courier New', Courier, monospace;
 };
+
+#foodCard, #drinkCard {
+  background-color: var(--yellow);
+}
+
+h5 {
+  text-align: center;
+}
 
 #ingredient-list ul, #drink-list ul{
   padding: 10px;
@@ -58,10 +67,6 @@ ul {
   flex-flow: row wrap;
   align-items: center;
 }
-
-/* .modal {
-  cursor: pointer;
-} */
 
 #modalBodyIngr {
   padding: 15px;
