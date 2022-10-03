@@ -100,7 +100,7 @@ $("#drink-form").on("click", "#drink-submit-btn", function (event) {
   }
   
   getDrinkRecipes(pushDrinkToApi);
-  creatDrinkList();
+  // creatDrinkList();
 });
 
 //Ingredients:
@@ -124,30 +124,6 @@ function creatIngredientList() {
     ingredientUl.append(ingredientItemEl);
     //clear input field
     $('input[name="ingredient-input"]').val("");
-  }
-}
-
-//Drinks:
-//display list of items the user inputs
-function creatDrinkList() {
-  //first remove all listitems and create them again from the array
-  $("#drink-list").empty();
-  $("#drinks").empty();
-  console.log(pushDrinkToApi);
-  for (var i = 0; i < pushDrinkToApi.length; i++) {
-    console.log(pushDrinkToApi);
-    if (typeof pushDrinkToApi[i] !== "object") {
-    drinkItemEl = $("<li>");
-    var drinkText = $("<span>").text(pushDrinkToApi[i]);
-    drinkItemEl.append(drinkText);
-    //add delete button
-    drinkItemEl.append(
-      '<button class="ml-2 mb-1 btn btn-success delete-btn">Remove</button>'
-    );
-    drinkUl.append(drinkItemEl);
-    //clear input field
-    $('input[name="drink-input"]').val("");
-    }
   }
 }
 
@@ -178,13 +154,16 @@ function handleRemoveDrinkItem(event) {
   var btnClicked = $(event.target);
   // get the parent `<li>` element from the button we pressed and remove it
   var removeItem = btnClicked.siblings().text();
+  console.log(removeItem);
+  console.log('pushDrinkToApi before remove ' + pushDrinkToApi);
   pushDrinkToApi = pushDrinkToApi.filter(function (ing) {
     return ing !== removeItem;
   });
   localStorage.setItem("drinks", JSON.stringify(pushDrinkToApi));
+  console.log('pushDrinkToApi after remove ' + pushDrinkToApi);
   btnClicked.parent("li").remove();
   drinkSection.children($("#drinkContainer")).remove();
-  drinkSection.children($)
+  getDrinkRecipes(pushDrinkToApi);
 }
 
 drinkUl.on("click", "button.delete-btn", handleRemoveDrinkItem);
@@ -261,7 +240,7 @@ function displayRecipes(recipe) {
   recipeCol.attr("class", "col-lg-6 col-sm-12");
   recipeRow.append(recipeCol);
   var recipeCard = $("<div>");
-  recipeCard.attr({ class: "card" });
+  recipeCard.attr({ class: "card p-4" });
   recipeCard.attr("data-recipe-id", recipe.id);
   recipeCard.attr("data-toggle", "modal");
   recipeCard.attr("data-target", `#modal-${recipe.id}`);
@@ -282,141 +261,100 @@ function displayRecipes(recipe) {
 }
 
 // Get Drink Recipes by Ingredient
-function getDrinkRecipes(ingredients) {
-  const options = {
-    method: "GET",
-    headers: {
-      "X-RapidAPI-Key": "3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a",
-      "X-RapidAPI-Host": "the-cocktail-db.p.rapidapi.com",
-      // Connection: 'Keep-Alive',
-      // 'Keep-Alive': 'timeout=60',
-    },
-  };
+async function getDrinkRecipes(ingredients) {
+	const options = {
+		method: 'GET',
+		headers: {
+			'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
+			'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com',
+		},
+	};
 
-  fetch(
-    "https://the-cocktail-db.p.rapidapi.com/filter.php?i=" + ingredients + "",
-    options
-  )
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      responsesDrinks = [...responsesDrinks, ...data.drinks];
-      console.log("responsesDrinks", responsesDrinks);
-      getDrinkDetails(responsesDrinks);
-      // displayDrinks(responsesDrinks);
-    })
-    .catch((err) => console.error(err));
-  // if (response.status === 522) {
-  //   getDrinkDetails(mockUpResponsesDrinks);
-  //   displayDrinks(mockUpResponsesDrinks);
-  //     }
+	try {
+		var response = await fetch(
+			'https://the-cocktail-db.p.rapidapi.com/filter.php?i=' + ingredients + '',
+			options
+		);
+		var data = await response.json();
+		getDrinkDetails(data.drinks);
+	} catch (err) {
+		console.error(err);
+	}
 }
 
 // grab drink ID and fetch full cocktail details by ID
+async function getDrinkDetails(drinks) {
+	for (var i = 0; i < 5; i++) {
+		const options = {
+			method: 'GET',
+			headers: {
+				'X-RapidAPI-Key': '3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a',
+				'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com',
+			},
+		};
+		try {
+			var response = await fetch(
+				'https://the-cocktail-db.p.rapidapi.com/lookup.php?i=' +
+					drinks[i].idDrink,
+				options
+			);
+			var data = await response.json();
 
-function getDrinkDetails(drinks) {
-  for (var i = 0; i < 5; i++) {
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": "3edfd13894msh663a8d5ce798f38p1cf2e4jsn7b8ca7705e2a",
-        "X-RapidAPI-Host": "the-cocktail-db.p.rapidapi.com",
-      },
-    };
-
-    fetch(
-      "https://the-cocktail-db.p.rapidapi.com/lookup.php?i=" +
-        drinks[i].idDrink,
-      options
-    )
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        for (var i = 0; i < drinks.length; i++) {
-          drinkID = data;
-          var drinkIngredients = [];
-          var drinkMeasurements = [];
-          var drinkIngMeasure = [];
-          drinkInstructions = drinkID.drinks[0].strInstructions;
-          drinkName = drinkID.drinks[0].strDrink;
-
-          for (var num = 1; num <= 15; num++) {
-            var strIng = "strIngredient" + num.toString();
-            var strMeasure = "strMeasure" + num.toString();
-            var wantedIng = drinkID.drinks[0][strIng];
-            var wantedMeasure = drinkID.drinks[0][strMeasure];
-
-            if (wantedIng && wantedMeasure) {
-              drinkIngredients.push(wantedIng.trim());
-              drinkMeasurements.push(wantedMeasure.trim());
-              drinkIngMeasure.push(
-                wantedMeasure.trim() + " of " + wantedIng.trim()
-              );
-            }
-          }
-          console.log("NAME - " + drinkName);
-          console.log("INGREDIENTS - " + drinkIngMeasure);
-          console.log("INSTRUCTIONS - " + drinkInstructions);
-          drinks[i].name = drinkName;
-          console.log(drinks[i].name);
-          drinks[i].measures = drinkIngMeasure;
-          console.log(drinks[i].measures);
-          drinks[i].instructions = drinkInstructions;
-          console.log(drinks[i].instructions);
-          console.log(drinks);
-        }
-      })
-      .catch((err) => console.error(err));
-  }
-  displayDrinks(drinks);
+			var drinkIngMeasure = [];
+			for (var num = 1; num <= 15; num++) {
+				var strIng = 'strIngredient' + num.toString();
+				var strMeasure = 'strMeasure' + num.toString();
+				var wantedIng = data.drinks[0][strIng];
+				var wantedMeasure = data.drinks[0][strMeasure];
+				if (wantedIng && wantedMeasure) {
+					drinkIngMeasure.push(
+						wantedMeasure.trim() + ' of ' + wantedIng.trim()
+					);
+				}
+			}
+			drinks[i].measures = drinkIngMeasure;
+			drinks[i].name = data.drinks[0].strDrink;
+			drinks[i].instructions = data.drinks[0].strInstructions;
+			responsesDrinks = [...responsesDrinks, drinks[i]];
+			displayDrinks(drinks[i]);
+		} catch (err) {
+			console.error(err);
+		}
+	}
 }
 
-// Function to populate screen with drinks found
-function displayDrinks(recipes) {
-  // create section to contain grabbed recipes
-  var drinkSection = $("#drinks");
-  // userRecipeSection.attr("class", "col-6")
-  // $("#content").append(userRecipeSection)
-  // Loop through grabbed recipes to populate page with image and name of recipes
-  recipes.forEach(function(recipe) {
-    console.log(recipes)
-    console.log(recipes[0])
-    console.log(recipe)
-    // Pattern is create element -- stlye element -- append element
-    var recipeRow = $("<div>");
-    recipeRow.attr({class: "row mb-2", id: "drinkContainer"});
-    drinkSection.append(recipeRow);
+function displayDrinks(drink) {
+	// Pattern is create element -- stlye element -- append element
+	var drinkRow = $('<div>');
+	drinkRow.attr({ class: 'row mb-2', id: 'drinkContainer' });
+	drinkSection.append(drinkRow);
 
-    var recipeCol = $("<div>");
-    recipeCol.attr("class", "col-lg-6 col-sm-12");
-    recipeRow.append(recipeCol);
+	var drinkCol = $('<div>');
+	drinkCol.attr('class', 'col-lg-6 col-sm-12');
+	drinkRow.append(drinkCol);
 
-    var recipeCard = $("<div>");
-    recipeCard.addClass("card");
-    recipeCard.attr("data-recipe-id", recipe.idDrink);
-    recipeCard.attr("data-toggle", "modal");
-    recipeCard.attr("data-target", `#modal-${recipe.idDrink}`);
-    recipeRow.append(recipeCard);
+	var drinkCard = $('<div>');
+	drinkCard.addClass('card p-4');
+	drinkCard.attr('data-drink-id', drink.idDrink);
+	drinkCard.attr('data-toggle', 'modal');
+	drinkCard.attr('data-target', `#modal-${drink.idDrink}`);
+	drinkRow.append(drinkCard);
 
-    var recipeImg = $("<img>");
-    recipeImg.attr("src", recipe.strDrinkThumb);
-    recipeImg.addClass("card-img-top");
-    recipeCard.append(recipeImg);
+	var drinkImg = $('<img>');
+	drinkImg.attr('src', drink.strDrinkThumb);
+	drinkImg.addClass('card-img-top');
+	drinkCard.append(drinkImg);
 
-    var recipeCardBody = $("<div>");
-    recipeCardBody.attr("class", "card-body");
-    recipeCard.append(recipeCardBody);
+	var drinkCardBody = $('<div>');
+	drinkCardBody.attr('class', 'card-body');
+	drinkCard.append(drinkCardBody);
 
-    var recipeCardTitle = $("<h5>");
-    recipeCardTitle.addClass("card-title");
-    recipeCardTitle.text(recipe.strDrink);
-    recipeCard.append(recipeCardTitle);
-    var drinkModal = createDrinkModal(recipe)
-    console.log($("#drinks"))
-    $("#drinks").append(drinkModal)
-  })
+	var drinkCardTitle = $('<h5>');
+	drinkCardTitle.addClass('card-title');
+	drinkCardTitle.text(drink.strDrink);
+	drinkCard.append(drinkCardTitle);
+	var drinkModal = createDrinkModal(drink);
+	$('#drinks').append(drinkModal);
 }
 
 // modal to populate when recipe is clicked
@@ -538,105 +476,102 @@ function createModal(recipe) {
 }
 
 // drinks modal
-
 function createDrinkModal(drinkRecipe) {
-  // create and style modal elemenets
+	console.log('drinkRecipe in createDrinkModal', drinkRecipe);
+	// create and style modal elements
+	var modal = $('<div>');
+	modal.attr({
+		class: 'modal fade',
+		tabindex: '-1',
+		role: 'dialog',
+		id: `modal-${drinkRecipe.idDrink}`,
+	});
+	modal.attr('data-drink-id', drinkRecipe.idDrink);
+	modal.attr('aria-labelledby', 'drinkModalLabel');
+	modal.attr('aria-hidden', 'true');
+	var modalDialog = $('<div>');
+	modalDialog.attr({
+		class: 'modal-dialog',
+		role: 'document',
+	});
+	var modalContent = $('<div>');
+	modalContent.attr('class', 'modal-content');
 
-  var modal = $("<div>");
-  modal.attr({
-    class: "modal fade",
-    tabindex: "-1",
-    role: "dialog",
-    id: `modal-${drinkRecipe.idDrink}`,
-  });
-  modal.attr("data-recipe-id", drinkRecipe.idDrink);
-  modal.attr("aria-labelledby", "drinkModalLabel");
-  modal.attr("aria-hidden", "true");
-  var modalDialog = $("<div>");
-  modalDialog.attr({
-    class: "modal-dialog",
-    role: "document",
-  });
-  var modalContent = $("<div>");
-  modalContent.attr("class", "modal-content");
-  var modalHeader = $("<div>");
-  modalHeader.attr("class", "modal-header");
-  var modalTitle = $("<h5>");
-  modalTitle.attr({
-    class: "modal-title",
-    id: "drinkModalLabel",
-  });
-  modalTitle.text(drinkRecipe.strDrink);
-  console.log(drinkRecipe)
-  modalHeader.append(modalTitle);
-  var modalExitBtn = $("<button>");
-  modalExitBtn.attr({
-    type: "button",
-    class: "close",
-  });
-  modalExitBtn.attr("data-dismiss", "modal");
-  modalExitBtn.attr("aria-label", "Close");
-  modalHeader.append(modalExitBtn);
-  var modalSpan = $("<span>");
-  modalSpan.attr("aria-hidden", "true");
-  modalSpan.text("X");
-  modalExitBtn.append(modalSpan);
-  modalContent.append(modalHeader);
-  var modalBody = $("<div>");
-  modalBody.attr("class", "modal-body");
-  modalBody.text("");
-  modalContent.append(modalBody);
-  var modalBodyIngr = $("<div>");
-  modalBodyIngr.attr("id", "modalBodyIngr");
-  modalBodyIngr.text("INGREDIENTS:");
-  modalBody.append(modalBodyIngr);
-  var modalBodyInst = $("<div>");
-  modalBodyInst.attr("id", "modalBodyInst");
-  modalBodyInst.text("INSTRUCTIONS:");
-  modalBody.append(modalBodyInst);
-  console.log(drinkRecipe.measures);
-  //for (var i = 0; i < drinkRecipe.ingredients.length; i++) {
-    var modalBodySpanIncl = $("<div>");
-    modalBodySpanIncl.text(drinkRecipe.ingredients);
-    modalBodyIngr.append(modalBodySpanIncl);
- //}
-  // for (var i = 0; i < drinkRecipe.measures.length; i++) {
-  //   var modalBodySpanMis = $("<div>");
-  //   modalBodySpanMis.text(drinkRecipe.measures[i].drinkName)
-  //   modalBodyIngr.append(modalBodySpanMis)
-  // }
-  //for (var i = 0; i < drinkRecipe.drinkInstructions.length; i++) {
-    var modalBodySpan = $("<div>");
-    modalBodySpan.text(" " + drinkRecipe.drinkInstructions);
-    console.log(drinkRecipe.drinkInstructions);
-    modalBodyInst.append(modalBodySpan);
-  //}
-  var modalFooter = $("<div>");
-  modalFooter.addClass("modal-footer");
-  modalContent.append(modalFooter);
-  var modalSaveBtn = $("<button>");
-  modalSaveBtn.attr({
-    type: "button",
-    class: "btn btn-primary",
-    id: "saveBtn",
-  });
-  modalSaveBtn.text("Save Drink");
-  modalFooter.append(modalSaveBtn);
-  var modalCloseBtn = $("<button>");
-  modalCloseBtn.attr({
-    type: "button",
-    class: "btn btn-secondary",
-  });
-  modalCloseBtn.attr("data-dismiss", "modal");
-  modalCloseBtn.text("Close");
-  modalFooter.append(modalCloseBtn);
+	// Modal Header
+	var modalHeader = $('<div>');
+	modalHeader.attr('class', 'modal-header');
+	var modalTitle = $('<h5>');
+	modalTitle.attr({
+		class: 'modal-title',
+		id: 'drinkModalLabel',
+	});
+	modalTitle.text(drinkRecipe.strDrink);
+	modalHeader.append(modalTitle);
+	var modalExitBtn = $('<button>');
+	modalExitBtn.attr({
+		type: 'button',
+		class: 'close',
+	});
+	modalExitBtn.attr('data-dismiss', 'modal');
+	modalExitBtn.attr('aria-label', 'Close');
+	modalHeader.append(modalExitBtn);
+	var modalSpan = $('<span>');
+	modalSpan.attr('aria-hidden', 'true');
+	modalSpan.text('X');
+	modalExitBtn.append(modalSpan);
+	modalContent.append(modalHeader);
 
-  modalDialog.append(modalContent);
-  modal.append(modalDialog);
-  modal.on("click", "#saveBtn", function (event) {
-    savedDrinks.push(drinkRecipe);
-    localStorage.setItem("savedDrinks", JSON.stringify(savedDrinks));
-  });
-  console.log(savedDrinks);
-  return modal;
+	// Modal Body
+	var modalBody = $('<div>');
+	modalBody.attr('class', 'modal-body');
+	modalBody.text('');
+	modalContent.append(modalBody);
+	var modalBodyIngr = $('<div>');
+	modalBodyIngr.attr('id', 'modalBodyIngr');
+	modalBodyIngr.text('INGREDIENTS:');
+	modalBody.append(modalBodyIngr);
+	var modalBodyInst = $('<div>');
+	modalBodyInst.attr('id', 'modalBodyInst');
+	modalBodyInst.text('INSTRUCTIONS:');
+	modalBody.append(modalBodyInst);
+
+	for (var i = 0; i < drinkRecipe.measures.length; i++) {
+		var modalBodySpanIncl = $('<div>');
+		modalBodySpanIncl.text(drinkRecipe.measures[i]);
+		modalBodyIngr.append(modalBodySpanIncl);
+	}
+
+	var modalBodySpan = $('<div>');
+	modalBodySpan.text(' ' + drinkRecipe.instructions);
+	modalBodyInst.append(modalBodySpan);
+
+	// Modal Footer
+	var modalFooter = $('<div>');
+	modalFooter.addClass('modal-footer');
+	modalContent.append(modalFooter);
+	var modalSaveBtn = $('<button>');
+	modalSaveBtn.attr({
+		type: 'button',
+		class: 'btn btn-primary',
+		id: 'saveBtn',
+	});
+	modalSaveBtn.text('Save Drink');
+	modalFooter.append(modalSaveBtn);
+	var modalCloseBtn = $('<button>');
+	modalCloseBtn.attr({
+		type: 'button',
+		class: 'btn btn-secondary',
+	});
+	modalCloseBtn.attr('data-dismiss', 'modal');
+	modalCloseBtn.text('Close');
+	modalFooter.append(modalCloseBtn);
+
+	modalDialog.append(modalContent);
+	modal.append(modalDialog);
+	modal.on('click', '#saveBtn', function (event) {
+		savedDrinks.push(drinkRecipe);
+		localStorage.setItem('savedDrinks', JSON.stringify(savedDrinks));
+	});
+	console.log('savedDrinks in createDrinkModal', savedDrinks);
+	return modal;
 }

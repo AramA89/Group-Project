@@ -3,25 +3,22 @@ var foodRecipeEl = $('.food-recipe-container');
 var myRecipes = JSON.parse(localStorage.getItem("savedRecipes"));
 var myDrinks = JSON.parse(localStorage.getItem("savedDrinks"));
 console.log(myDrinks)
-console.log(myDrinks[0].measures)
 var recipeBtnContainer;
 
 //Give page time to load the initial array
 delayFunction(myRecipes);
 
 function delayFunction(myRecipes) {
-  console.log(myRecipes);
+
 }
 
 //Drinks section Variables
 var drinkRecipeEl = $('.drink-recipe-container');
-var myDrinks = JSON.parse(localStorage.getItem("savedDrinks"));
 
 //Food saved Recipes
 createMyFoodList(myRecipes);
 
 function createMyFoodList(recipes) {
-  console.log(recipes);
   recipes.forEach(function (recipe) {
     var recipeCardParent = $("<div>");
     recipeCardParent.attr({class: "container-fluid pull-right rounded border p-3 cardParent"});
@@ -56,16 +53,15 @@ function createMyFoodList(recipes) {
     for (var i = 0; i < recipe.usedIngredients.length; i++) {
       var recipeIngredients = $("<p>");
       recipeIngredients.addClass("card-text");
-      recipeIngredients.text(
-        "Ingredient: " + recipe.usedIngredients[i].original
+      recipeIngredients.text(recipe.usedIngredients[i].original
       );
       recipeContent.append(recipeIngredients);
     }
     for (var i = 0; i < recipe.instructionsArr.length; i++) {
       var recipeInstructions = $("<p>");
-      recipeInstructions.addClass("card-text");
+      recipeInstructions.addClass("card-text steps");
       recipeInstructions.text(
-        "Step " + i + ": " + recipe.instructionsArr[i].step
+        "Step " + (i+1) + ": " + recipe.instructionsArr[i].step
       );
       recipeContent.append(recipeInstructions);
     }
@@ -81,12 +77,13 @@ function createMyFoodList(recipes) {
   });
 }
 console.log(savedRecipes);
+console.log(myDrinks);
 
 //Drink saved Recipes
-// createMyDrinkList(myDrinks);
+createMyDrinkList(myDrinks);
 
 function createMyDrinkList(recipes) {
-  console.log("drinks object " + recipes);
+  console.log(recipes);
   recipes.forEach(function (recipe) {
     var drinkCardParent = $("<div>");
     drinkCardParent.attr({class: "container-fluid pull-right rounded border p-3 drinkParent"});
@@ -101,7 +98,7 @@ function createMyDrinkList(recipes) {
     drinkCard.append(drinkImgContainer);
 
     var drinkImg = $("<img>");
-    drinkImg.attr("src", recipe.image);
+    drinkImg.attr("src", recipe.strDrinkThumb);
     drinkImg.addClass("img-fluid rounded-start");
     drinkImgContainer.append(drinkImg);
 
@@ -115,34 +112,28 @@ function createMyDrinkList(recipes) {
 
     var drinkTitle = $("<h5>");
     drinkTitle.addClass("card-title");
-    drinkTitle.text(drink.title);
+    drinkTitle.text(recipe.name);
     drinkContent.append(drinkTitle);
 
-    //***JAMES & ARAM DRINK ARRAY */
-    // for (var i = 0; i < recipe.usedIngredients.length; i++) {
-    //   var recipeIngredients = $("<p>");
-    //   recipeIngredients.addClass("card-text");
-    //   recipeIngredients.text(
-    //     "Ingredient: " + recipe.usedIngredients[i].original
-    //   );
-    //   recipeContent.append(recipeIngredients);
-    // }
-    // for (var i = 0; i < recipe.instructionsArr.length; i++) {
-    //   var recipeInstructions = $("<p>");
-    //   recipeInstructions.addClass("card-text");
-    //   recipeInstructions.text(
-    //     "Step " + i + ": " + recipe.instructionsArr[i].step
-    //   );
-    //   recipeContent.append(recipeInstructions);
-    // }
+    for (var i = 0; i < recipe.measures.length; i++) {
+      var drinkIngredients = $("<p>");
+      drinkIngredients.addClass("card-text");
+      drinkIngredients.text(recipe.measures[i]);
+      drinkContent.append(drinkIngredients);
+    }
+   
+    var drinkInstructions = $("<p>");
+    drinkInstructions.addClass("card-text instructions");
+    drinkInstructions.text('Insructions: ' + recipe.instructions);
+    drinkContent.append(drinkInstructions);
 
     var drinkBtnContainer = $("<div>");
     drinkBtnContainer.addClass("d-grid gap-2 d-md-flex justify-content-md-end");
-    drinkBtnContainer.attr("id", recipe.id);
+    drinkBtnContainer.attr("id", recipe.idDrink);
     drinkContent.append(drinkBtnContainer);
 
     drinkBtnContainer.append(
-      '<button class="btn btn-primary delete-recipe" type="button">Remove</button>'
+      '<button class="btn btn-success delete-recipe" type="button">Remove</button>'
     );
   });
 }
@@ -178,16 +169,16 @@ foodRecipeEl.on("click", "button.delete-recipe", handleRemoveRecipe);
 function handleRemoveDrink(event) {
   // convert button we pressed (`event.target`) to a jQuery DOM object
   var btnClicked = $(event.target);
-    var removeItem = btnClicked.parent().attr("id", savedDrinks.id);
+  var removeItem = btnClicked.parent().attr("id", savedDrinks.idDrink);
   var removeItem = removeItem[0].id;
 
   var pushDrinks = [];
 
   for (var i = 0; i < savedDrinks.length; i++) {
-    if (savedDrinks[i].id != removeItem){
-    console.log(savedDrinks[i].id);
+    if (savedDrinks[i].idDrinks != removeItem){
+    console.log(savedDrinks[i].idDrink);
     console.log(removeItem);    
-      pushDrinks.push(savedDrinks[i])
+    pushDrinks.push(savedDrinks[i])
     } 
   }
   savedDrinks = pushDrinks;
