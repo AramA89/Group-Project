@@ -16,6 +16,13 @@ var drinkID = [];
 var recipeInstructions = [];
 var savedRecipes;
 var foodSection = $("#food");
+var savedDrinks;
+
+var drinkIngredients = [];
+var drinkMeasurements = [];
+var drinkIngMeasure = [];
+var drinkInstructions; 
+var drinkName; 
 
 // run event on click for the ingredient submit button
 init();
@@ -290,15 +297,15 @@ function getDrinkRecipes(ingredients) {
       displayDrinks(responsesDrinks);
     })
     .catch((err) => console.error(err));
-    if (response.status === 522) {
-      getDrinkDetails(mockUpResponsesDrinks);
-      displayDrinks(mockUpResponsesDrinks);   
-        }  
+    // if (response.status === 522) {
+    //   getDrinkDetails(mockUpResponsesDrinks);
+    //   displayDrinks(mockUpResponsesDrinks);   
+    //     }  
 }
 
 // grab drink ID and fetch full cocktail details by ID
 
-function getDrinkDetails(drinkArr) {
+function getDrinkDetails(drinks) {
   for (var i = 0; i < 5; i++) {
     const options = {
       method: "GET",
@@ -308,39 +315,50 @@ function getDrinkDetails(drinkArr) {
       },
     };
 
-  fetch('https://the-cocktail-db.p.rapidapi.com/lookup.php?i=' + drinkArr[i].idDrink , options)
+  fetch('https://the-cocktail-db.p.rapidapi.com/lookup.php?i=' + drinks[i].idDrink , options)
 	.then(function(response) { return response.json()})
     .then(function(data) { 
       drinkID = data
-      var userDrinks = [];
-      var userDrink = [];
-      var drinkIngredients = [];
-      var drinkMeasurements = [];
-      var drinkIngMeasure = [];
-      var drinkInstructions = (drinkID.drinks[0].strInstructions);
-      userDrink.drinkInst = drinkInstructions
-      userDrink.push(userDrinks)
-      var drinkName = (drinkID.drinks[0].strDrink);
+      drinks[i].instructions = data.drinks[0].strInstructions;
+      console.log(drinks[i].instructions); 
+      // console.log(drinks[i]);
+      // var userDrinks = [];
+      // var userDrink = [];
+      drinkInstructions = (drinkID.drinks[0].strInstructions);
+      drinkName = (drinkID.drinks[0].strDrink);
+      // console.log(drinkID.drinks[0]);
+      // console.log(drinkID);
+      // userDrink.drinkInst = drinkInstructions
+      // userDrink.push(userDrinks)
       for (var num = 1; num <= 15; num++) {
         var strIng = "strIngredient" + num.toString()
         var strMeasure = "strMeasure" + num.toString()
         var wantedIng = drinkID.drinks[0][strIng]
         var wantedMeasure = drinkID.drinks[0][strMeasure]
-        userDrink.ingredients = strIng
-        userDrink.ingredients.push(userDrinks)
-        userDrink.measures = strMeasure
-        userDrink.measures.push(userDrinks)
+        // userDrink.ingredients = strIng
+        // userDrink.ingredients.push(userDrinks)
+        // userDrink.measures = strMeasure
+        // userDrink.measures.push(userDrinks)
         if (wantedIng && wantedMeasure) {
           drinkIngredients.push(wantedIng.trim())
           drinkMeasurements.push(wantedMeasure.trim())
           drinkIngMeasure.push(wantedMeasure.trim() + " of " + wantedIng.trim())
-          userDrink.ingMeasure = drinkIngMeasure
-          userDrink.ingMeasure.push(userDrinks)
+          // userDrink.ingMeasure = drinkIngMeasure
+          // userDrink.ingMeasure.push(userDrinks)
         }         
+        drinks[i].ingred = wantedIng
+        drinks[i].measure = wantedMeasure
+        console.log(drinks[i]);
+        
       }      
-      console.log("NAME - " + drinkName +
-       " - INGREDIENTS - " + drinkIngMeasure + 
-       " - INSTRUCTIONS - " + drinkInstructions)      
+      // drinks[i].drinkInfo = drinkName + drinkIngMeasure + drinkInstructions
+      // // console.log(drinks[i].drinkInfo);
+      // capDrinks = drinks[i].drinkInfo;
+      // console.log(capDrinks);
+      
+      // console.log("NAME - " + drinkName +
+      //  " - INGREDIENTS - " + drinkIngMeasure + 
+      //  " - INSTRUCTIONS - " + drinkInstructions)      
     })
     .catch(err => console.error(err));
     }
@@ -546,9 +564,9 @@ function createDrinkModal(drinkRecipe) {
   modalBodyInst.text("INSTRUCTIONS:")
   modalBody.append(modalBodyInst)
   console.log(drinkRecipe)
-  for (var i = 0; i < drinkRecipe.ingredients.length; i++) {
+  for (var i = 0; i < drinkIngMeasure.length; i++) {
     var modalBodySpanIncl = $("<div>");
-    modalBodySpanIncl.text(drinkRecipe.ingredients[i].drinkName);
+    modalBodySpanIncl.text(drinkIngMeasure[i].drinkName);
     modalBodyIngr.append(modalBodySpanIncl)
   }
   for (var i = 0; i < drinkRecipe.measures.length; i++) {
@@ -585,9 +603,9 @@ function createDrinkModal(drinkRecipe) {
   modalDialog.append(modalContent);
   modal.append(modalDialog);
   modal.on("click", "#saveBtn", function (event) {
-    savedRecipes.push(drinkRecipe)
-    localStorage.setItem("savedRecipes", JSON.stringify(savedRecipes))
+    savedDrinks.push(drinkRecipe)
+    localStorage.setItem("savedDrinks", JSON.stringify(savedDrinks))
   })
-  console.log(savedRecipes)
+  console.log(savedDrinks)
   return modal;
 }
