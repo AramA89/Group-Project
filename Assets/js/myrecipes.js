@@ -80,7 +80,7 @@ function createMyFoodList(recipes) {
 console.log(savedRecipes);
 
 //Drink saved Recipes
-createMyDrinkList(myDrinks);
+// createMyDrinkList(myDrinks);
 
 function createMyDrinkList(recipes) {
   console.log("drinks object " + recipes);
