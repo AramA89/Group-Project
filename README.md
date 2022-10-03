@@ -26,10 +26,9 @@ API’s used:
 
 ## User Story:
 
-```
+
 As a user I want to be able to come home from a long day and not have to worry about what to make, whether breakfast, lunch or dinner. I can simply input all of the existing ingredients from my kitchen and the app will generate multiple meals with instructions I can choose from. Along with the meal I can also pair it with a delicious cocktail based on my favorite liquor, because it’s 5 o’clock somewhere. The app will save me time deciding what I can create based on my favorite ingredients. 
 
-```
 
 ## Mock Up
 ![](Assets/Img/Quickly%20Main.jpg)
