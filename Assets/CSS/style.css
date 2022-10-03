@@ -98,5 +98,8 @@ padding: 10px;
    font-size: small;
  word-wrap: break-word;
  }
+}
 
+#recipeContainer {
+  justify-content: center;
 }
