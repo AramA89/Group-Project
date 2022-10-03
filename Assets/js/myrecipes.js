@@ -1,6 +1,7 @@
 //Food Section Variables
 var foodRecipeEl = $('.food-recipe-container');
 var myRecipes = JSON.parse(localStorage.getItem("savedRecipes"));
+var myDrinks = JSON.parse(localStorage.getItem("savedDrinks"));
 var recipeBtnContainer;
 
 //Give page time to load the initial array
@@ -11,7 +12,7 @@ function delayFunction(myRecipes) {
 }
 
 //Drinks section Variables
-var dinkRecipeEl = $('.drink-recipe-container');
+var drinkRecipeEl = $('.drink-recipe-container');
 var myDrinks = JSON.parse(localStorage.getItem("savedDrinks"));
 
 //Food saved Recipes
@@ -80,7 +81,7 @@ function createMyFoodList(recipes) {
 console.log(savedRecipes);
 
 //Drink saved Recipes
-createMyDrinkList(myDrinks);
+// createMyDrinkList(myDrinks);
 
 function createMyDrinkList(recipes) {
   console.log("drinks object " + recipes);

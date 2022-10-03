@@ -16,6 +16,7 @@ var drinkID = [];
 var recipeInstructions = [];
 var savedRecipes;
 var foodSection = $("#food");
+var savedDrinks;
 
 var drinkIngredients = [];
 var drinkMeasurements = [];
