@@ -2,6 +2,8 @@
 var foodRecipeEl = $('.food-recipe-container');
 var myRecipes = JSON.parse(localStorage.getItem("savedRecipes"));
 var myDrinks = JSON.parse(localStorage.getItem("savedDrinks"));
+console.log(myDrinks)
+console.log(myDrinks[0].measures)
 var recipeBtnContainer;
 
 //Give page time to load the initial array
