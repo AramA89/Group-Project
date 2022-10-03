@@ -261,7 +261,7 @@ function displayRecipes(recipe) {
   recipeCol.attr("class", "col-lg-6 col-sm-12");
   recipeRow.append(recipeCol);
   var recipeCard = $("<div>");
-  recipeCard.attr({ class: "card" });
+  recipeCard.attr({ class: "card p-4" });
   recipeCard.attr("data-recipe-id", recipe.id);
   recipeCard.attr("data-toggle", "modal");
   recipeCard.attr("data-target", `#modal-${recipe.id}`);
@@ -325,9 +325,10 @@ function getDrinkDetails(drinks) {
       },
     };
 console.log(drinks)
+console.log(drinks[i].idDrink)
     fetch(
       "https://the-cocktail-db.p.rapidapi.com/lookup.php?i=" +
-        drinks[i].idDrink,
+      drinks[i].idDrink,
       options
     )
       .then(function (response) {

@@ -103,3 +103,7 @@ padding: 10px;
 #recipeContainer {
   justify-content: center;
 }
+
+.row {
+  justify-content: center;
+}
