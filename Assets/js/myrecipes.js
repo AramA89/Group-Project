@@ -14,11 +14,7 @@ function delayFunction(myRecipes) {
 }
 
 //Drinks section Variables
-<<<<<<< Updated upstream
 var drinkRecipeEl = $('.drink-recipe-container');
-=======
-var dinkRecipeEl = $('.drink-recipe-container');
->>>>>>> Stashed changes
 var myDrinks = JSON.parse(localStorage.getItem("savedDrinks"));
 
 //Food saved Recipes
@@ -87,11 +83,7 @@ function createMyFoodList(recipes) {
 console.log(savedRecipes);
 
 //Drink saved Recipes
-<<<<<<< Updated upstream
 // createMyDrinkList(myDrinks);
-=======
-createMyDrinkList(myDrinks);
->>>>>>> Stashed changes
 
 function createMyDrinkList(recipes) {
   console.log("drinks object " + recipes);
@@ -181,7 +173,6 @@ function handleRemoveRecipe(event) {
 }
 //Food Remove button click
 foodRecipeEl.on("click", "button.delete-recipe", handleRemoveRecipe);
-<<<<<<< Updated upstream
 
 //Drink Recipe remove button
 function handleRemoveDrink(event) {
@@ -208,5 +199,3 @@ function handleRemoveDrink(event) {
 }
 //Drink Remove button click
 drinkRecipeEl.on("click", "button.delete-recipe", handleRemoveDrink);
-=======
->>>>>>> Stashed changes
