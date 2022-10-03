@@ -1,5 +1,6 @@
 //Food Section Variables
 var foodRecipeEl = $('.food-recipe-container');
+var drinkRecipeEl = $('.drink-recipe-container');
 var myRecipes = JSON.parse(localStorage.getItem("savedRecipes"));
 var myDrinks = JSON.parse(localStorage.getItem("savedDrinks"));
 console.log(myDrinks)
@@ -9,11 +10,8 @@ var recipeBtnContainer;
 delayFunction(myRecipes);
 
 function delayFunction(myRecipes) {
-
 }
 
-//Drinks section Variables
-var drinkRecipeEl = $('.drink-recipe-container');
 
 //Food saved Recipes
 createMyFoodList(myRecipes);
@@ -77,6 +75,8 @@ function createMyFoodList(recipes) {
   });
 }
 console.log(savedRecipes);
+console.log(myRecipes);
+console.log(savedDrinks);
 console.log(myDrinks);
 
 //Drink saved Recipes
@@ -137,14 +137,16 @@ function createMyDrinkList(recipes) {
     );
   });
 }
-console.log(savedDrinks);
 
 //Food Recipe remove button
 function handleRemoveRecipe(event) {
   // convert button we pressed (`event.target`) to a jQuery DOM object
   var btnClicked = $(event.target);
-    var removeItem = btnClicked.parent().attr("id", savedRecipes.id);
+  var removeItem = btnClicked.parent().attr("id", savedRecipes.id);
+  console.log(removeItem);
+
   var removeItem = removeItem[0].id;
+  console.log(removeItem[0].id);
 
   var pushRecipe = [];
 
@@ -152,7 +154,7 @@ function handleRemoveRecipe(event) {
     if (savedRecipes[i].id != removeItem){
     console.log(savedRecipes[i].id);
     console.log(removeItem);    
-      pushRecipe.push(savedRecipes[i])
+    pushRecipe.push(savedRecipes[i])
     } 
   }
   savedRecipes = pushRecipe;
@@ -162,31 +164,37 @@ function handleRemoveRecipe(event) {
   $('.cardParent').remove();
   createMyFoodList(savedRecipes);
 }
-//Food Remove button click
-foodRecipeEl.on("click", "button.delete-recipe", handleRemoveRecipe);
 
+console.log(myDrinks);
 //Drink Recipe remove button
 function handleRemoveDrink(event) {
+  console.log('arrived at remove drinks');
   // convert button we pressed (`event.target`) to a jQuery DOM object
   var btnClicked = $(event.target);
-  var removeItem = btnClicked.parent().attr("id", savedDrinks.idDrink);
-  var removeItem = removeItem[0].id;
-
+  var removeItem = btnClicked.parent().attr("id", myDrinks.idDrink);
+  console.log(removeItem);
+  var removeItem = removeItem[0].id
+  console.log(removeItem[0].id);
   var pushDrinks = [];
 
-  for (var i = 0; i < savedDrinks.length; i++) {
-    if (savedDrinks[i].idDrinks != removeItem){
-    console.log(savedDrinks[i].idDrink);
+  for (var i = 0; i < myDrinks.length; i++) {
+    
+    console.log('at for loop drinks');
+    if (myDrinks[i].idDrinks != removeItem){
+    console.log(myDrinks[i].idDrink);
     console.log(removeItem);    
-    pushDrinks.push(savedDrinks[i])
+    pushDrinks.push(myDrinks[i])
     } 
   }
-  savedDrinks = pushDrinks;
-  localStorage.setItem("savedDrinks", JSON.stringify(savedDrinks));
-  console.log(savedDrinks);
+  myDrinks = pushDrinks;
+  localStorage.setItem("savedDrinks", JSON.stringify(myDrinks));
+  console.log(myDrinks);
 
-  $('.cardParent').remove();
-  // createMyDrinkList(savedDrinks);
+  $('.drinkParent').remove();
+  createMyDrinkList(myDrinks);
 }
 //Drink Remove button click
 drinkRecipeEl.on("click", "button.delete-recipe", handleRemoveDrink);
+
+//Food Remove button click
+foodRecipeEl.on("click", "button.delete-recipe", handleRemoveRecipe);
