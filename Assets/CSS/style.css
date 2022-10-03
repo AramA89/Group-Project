@@ -22,14 +22,14 @@
   #ingredient-list ul, #drink-list ul{
     padding: 10px;
     background-color: #eedc82;
-    box-shadow: -2em 0 #eedc82;
+    box-shadow: -6em 0 #eedc82;
 
 };
 
 #ingredient-list ul, #drink-list ul{
   padding: 10px;
   background-color: #eedc82;
-  box-shadow: -2em 0 #eedc82;
+  box-shadow: -6em 0 #eedc82;
 
 };
 
@@ -93,3 +93,13 @@ padding: 10px;
   cursor:grab;
 }
 
+@media screen and (max-width: 800px) { 
+  .card {
+   font-size: small;
+ word-wrap: break-word;
+ }
+}
+
+#recipeContainer {
+  justify-content: center;
+}
