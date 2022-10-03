@@ -18,6 +18,9 @@
   font-family: 'Courier New', Courier, monospace;
 };
 
+.row {
+  justify-content: center;
+}
 
   #ingredient-list ul, #drink-list ul{
     padding: 10px;
