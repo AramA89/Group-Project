@@ -54,6 +54,6 @@ As a user I want to be able to come home from a long day and not have to worry a
 
  ## Final Submission
 
-1. Quickly application is deployed and can be seen at: [Quickly](https://)
+1. Quickly application is deployed and can be seen at: [Quickly](https://arama89.github.io/Group-Project/)
 
 2. Repository for Quickly application can be found at: [GitHub](https://github.com/AramA89/Group-Project)

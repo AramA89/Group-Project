@@ -114,7 +114,7 @@ function creatIngredientList() {
     ingredientItemEl.append(ingText);
     //add delete button
     ingredientItemEl.append(
-      '<button class="ml-2 mb-2 delete-btn">Remove</button>')
+      '<button class="ml-2 mb-1 btn btn-success delete-btn">Remove</button>')
 };
     ingredientUl.append(ingredientItemEl);
     //clear input field
@@ -132,7 +132,7 @@ function creatDrinkList() {
     var drinkText = $("<span>").text(pushDrinkToApi[i]);
     drinkItemEl.append(drinkText);
     //add delete button
-    drinkItemEl.append('<button class="ml-2 mb-2 delete-btn">Remove</button>');
+    drinkItemEl.append('<button class="ml-2 mb-1 btn btn-success delete-btn">Remove</button>');
     drinkUl.append(drinkItemEl);
     //clear input field
     $('input[name="drink-input"]').val("");
@@ -240,11 +240,11 @@ function displayRecipes(recipe) {
 	
 	// Pattern is create element -- stlye element -- append element
   var recipeRow = $("<div>")
-	recipeRow.attr('class', 'row mt-2');
+	recipeRow.attr('class', 'row mb-2 mr-2');
   recipeRow.attr("id", "recipeContainer")
 	foodSection.append(recipeRow);
 	var recipeCol = $('<div>');
-	recipeCol.attr('class', 'col-8');
+	recipeCol.attr('class', 'col-6');
 	recipeRow.append(recipeCol);
 	var recipeCard = $('<div>');
 	recipeCard.attr({ class: 'card' });
@@ -349,11 +349,11 @@ function displayDrinks(recipe) {
   for (var i = 0; i < 5; i++) {
     // Pattern is create element -- stlye element -- append element
     var recipeRow = $("<div>");
-    recipeRow.attr("class", "row mt-2");
+    recipeRow.attr("class", "row mb-2");
     drinkSection.append(recipeRow);
 
     var recipeCol = $("<div>");
-    recipeCol.attr("class", "col-4");
+    recipeCol.attr("class", "col-6");
     recipeRow.append(recipeCol);
 
     var recipeCard = $("<div>");
