@@ -73,8 +73,6 @@ function createMyRecipeList(recipes) {
 }
 console.log(savedRecipes);
 
-var pushRecipe = [];
-
 //Remove Recipe button
 function handleRemoveRecipe(event) {
   console.log('arrived at delete function');
@@ -83,7 +81,7 @@ function handleRemoveRecipe(event) {
   var btnClicked = $(event.target);
   
   var removeItem = btnClicked.parent().attr("id", savedRecipes.id);
-
+  var pushRecipe = [];
   console.log(removeItem);
   var removeItem = removeItem[0].id;
   console.log(removeItem);
