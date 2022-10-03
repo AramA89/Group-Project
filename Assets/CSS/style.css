@@ -2,7 +2,10 @@
   --yellow: #e1ad01;
   --green: #808000;
   --burgundy: #A52A2A;
-  --white: #F0EAD6;
+
+}
+.card {
+  background-color: var(--yellow);
 }
 
 #header {
@@ -10,31 +13,20 @@
   font-weight: 400; 
 }
 
-#foodCard, #drinkCard {
-  background-color: var(--yellow);
-}
-
 .jumbotron {
   background-color: #654321;
   font-family: 'Courier New', Courier, monospace;
 };
 
-#foodCard, #drinkCard {
-  background-color: var(--yellow);
-}
 
-h5 {
-  text-align: center;
-}
+  #ingredient-list ul, #drink-list ul{
+    padding: 10px;
+    background-color: #eedc82;
+    box-shadow: -6em 0 #eedc82;
+
+};
 
 #ingredient-list ul, #drink-list ul{
-  padding: 10px;
-  background-color: #eedc82;
-  box-shadow: -3em 0 #eedc82;
-  margin: 0;
-}
-
-#ingredient-list li, #drink-list li{
   padding: 10px;
   background-color: #eedc82;
   box-shadow: -6em 0 #eedc82;
@@ -48,9 +40,6 @@ h5 {
     font-weight: 400; 
 };
   
-ul {
-  list-style-type: none;
-}
 
 .pantry {
   float: left;
@@ -109,5 +98,8 @@ padding: 10px;
    font-size: small;
  word-wrap: break-word;
  }
+}
 
+#recipeContainer {
+  justify-content: center;
 }

@@ -16,6 +16,7 @@ var drinkID = [];
 var recipeInstructions = [];
 var savedRecipes;
 var foodSection = $("#food");
+var drinkSectioon = $("#drinks")
 var savedDrinks = [];
 
 // run event on click for the ingredient submit button
@@ -175,6 +176,7 @@ function handleRemoveDrinkItem(event) {
   });
   localStorage.setItem("drinks", JSON.stringify(pushDrinkToApi));
   btnClicked.parent("li").remove();
+  drinkSection.children($)
 }
 
 drinkUl.on("click", "button.delete-btn", handleRemoveDrinkItem);
@@ -239,37 +241,36 @@ async function getInstructions(recipes) {
 
 // Function to populate screen with recipes found
 function displayRecipes(recipe) {
-	console.log(recipe);
-	// create section to contain grabbed recipes
-	
-	// Pattern is create element -- stlye element -- append element
-  var recipeRow = $("<div>")
-	recipeRow.attr('class', 'row mb-2 mr-2');
-  recipeRow.attr("id", "recipeContainer")
-	foodSection.append(recipeRow);
-	var recipeCol = $('<div>');
-	recipeCol.attr('class', 'col-6');
-	recipeRow.append(recipeCol);
-	var recipeCard = $('<div>');
-	recipeCard.attr({ class: 'card' });
-  recipeCard.attr({ id: 'foodCard' });
-	recipeCard.attr('data-recipe-id', recipe.id);
-	recipeCard.attr('data-toggle', 'modal');
-	recipeCard.attr('data-target', `#modal-${recipe.id}`);
-	recipeRow.append(recipeCard);
-	var recipeImg = $('<img>');
-	recipeImg.attr('src', recipe.image);
-	recipeImg.addClass('card-img-top');
-	recipeCard.append(recipeImg);
-	var recipeCardBody = $('<div>');
-	recipeCardBody.attr('class', 'card-body');
-	recipeCard.append(recipeCardBody);
-	var recipeCardTitle = $('<h5>');
-	recipeCardTitle.addClass('card-title');
-	recipeCardTitle.text(recipe.title);
-	recipeCard.append(recipeCardTitle);
-	var modal = createModal(recipe);
-	$('#food').append(modal);
+  console.log(recipe);
+  // create section to contain grabbed recipes
+
+  // Pattern is create element -- stlye element -- append element
+  var recipeRow = $("<div>");
+  recipeRow.attr("class", "row mb-2 mr-2");
+  recipeRow.attr("id", "recipeContainer");
+  foodSection.append(recipeRow);
+  var recipeCol = $("<div>");
+  recipeCol.attr("class", "col-lg-6 col-sm-12");
+  recipeRow.append(recipeCol);
+  var recipeCard = $("<div>");
+  recipeCard.attr({ class: "card" });
+  recipeCard.attr("data-recipe-id", recipe.id);
+  recipeCard.attr("data-toggle", "modal");
+  recipeCard.attr("data-target", `#modal-${recipe.id}`);
+  recipeRow.append(recipeCard);
+  var recipeImg = $("<img>");
+  recipeImg.attr("src", recipe.image);
+  recipeImg.addClass("card-img-top");
+  recipeCard.append(recipeImg);
+  var recipeCardBody = $("<div>");
+  recipeCardBody.attr("class", "card-body");
+  recipeCard.append(recipeCardBody);
+  var recipeCardTitle = $("<h5>");
+  recipeCardTitle.addClass("card-title");
+  recipeCardTitle.text(recipe.title);
+  recipeCard.append(recipeCardTitle);
+  var modal = createModal(recipe);
+  $("#food").append(modal);
 }
 
 // Get Drink Recipes by Ingredient
@@ -377,11 +378,11 @@ function displayDrinks(recipes) {
     console.log(recipe)
     // Pattern is create element -- stlye element -- append element
     var recipeRow = $("<div>");
-    recipeRow.attr("class", "row mb-2");
+    recipeRow.attr({class: "row mb-2", id: "drinkContainer"});
     drinkSection.append(recipeRow);
 
     var recipeCol = $("<div>");
-    recipeCol.attr("class", "col-6");
+    recipeCol.attr("class", "col-lg-6 col-sm-12");
     recipeRow.append(recipeCol);
 
     var recipeCard = $("<div>");
