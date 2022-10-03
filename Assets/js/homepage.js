@@ -324,7 +324,7 @@ function getDrinkDetails(drinks) {
         "X-RapidAPI-Host": "the-cocktail-db.p.rapidapi.com",
       },
     };
-
+console.log(drinks)
     fetch(
       "https://the-cocktail-db.p.rapidapi.com/lookup.php?i=" +
         drinks[i].idDrink,
@@ -370,6 +370,7 @@ function getDrinkDetails(drinks) {
       })
       .catch((err) => console.error(err));
   }
+  console.log(drinks)
   displayDrinks(drinks);
 }
 
