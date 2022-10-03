@@ -100,7 +100,7 @@ $("#drink-form").on("click", "#drink-submit-btn", function (event) {
   }
   
   getDrinkRecipes(pushDrinkToApi);
-  // creatDrinkList();
+  creatDrinkList();
 });
 
 //Ingredients:
@@ -124,6 +124,30 @@ function creatIngredientList() {
     ingredientUl.append(ingredientItemEl);
     //clear input field
     $('input[name="ingredient-input"]').val("");
+  }
+}
+
+//Drinks:
+//display list of items the user inputs
+function creatDrinkList() {
+  //first remove all listitems and create them again from the array
+  $("#drink-list").empty();
+  $("#drinks").empty();
+  console.log(pushDrinkToApi);
+  for (var i = 0; i < pushDrinkToApi.length; i++) {
+    console.log(pushDrinkToApi);
+    if (typeof pushDrinkToApi[i] !== "object") {
+    drinkItemEl = $("<li>");
+    var drinkText = $("<span>").text(pushDrinkToApi[i]);
+    drinkItemEl.append(drinkText);
+    //add delete button
+    drinkItemEl.append(
+      '<button class="ml-2 mb-1 btn btn-success delete-btn">Remove</button>'
+    );
+    drinkUl.append(drinkItemEl);
+    //clear input field
+    $('input[name="drink-input"]').val("");
+    }
   }
 }
 
