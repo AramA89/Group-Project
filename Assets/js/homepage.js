@@ -308,7 +308,8 @@ async function getDrinkRecipes(ingredients) {
 
 // grab drink ID and fetch full cocktail details by ID
 async function getDrinkDetails(drinks) {
-	for (var i = 0; i < 5; i++) {
+  var maxNumDrinks = drinks.length > 5 ? 5 : drinks.length;
+	for (var i = 0; i < maxNumDrinks; i++) {
 		const options = {
 			method: 'GET',
 			headers: {
