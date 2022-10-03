@@ -47,14 +47,12 @@ body {
   <!-- pantry items start -->
   <section class="container-fluid row" id="content">
     <section class="pantry col-6">
-
-
-
+    
       <!-- ingredients section -->
       <div class="row ml-2 mr-2">
         <div class="col-md-10 mb-12">
           <div class="card mb-3" style="background-color: #A52A2A;">
-            <h3 class="card-header" > Enter Ingredients:</h3>
+            <h3 class="card-header" > Enter Enter Ingredients:</h3>
           </div>
         </div>
       </div>
@@ -285,16 +283,16 @@ body {
       <div class="row ml-2 mr-2">
         <div class="col-md-10 mb-2">
           <form class="card form-inline" id="ingredient-form" style="background-color: #eedc82;">
-            <div class="form-group" style="text-align:left;">
+            <div class="form-group" style="text-align:right;">
               <label> Additional Ingredients: </label>
               <input type="text" id="inputingredients" name="ingredient-input" class="form-control mx-sm-3" />
               <button type="submit" id="ingredient-submit-btn" class="btn btn-success m-2">
                 Submit
               </button>
+              <ul id="ingredient-list" class="m-1"></ul>
               <!-- populate with additional li as visitor adds items -->
             </div>
           </form>
-          <ul id="ingredient-list" class="m-2"></ul>
         </div>
       </div>
 
@@ -302,7 +300,7 @@ body {
       <div class="row ml-2 mr-2">
         <div class="col-md-10 mb-2">
           <div class="card mb-3" style="background-color: #A52A2A;">
-            <h3 class="card-header"> Enter Drinks:</h3>
+            <h3 class="card-header">Enter Drinks:</h3>
           </div>
         </div>
       </div>
@@ -383,14 +381,14 @@ body {
       <!-- Additional drinks -->
       <div class="row ml-2 mr-2">
         <div class="col-md-10 mb-2">
-          <form class="card form-inline" id="drink-form" style="background-color: #eedc82;"  >
-            <div class="form-group" >
+          <form class="card form-inline" id="drink-form" style="background-color: #eedc82;">
+            <div class="form-group" style="text-align:right;">
               <label> Additional Drinks: </label>
               <input type="text" id="inputdrinks" name="drink-input" class="form-control mx-sm-3" />
-              <button type="submit" id="drink-submit-btn" class="btn btn-success mb-2">
+              <button type="submit" id="drink-submit-btn" class="btn btn-success m-2">
                 Submit
               </button>
-              <ul id="drink-list" class="m-2"></ul>
+              <ul id="drink-list" class="m-1"></ul>
               <!-- populate with additional li as visitor adds items -->
             </div>
           </form>
@@ -402,8 +400,8 @@ body {
     <!-- Make Dinner button has to hide until recipe is chosen becomes-->
     <section id="availableRecipes" class="col-6">
       <section class="row">
-        <section id="food" class="col-8 align-items-center"></section>
-        <section id="drinks" class="col-4 align-items-center"></section>
+        <section id="food" class="col-6 align-items-center"></section>
+        <section id="drinks" class="col-6 align-items-center"></section>
       </section>
     </section>
 
