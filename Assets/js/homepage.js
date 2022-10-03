@@ -16,7 +16,7 @@ var drinkID = [];
 var recipeInstructions = [];
 var savedRecipes;
 var foodSection = $("#food");
-var drinkSectioon = $("#drinks")
+var drinkSection = $("#drinks")
 var savedDrinks = [];
 
 // run event on click for the ingredient submit button
@@ -33,6 +33,7 @@ function init() {
     savedRecipes = JSON.parse(localStorage.getItem("savedRecipes"));
   } else {
     savedRecipes = [];
+    savedDrinks = [];
   }
 }
 
@@ -97,8 +98,9 @@ $("#drink-form").on("click", "#drink-submit-btn", function (event) {
     pushDrinkToApi = pushDrinkToApi.concat(userDrinkInput);
     localStorage.setItem("drinks", JSON.stringify(pushDrinkToApi));
   }
-  creatDrinkList();
+  
   getDrinkRecipes(pushDrinkToApi);
+  creatDrinkList();
 });
 
 //Ingredients:
@@ -107,7 +109,7 @@ function creatIngredientList() {
   //first remove all listitems and create them again from the array
   $("#ingredient-list").empty();
   $("#food").empty();
-  console.log(pushDrinkToApi);
+  console.log(pushIngrToApi);
   for (var i = 0; i < pushIngrToApi.length; i++) {
     console.log(pushIngrToApi);
     if (typeof pushIngrToApi[i] !== "object") {
@@ -130,7 +132,11 @@ function creatIngredientList() {
 function creatDrinkList() {
   //first remove all listitems and create them again from the array
   $("#drink-list").empty();
+  $("#drinks").empty();
+  console.log(pushDrinkToApi);
   for (var i = 0; i < pushDrinkToApi.length; i++) {
+    console.log(pushDrinkToApi);
+    if (typeof pushDrinkToApi[i] !== "object") {
     drinkItemEl = $("<li>");
     var drinkText = $("<span>").text(pushDrinkToApi[i]);
     drinkItemEl.append(drinkText);
@@ -141,6 +147,7 @@ function creatDrinkList() {
     drinkUl.append(drinkItemEl);
     //clear input field
     $('input[name="drink-input"]').val("");
+    }
   }
 }
 
@@ -176,6 +183,7 @@ function handleRemoveDrinkItem(event) {
   });
   localStorage.setItem("drinks", JSON.stringify(pushDrinkToApi));
   btnClicked.parent("li").remove();
+  drinkSection.children($("#drinkContainer")).remove();
   drinkSection.children($)
 }
 
