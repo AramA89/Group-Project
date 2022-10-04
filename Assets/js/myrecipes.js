@@ -1,9 +1,10 @@
 //Food Section Variables
 var foodRecipeEl = $('.food-recipe-container');
 var drinkRecipeEl = $('.drink-recipe-container');
+
 var myRecipes = JSON.parse(localStorage.getItem("savedRecipes"));
 var myDrinks = JSON.parse(localStorage.getItem("savedDrinks"));
-console.log(myDrinks)
+console.log(myDrinks);
 var recipeBtnContainer;
 
 //Give page time to load the initial array
@@ -11,7 +12,6 @@ delayFunction(myRecipes);
 
 function delayFunction(myRecipes) {
 }
-
 
 //Food saved Recipes
 createMyFoodList(myRecipes);
@@ -173,16 +173,17 @@ function handleRemoveDrink(event) {
   var btnClicked = $(event.target);
   var removeItem = btnClicked.parent().attr("id", myDrinks.idDrink);
   console.log(removeItem);
-  var removeItem = removeItem[0].id
+  var removeItem = removeItem[0].id;
   console.log(removeItem);
   var pushDrinks = [];
 
   for (var i = 0; i < myDrinks.length; i++) {
+  
     console.log('at for loop drinks');
-    if (myDrinks[i].idDrink !== removeItem){
+    if (myDrinks[i].idDrink != removeItem){
     console.log(myDrinks[i].idDrink);
     console.log(removeItem);    
-    pushDrinks.push(myDrinks[i])
+    pushDrinks.push(myDrinks[i]);
     } 
   }
   myDrinks = pushDrinks;
