@@ -174,13 +174,12 @@ function handleRemoveDrink(event) {
   var removeItem = btnClicked.parent().attr("id", myDrinks.idDrink);
   console.log(removeItem);
   var removeItem = removeItem[0].id
-  console.log(removeItem[0].id);
+  console.log(removeItem);
   var pushDrinks = [];
 
   for (var i = 0; i < myDrinks.length; i++) {
-    
     console.log('at for loop drinks');
-    if (myDrinks[i].idDrinks != removeItem){
+    if (myDrinks[i].idDrink !== removeItem){
     console.log(myDrinks[i].idDrink);
     console.log(removeItem);    
     pushDrinks.push(myDrinks[i])
