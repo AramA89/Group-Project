@@ -1,4 +1,4 @@
-# Quickly Food & Drink Recipe Finder
+# Quickly - Food & Drink Recipe Finder
 
 UCLA Coding Boot Camp - Group Project #1
 
@@ -33,8 +33,8 @@ As a user I want to be able to come home from a long day and not have to worry a
 ## Mock Up
 ![](Assets/Img/Quickly%20Main.jpg)
 ![](Assets/Img/Quickly.jpg)
-![](Assets/Img/Meal:Drink.jpg)
-![](Assets/Img/Saved.jpg)
+![](Assets/Img/Meal:Drinks.jpg)
+![](Assets/Img/Saved%20Recipes.jpg)
 
 ## Acceptance Criteria
 
